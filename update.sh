@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo -n "Retrieve online data... "
+wget -N -P data http://donnees.ville.montreal.qc.ca/dataset/8ac6dd33-b0d3-4eab-a334-5a6283eb7940/resource/52cecff0-2644-4258-a2d1-0c4b3b116117/download/signalisation_stationnement.geojson
+wget -N -P data http://donnees.ville.montreal.qc.ca/dataset/c5bf5e9c-528b-4c28-b52f-218215992e35/resource/0795f422-b53b-41ca-89be-abc1069a88c9/download/signalisation-codification-rpa.json
+echo "done"
+
 echo -n "create regulations... "
 node rpa_to_regulations.js json > data/signalisation-codification-rpa_withRegulation.json
 echo "done"
