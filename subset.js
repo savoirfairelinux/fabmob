@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const inputGeojson = fs.readFileSync('data/signalisation_stationnement.geojson');
+const inputGeojson = fs.readFileSync('data/agregate-signalisation.json');
 const input = JSON.parse(inputGeojson);
 
 var geojson = {"crs":input.crs};
@@ -22,6 +22,8 @@ function zoneFilter (feature, lon,lat){
 geojson['features'] = input.features.filter(feature=>zoneFilter(feature,[-73.635009,-73.610089],[45.526366,45.538541]));
 // rosemont / papineau  beaucoup de pannonceau et vignette
 //geojson['features'] = input.features.filter(feature=>zoneFilter(feature,[-73.6045,-73.5738],[45.5485,45.5355]));
+
+geojson['features'] = geojson.features.filter(feature=>feature.properties.DESCRIPTION_REP!="Enlevé");
 
 geojson['features'] = geojson.features.map(feature=>{
     feature.properties.title = feature.properties.PANNEAU_ID_PAN;

@@ -1,7 +1,6 @@
 // curblrizes a geojson output from sharedstreets-js
 
 const fs = require('fs');
-const path = require('path');
 
 const inputGeojson = fs.readFileSync('data/mtl-subset.geojson');
 const input = JSON.parse(inputGeojson);

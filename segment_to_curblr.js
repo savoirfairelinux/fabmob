@@ -6,7 +6,11 @@ const path = require('path');
 const inputGeojson = fs.readFileSync('data/mtl-subset-segment.joined.geojson');
 const input = JSON.parse(inputGeojson);
 const rpaCodeJson = fs.readFileSync('data/signalisation-codification-rpa_withRegulation.json');
-const rpaCode = JSON.parse(rpaCodeJson).reduce((acc,val)=>{acc[val.CODE_RPA]=val; return acc;},{});
+let rpaCode = JSON.parse(rpaCodeJson).reduce((acc,val)=>{acc[val.PANNEAU_ID_RPA]=val; return acc;},{});
+const agregateRpaCodeJson = fs.readFileSync('data/agregate-pannonceau-rpa.json');
+const agregateRpaCode = JSON.parse(agregateRpaCodeJson);
+
+rpaCode = {...rpaCode, ...agregateRpaCode}
 
 var geojson = {};
 geojson['type'] = 'FeatureCollection';
@@ -18,13 +22,14 @@ for (var feature of input.features) {
         referenceId: shstRefId,
         sideOfStreet: sideOfStreet,
         section: [shstLocationStart, shstLocationEnd],
-        pp_code_rpa: code_rpa
+        pp_code_rpa: code_rpa,
+        pp_panneau_id_rpa: id_rpa,
+        pp_panneau_id_pan: derivedFrom
     } = feature.properties
     
 
     marker = "signs";
-
-    if(rpaCode[code_rpa].regulations){
+    if(rpaCode[id_rpa].regulations){
       var newTargetFeature = {
           ...feature,
           properties:{
@@ -33,9 +38,10 @@ for (var feature of input.features) {
               sideOfStreet,
               shstLocationStart,
               shstLocationEnd,
+              derivedFrom,
               marker
             },
-            regulations: rpaCode[code_rpa].regulations
+            regulations: rpaCode[id_rpa].regulations
         }
       }
       geojson['features'].push(newTargetFeature);

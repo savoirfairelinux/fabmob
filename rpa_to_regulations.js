@@ -15,8 +15,12 @@ const fs = require('fs');
 const rpaCodeJson = fs.readFileSync('data/signalisation-codification-rpa.json');
 const rpaCodes = JSON.parse(rpaCodeJson);
 
-const overide = {2348: [{priority:4,rule:{activity:"no parking"}, timeSpans:[], userClasses:[{classes:["truck"]}]}],
-                13810: [{priority:3,rule:{activity:"no parking"}, timeSpans:[{"effectiveDates":[{"from":"04-01","to":"12-01"}],"daysOfWeek":{"days":["mo","th"]},"timesOfDay":[{"from":"09:00","to":"12:00"}]}], userClasses:[{classes:["truck"]}]}]
+const overide = { 11: [{priority:4,rule:{activity:"no standing"}, timeSpans:[] }],
+                  95: [{ priority: 3, rule:{activity:"standing"}, timeSpans:[{daysOfWeek:{days:["mo","tu","we","th","fr"]},timesOfDay:[{from:"08:00",to:"09:30"}]},{daysOfWeek:{days:["mo","tu","we","th","fr"]},timesOfDay:[{from:"15:30",to:"18:00"}]}]}],
+                  2413: [{priority:4,rule:{activity:"no parking"}, timeSpans:[] }],
+                  2414: [{priority:4,rule:{activity:"no parking"}, timeSpans:[] }],
+                  2348: [{priority:4,rule:{activity:"no parking"}, timeSpans:[], userClasses:[{classes:["truck"]}]}],
+                  13810: [{priority:3,rule:{activity:"no parking"}, timeSpans:[{"effectiveDates":[{"from":"04-01","to":"12-01"}],"daysOfWeek":{"days":["mo","th"]},"timesOfDay":[{"from":"09:00","to":"12:00"}]}], userClasses:[{classes:["truck"]}]}]
                 }
 
 for (var rpaCode of rpaCodes) {
@@ -35,12 +39,14 @@ for (var rpaCode of rpaCodes) {
     description = rpaCode.DESCRIPTION_RPA.toUpperCase();
     let activity = '';
 
-    if(description.includes("\\P ")) {
+    if(description.includes("\\P ") || description.startsWith("STAT. INT. ")) {
         activity = 'no parking';
     } else if(description.includes("\\A ")) {
         activity = 'no standing';
     } else if(description.startsWith("P ")) {
         activity = 'parking';
+    } else if(description.startsWith("PANONCEAU ") || description.startsWith("PANNONCEAU")) {
+        activity = null;
     } else {
         continue;
         //debug(`${rpaCode.CODE_RPA} ${description}`)
@@ -60,9 +66,13 @@ for (var rpaCode of rpaCodes) {
                     "MARS 01 A DEC. 01":[{"from":"03-01","to":"12-01"}],
                     "1 MARSL AU 1 DEC":[{"from":"03-01","to":"12-01"}],
                     "1MARS AU 1 DEC.":[{"from":"03-01","to":"12-01"}],
+                    "15 MARS AU 15 NOV":[{"from":"03-15","to":"11-15"}],
                     "15 MARS AU 15 NOVEMBRE":[{"from":"03-15","to":"11-15"}],
                     "1 AVRIL AU 30 SEPT":[{"from":"04-01","to":"09-30"}],
+                    "1 AVRIL AU 15 OCT":[{"from":"05-01","to":"10-15"}],
+                    "1 AVRIL AU 31 OCT":[{"from":"05-01","to":"10-31"}],
                     "1 AVRIL AU 1 NOVEMBRE":[{"from":"05-01","to":"11-01"}],
+                    "1 AVRIL AU 15 NOV":[{"from":"05-01","to":"11-15"}],
                     "1 AVRIL AU 15 NOVEMBRE":[{"from":"05-01","to":"11-15"}],
                     "1 AVRIL AU 30 NOV":[{"from":"04-01","to":"11-30"}],
                     "1ER AVRIL - 30 NOV":[{"from":"04-01","to":"11-30"}],
@@ -76,20 +86,38 @@ for (var rpaCode of rpaCodes) {
                     "1 AVRILS AU 1 DEC":[{"from":"04-01","to":"12-01"}],
                     "1 AVRIL  AU 1 DEC":[{"from":"04-01","to":"12-01"}],
                     "15 AVRIL AU 15 OCTOBRE":[{"from":"04-15","to":"10-15"}],
+                    "15 AVRIL AU 1 NOV":[{"from":"05-15","to":"11-01"}],
                     "15 AVRIL AU 1ER NOV.":[{"from":"04-15","to":"11-01"}],
                     "15 AVRIL AU 1 NOVEMBRE":[{"from":"04-15","to":"11-01"}],
                     "15 AVRIL AU 15 NOVEMBRE":[{"from":"04-15","to":"11-15"}],
+                    "15 AVRIL AU 1ER DEC":[{"from":"05-15","to":"12-01"}],
                     "1MAI AU 1 SEPT":[{"from":"05-01","to":"09-01"}],
                     "1MAI AU 1OCT":[{"from":"05-01","to":"10-01"}],
+                    "1 MAI AU 1 NOV":[{"from":"06-01","to":"11-01"}],
+                    "15 MAI AU 15 OCT":[{"from":"05-15","to":"10-15"}],
+                    "15 MAI AU 15 SEPT":[{"from":"05-15","to":"09-15"}],
+                    "1 JUIN AU 1 OCT":[{"from":"06-01","to":"10-01"}],
                     "21 JUIN AU 1 SEPT":[{"from":"06-21","to":"09-01"}],
                     "30 JUIN AU 30 AOUT":[{"from":"06-30","to":"08-30"}],
+                    "15 AOUT - 28 JUIN":[{"from":"08-15","to":"06-28"}],
+                    "20 AOÛT AU 30 JUIN":[{"from":"08-20","to":"06-30"}],
                     "1 SEPT. AU 23 JUIN":[{"from":"09-01","to":"06-23"}],
                     "SEPT A JUIN":[{"from":"09-01","to":"06-30"}],
+                    "SEPT À JUIN":[{"from":"09-01","to":"06-30"}],
                     "SEPT. A JUIN":[{"from":"09-01","to":"06-30"}],
+                    "1 SEPT. AU 30 JUIN":[{"from":"09-01","to":"06-30"}],
+                    "1 SEPT. AU 31 MAI":[{"from":"09-01","to":"05-31"}],
+                    "1 NOV. AU 31 MARS":[{"from":"11-01","to":"03-31"}],
                     "1 NOV. AU 1 AVRIL":[{"from":"11-01","to":"04-01"}],
+                    "1 NOVEMBRE AU 15 AVRIL":[{"from":"11-01","to":"04-15"}],
+                    "1 NOV. AU 1 MAI":[{"from":"11-01","to":"05-01"}],
+                    "15 NOV. AU 15 MARS":[{"from":"11-15","to":"03-15"}],
+                    "15 NOV. AU 1 AVRIL":[{"from":"11-15","to":"04-01"}],
                     "16 NOV. AU 14 MARS":[{"from":"11-16","to":"03-14"}],
                     "30 NOV - 1ER AVRIL":[{"from":"11-30","to":"04-01"}],
-                    "1ER DECEMBRE AU 1ER MARS":[{"from":"12-01","to":"03-01"}]}
+                    "1 DEC. AU 1 MARS":[{"from":"12-01","to":"03-01"}],
+                    "1ER DECEMBRE AU 1ER MARS":[{"from":"12-01","to":"03-01"}],
+                    "1 DEC. AU 1 AVRIL":[{"from":"12-01","to":"04-01"}]}
                     
     months = Object.entries(monthValues).reduce((ret,val)=>description.includes(val[0])?val[1]:ret,null)
     if(months){
@@ -189,25 +217,30 @@ for (var rpaCode of rpaCodes) {
         }
     }
 
-    let priority = timeSpan?3:4;
+    let priority = timeSpans.length>0?3:4;
     
-    rpaCode['regulations'] = [{
-        priority: 5,
-        rule:{
-            activity: "parking"
-        },
-        timeSpans: []
-    },{
-        priority,
-        rule:{
-            activity
-        },
-        timeSpans
-    }];
+    if(activity){
+        rpaCode['regulations'] = [{
+            priority: 5,
+            rule:{
+                activity: "parking"
+            },
+            timeSpans: []
+        },{
+            priority,
+            rule:{
+                activity
+            },
+            timeSpans
+        }];
+    } else if(timeSpans.length>0){
+        debug("asdf")
+        rpaCode['regulations'] = [{
+            timeSpans
+        }];
+    }
     debug(`${rpaCode.CODE_RPA.padEnd(11)} ${description.padEnd(55)} ${daysRule||dayRule} ${JSON.stringify(timeSpans)}`)
 }
 if(jsonOutput){
     console.log(JSON.stringify(rpaCodes, null, 2))
 }
-
-

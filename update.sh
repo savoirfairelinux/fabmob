@@ -9,6 +9,12 @@ echo -n "create regulations... "
 node rpa_to_regulations.js json > data/signalisation-codification-rpa_withRegulation.json
 echo "done"
 
+echo -n "create pannonceau... "
+node pannonceau_to_regulations.js jsonpan > data/agregate-pannonceau-rpa.json
+echo -n " ... "
+node pannonceau_to_regulations.js jsonmtl > data/agregate-signalisation.json
+echo "done"
+
 
 echo -n "create subset... "
 node subset.js > data/mtl-subset.geojson
@@ -18,9 +24,14 @@ echo -n "transform to segment... "
 node mtl_to_segment.js > data/mtl-subset-segment.geojson
 echo "done"
 
-shst match data/mtl-subset-segment.geojson --join-points --join-points-match-fields=CODE_RPA --best-direction --search-radius=15 --snap-intersections --snap-intersections-radius=10 --buffer-intersections-radius=5 --buffer-merge-group-fields=POTEAU_ID_POT,PANNEAU_ID_PAN
+shst match data/mtl-subset-segment.geojson --join-points --join-points-match-fields=PANNEAU_ID_RPA,CODE_RPA \
+    --best-direction --search-radius=15 --snap-intersections --snap-intersections-radius=10 \
+    --buffer-intersections-radius=5 --buffer-merge-group-fields=POTEAU_ID_POT,PANNEAU_ID_PAN \
+    --buffer-points 
 
 echo -n "generate curblr... "
 node segment_to_curblr.js > data/mtl-subset-segment.curblr.json
 echo "done"
+
+node stats.js > data/mtl-subset-unmanaged.geojson
 date
