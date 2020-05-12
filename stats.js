@@ -1,10 +1,14 @@
 const fs = require('fs');
 
 const curblrData = fs.readFileSync('data/mtl-subset-segment.curblr.json');
-const mtlData = fs.readFileSync('data/mtl-subset.geojson');
+const mtlData = fs.readFileSync('data/mtl-subset-segment.geojson');
 const mtlFeatur = JSON.parse(mtlData).features;
-const unmatchedData = fs.readFileSync('data/mtl-subset-segment.unmatched.geojson');
-const unmatched = JSON.parse(unmatchedData).features;
+try{
+    const unmatchedData = fs.readFileSync('data/mtl-subset-segment.unmatched.geojson');
+    var unmatched = JSON.parse(unmatchedData).features;
+} catch{
+    var unmatched = [];
+}
 
 let curblrUsed = new Set();
 JSON.parse(curblrData).features.forEach(feat=>feat.properties.location.derivedFrom.forEach(val=>curblrUsed.add(val)));
@@ -19,7 +23,6 @@ var unmanagedGeojson = {};
 unmanagedGeojson['type'] = 'FeatureCollection';
 
 unmanagedGeojson['features'] = mtlFeatur.filter(feature=>!curblrUsed.has(feature.properties.PANNEAU_ID_PAN));
-//console.error(mtlFeatur.map(feature=>feature.properties.PANNEAU_ID_PAN));
 //console.error(curblrUsed);
 console.error("panneau non géré ", unmanagedGeojson.features.length);
 

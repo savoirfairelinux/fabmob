@@ -77,10 +77,6 @@ mtlPotWithPannonceau = Object.values(mtlPot)
                 return acc;
             },{all:[],rpa:{}});
 
-/*Object.values(mtlPotWithPannonceau.rpa).filter(elem=>!elem.some(val=>val.PANNEAU_ID_RPA==9488 || val.PANNEAU_ID_RPA==1512 || val.PANNEAU_ID_RPA==1514)).forEach(elem=>{
-    debug(JSON.stringify(elem, null, 2));
-})*/
-
 function updateRule(id_rpa,fonc){
     Object.values(mtlPotWithPannonceau.rpa).filter(elem=>elem.unmmanaged.some(val=>val.PANNEAU_ID_RPA==id_rpa)).forEach(elem=>{
         elem.unmmanaged=elem.unmmanaged.filter(val=>{if(val.PANNEAU_ID_RPA==id_rpa){pannonceau=val;return false} return true; });
