@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@turf/helpers": "^6.1.4",
-    "csv": "^5.1.2"
+    "csv": "^5.1.2",
+    "source-map-explorer": "^2.4.2"
   }
 }

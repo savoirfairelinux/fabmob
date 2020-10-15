@@ -26,7 +26,8 @@ geojson['features'] = input.features.map(feature=>{
             PANNEAU_ID_RPA: feature.properties.pp_panneau_id_rpa,
             CODE_RPA : feature.properties.pp_code_rpa,
             POTEAU_ID_POT: feature.properties.pp_poteau_id_pot,
-            PANNEAU_ID_PAN: feature.properties.pp_panneau_id_pan
+            PANNEAU_ID_PAN: feature.properties.pp_panneau_id_pan,
+            DESCRIPTION_RPA: feature.properties.pp_description_rpa
         },
         type: feature.type,
         geometry: feature.properties.pp_original_geometry

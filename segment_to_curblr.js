@@ -27,6 +27,8 @@ for (var feature of input.features) {
         pp_panneau_id_pan: derivedFrom
     } = feature.properties
     
+    shstLocationStart=Math.round(shstLocationStart);
+    shstLocationEnd=Math.round(shstLocationEnd);
 
     marker = "signs";
     if(rpaCode[id_rpa].regulations){
@@ -38,8 +40,7 @@ for (var feature of input.features) {
               sideOfStreet,
               shstLocationStart,
               shstLocationEnd,
-              derivedFrom,
-              marker
+              derivedFrom
             },
             regulations: rpaCode[id_rpa].regulations
         }
@@ -48,6 +49,6 @@ for (var feature of input.features) {
     }
 }
 // console.log(geojson.features.length);
-console.log(JSON.stringify(geojson, null, 2))
+console.log(JSON.stringify(geojson))
 
 
