@@ -35,42 +35,44 @@ mtlPotWithPannonceau = Object.values(mtlPot)
                 let pannelsRPA=[];
                 let pannelsfull=[];
                 val.forEach(pan => {
-                    if(pan.properties.DESCRIPTION_CAT=="STAT-PANNONC."){
-                        pannonceau=true
-                        pannelsRPA.unshift({PANNEAU_ID_RPA: pan.properties.PANNEAU_ID_RPA,
-                                    DESCRIPTION_RPA: pan.properties.DESCRIPTION_RPA,
-                                    DESCRIPTION_CAT: pan.properties.DESCRIPTION_CAT,
-                                    CODE_RPA: pan.properties.CODE_RPA,
-                                    RULES: rpaCode[pan.properties.PANNEAU_ID_RPA].regulations})
-                        pannelsfull.unshift(JSON.parse(JSON.stringify(pan)))
-                    } else {
-
-                        let newpannel=null;
-                        if(pannonceau){
-                            fakeRPA.push(pan.properties.PANNEAU_ID_RPA);
+                    if(rpaCode[pan.properties.PANNEAU_ID_RPA]){
+                        if(pan.properties.DESCRIPTION_CAT=="STAT-PANNONC."){
+                            pannonceau=true
                             pannelsRPA.unshift({PANNEAU_ID_RPA: pan.properties.PANNEAU_ID_RPA,
                                         DESCRIPTION_RPA: pan.properties.DESCRIPTION_RPA,
                                         DESCRIPTION_CAT: pan.properties.DESCRIPTION_CAT,
                                         CODE_RPA: pan.properties.CODE_RPA,
-                                        RULES: rpaCode[pan.properties.PANNEAU_ID_RPA].regulations||[]})
-                            agregateID_RPA=pannelsRPA.map(val=>val.PANNEAU_ID_RPA).sort().join("_");
-                            agregateCODE_RPA=pannelsRPA.map(val=>val.CODE_RPA).sort().join("_");
-                            acc.rpa[agregateID_RPA]={   agregateID_RPA: agregateID_RPA,
-                                                        unmmanaged: pannelsRPA,
-                                                        managed: []};
-                            newpannel=JSON.parse(JSON.stringify(pan));
-                            newpannel.properties.PANNEAU_ID_RPA=agregateID_RPA;
-                            newpannel.properties.CODE_RPA=agregateCODE_RPA;
-                            newpannel.properties.agregate=pannelsfull;
+                                        RULES: rpaCode[pan.properties.PANNEAU_ID_RPA].regulations})
+                            pannelsfull.unshift(JSON.parse(JSON.stringify(pan)))
                         } else {
-                            newpannel=JSON.parse(JSON.stringify(pan));
-                        }
-                        acc.all.push(newpannel);
 
-                        pannonceau=false;
-                        fakeRPA=[];
-                        pannelsRPA=[];
-                        pannelsfull=[];
+                            let newpannel=null;
+                            if(pannonceau){
+                                fakeRPA.push(pan.properties.PANNEAU_ID_RPA);
+                                pannelsRPA.unshift({PANNEAU_ID_RPA: pan.properties.PANNEAU_ID_RPA,
+                                            DESCRIPTION_RPA: pan.properties.DESCRIPTION_RPA,
+                                            DESCRIPTION_CAT: pan.properties.DESCRIPTION_CAT,
+                                            CODE_RPA: pan.properties.CODE_RPA,
+                                            RULES: rpaCode[pan.properties.PANNEAU_ID_RPA].regulations||[]})
+                                agregateID_RPA=pannelsRPA.map(val=>val.PANNEAU_ID_RPA).sort().join("_");
+                                agregateCODE_RPA=pannelsRPA.map(val=>val.CODE_RPA).sort().join("_");
+                                acc.rpa[agregateID_RPA]={   agregateID_RPA: agregateID_RPA,
+                                                            unmmanaged: pannelsRPA,
+                                                            managed: []};
+                                newpannel=JSON.parse(JSON.stringify(pan));
+                                newpannel.properties.PANNEAU_ID_RPA=agregateID_RPA;
+                                newpannel.properties.CODE_RPA=agregateCODE_RPA;
+                                newpannel.properties.agregate=pannelsfull;
+                            } else {
+                                newpannel=JSON.parse(JSON.stringify(pan));
+                            }
+                            acc.all.push(newpannel);
+
+                            pannonceau=false;
+                            fakeRPA=[];
+                            pannelsRPA=[];
+                            pannelsfull=[];
+                        }
                     }
                 });
 
