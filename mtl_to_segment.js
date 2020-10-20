@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 
-const inputGeojson = fs.readFileSync('data/mtl-subset.matched.geojson');
+const inputGeojson = fs.readFileSync('data/mtl-subset.buffered.geojson');
 const input = JSON.parse(inputGeojson);
 
 var geojson = {"crs":input.crs};
