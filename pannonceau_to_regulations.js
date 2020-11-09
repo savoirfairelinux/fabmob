@@ -100,7 +100,7 @@ Object.values(mtlPotWithPannonceau.rpa).forEach(elem=>{
 
 //PANONCEAU EXCEPTE PERIODE INTERDITE
 updateRule(1514,(elem, pannonceau)=>{
-    elem.tempRules.forEach(rule=>rule.priority++);
+    elem.tempRules.forEach(rule=>rule.priorityCategory++);
 });
 
 //1512 PANONCEAU DEBAR. SEULEMENT
@@ -126,9 +126,9 @@ updateRule(1482,(elem, pannonceau)=>{
 });
 
 // pannonceau timespan suplementaire
-Object.values(mtlPotWithPannonceau.rpa).filter(elem=>elem.unmmanaged.some(val=>!!val.RULES && val.RULES.length>0 && val.RULES.some(rule=>!rule.priority && !!rule.timeSpans && rule.timeSpans.length>0))).forEach(elem=>{
+Object.values(mtlPotWithPannonceau.rpa).filter(elem=>elem.unmmanaged.some(val=>!!val.RULES && val.RULES.length>0 && val.RULES.some(rule=>!rule.priorityCategory && !!rule.timeSpans && rule.timeSpans.length>0))).forEach(elem=>{
     elem.unmmanaged=elem.unmmanaged.filter(val=>{
-            if(!!val.RULES && val.RULES.length>0 && val.RULES.some(rule=>!rule.priority && !!rule.timeSpans && rule.timeSpans.length>0)){
+            if(!!val.RULES && val.RULES.length>0 && val.RULES.some(rule=>!rule.priorityCategory && !!rule.timeSpans && rule.timeSpans.length>0)){
                 pannonceau=val;
                 elem.managed.push(pannonceau);
 

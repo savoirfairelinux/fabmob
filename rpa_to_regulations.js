@@ -22,18 +22,18 @@ const rpaCodes = JSON.parse(rpaCodeJson);
 */
 
 
-const overide = { 11: [{priority:4,rule:{activity:"no standing"}, timeSpans:[] }],
-                  95: [{ priority: 3, rule:{activity:"standing"}, timeSpans:[{daysOfWeek:{days:["mo","tu","we","th","fr"]},timesOfDay:[{from:"08:00",to:"09:30"}]},{daysOfWeek:{days:["mo","tu","we","th","fr"]},timesOfDay:[{from:"15:30",to:"18:00"}]}]}],
-                  2413: [{priority:4,rule:{activity:"no parking"}, timeSpans:[] }],
-                  2414: [{priority:4,rule:{activity:"no parking"}, timeSpans:[] }],
-                  2348: [{priority:4,rule:{activity:"no parking"}, timeSpans:[], userClasses:[{classes:["truck"]}]}],
-                  13810: [{priority:3,rule:{activity:"no parking"}, timeSpans:[{"effectiveDates":[{"from":"04-01","to":"12-01"}],"daysOfWeek":{"days":["mo","th"]},"timesOfDay":[{"from":"09:00","to":"12:00"}]}], userClasses:[{classes:["truck"]}]}]
+const overide = { 11: [{priorityCategory:"4",rule:{activity:"no standing"}, timeSpans:[] }],
+                  95: [{ priorityCategory: "3", rule:{activity:"standing"}, timeSpans:[{daysOfWeek:{days:["mo","tu","we","th","fr"]},timesOfDay:[{from:"08:00",to:"09:30"}]},{daysOfWeek:{days:["mo","tu","we","th","fr"]},timesOfDay:[{from:"15:30",to:"18:00"}]}]}],
+                  2413: [{priorityCategory:"4",rule:{activity:"no parking"}, timeSpans:[] }],
+                  2414: [{priorityCategory:"4",rule:{activity:"no parking"}, timeSpans:[] }],
+                  2348: [{priorityCategory:"4",rule:{activity:"no parking"}, timeSpans:[], userClasses:[{classes:["truck"]}]}],
+                  13810: [{priorityCategory:"3",rule:{activity:"no parking"}, timeSpans:[{"effectiveDates":[{"from":"04-01","to":"12-01"}],"daysOfWeek":{"days":["mo","th"]},"timesOfDay":[{"from":"09:00","to":"12:00"}]}], userClasses:[{classes:["truck"]}]}]
                 }
 
 for (var rpaCode of rpaCodes) {
     if(overide[rpaCode.PANNEAU_ID_RPA]){
         rpaCode['regulations'] = [{
-            priority: 5,
+            priorityCategory: "5",
             rule:{
                 activity: "parking"
             },
@@ -224,11 +224,11 @@ for (var rpaCode of rpaCodes) {
         }
     }
 
-    let priority = timeSpans.length>0?3:4;
+    let priorityCategory = timeSpans.length>0?"3":"4";
     
     if(activity){
         rpaCode['regulations'] = [{
-            priority,
+            priorityCategory,
             rule:{
                 activity
             },
