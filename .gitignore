@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Curblr conversion
+
+*.geojson
+*.json
+*.csv
+moha/
