@@ -77,8 +77,12 @@ Baie-d'Urfé -- in:  0 , out:  18743 , total:  18743
 filtrage terminé
 '''
 
+'''
+    Pour filtrer tous les arrondissements en même temps
+'''
 # for i in arrondissements:
 # arrondissement_montreal = i
+
 
 arrondissement_montreal = "Rosemont-La Petite-Patrie"
 polygone = []

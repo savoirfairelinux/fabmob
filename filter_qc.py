@@ -37,8 +37,10 @@ quartiers = ["Saint-Jean-Baptiste",
 "Val-Bélair",
 "Vanier",
 "Vieux-Moulin"]
+
 quartier_quebec = "Saint-Sauveur"
 polygone = []
+
 with open("vdq-quartier.geojson.json") as f:
     data = json.load(f)
     for i in (data["features"]):
@@ -63,8 +65,9 @@ with open("vdq-panneauxstationnement.geojson") as f:
         else:
             n +=1
     data["features"] = l
-print(l)
-print(n,m)
+# print(l)
+# print(n,m)
+
 outfile = "vdq-panneauxstationnement-filtred"+quartier_quebec+".geojson"
 with open(outfile, mode="w") as f:
     json.dump(data, f)

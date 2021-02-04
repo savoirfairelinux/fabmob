@@ -43,6 +43,9 @@ urls_name = [
            "date_exportation"
            ]
 
+'''
+    Téléchargment des différents fichiers de données
+'''
 def get_files():
     for i, url in enumerate(urls):
         r = requests.get(url, stream = True)
@@ -54,8 +57,12 @@ def get_files():
 
 
 #places
-PATH = "/home/eanoh/Bureau/Labo/Curblr/data/"
-#ex_fr = extract from
+PATH = "/home/YOURNAME/Bureau/Labo/Curblr/data/"
+
+
+'''
+    Conversion des différents fichiers .csv au format geojson
+'''
 def emplacement_reglementations_to_dic(url_name):
     # file_name = PATH + urls_name[2] + ".csv"
     file_name = PATH + url_name + ".csv"
@@ -140,6 +147,13 @@ def periodes_to_dic(url_name):
                     }
     return dic
 
+
+'''
+    conversion de places.csv en geojson + ajout des réglementations(association de tous les autres fichiers)
+    
+    https://www.agencemobilitedurable.ca/fr/informations/donnees-ouvertes/description-des-donnees-disponibles.html
+
+'''
 def convert_places():
     features = []
     file_name = PATH + urls_name[0] + ".csv"
@@ -183,6 +197,11 @@ def convert_places():
         #     val[]
     collection = FeatureCollection(features)
     r = ""
+
+    '''
+        Ajout des réglementations
+    '''
+
     collection = add_reglementations(collection)
     r = "_with_reglementations"            
     file_name = PATH + urls_name[0] + r +".geojson"
@@ -283,6 +302,12 @@ def add_reglementations(collection):
                 nId = j["noPeriode"]
                 j["periodes"] = d[nId]
     return collection
+
+
+'''
+    Fonction principale dans la conversion en Curblr, ajout des regulations.
+    Beaucoup de code commenté sont en fait les clés-valeurs facultatives. Je les ai laissés pour faciliter la tâche de conversion.
+'''
 
 def turn_regl_to_regu(buffered_file):
     with open(buffered_file) as f:
@@ -519,26 +544,6 @@ def turn_regl_to_regu(buffered_file):
     with open(outfile, mode="w") as f:
         json.dump(geojson, f)
 
-# get_files()
-# convert_places()
-# convert_bornes_hors_rue()
-# convert_bornes_sur_rue()
-# print("fin")
-
-f = "mtl-places-Rosemont-La-Petite-Patrie.filtred.buffered.geojson"
-# f = "data/places_with_reglementations.buffered.geojson"
-turn_regl_to_regu(f)
-# n = 0
-# stop = 5
-# a = emplacement_reglementations_to_dic(urls_name[2]).items()
-# b = reglementations_to_dic(urls_name[1]).items()
-# c = reglementations_periode_to_dic(urls_name[3]).items()
-# d = periodes_to_dic(urls_name[4]).items()
-# for k, v in d:
-#     # print( k, ": ", v)
-#     n += 1
-#     if n == stop:
-#         break
 
 # %%
 
