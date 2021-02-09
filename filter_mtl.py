@@ -86,10 +86,13 @@ filtrage terminé
 
 arrondissement_montreal = "Rosemont-La Petite-Patrie"
 polygone = []
-with open("limadmin.geojson.json") as f:
+
+file_to_open = "limadmin.geojson.json"
+with open(file_to_open) as f:
     data = json.load(f)
     for i in (data["features"]):
         if i["properties"]["NOM"] == arrondissement_montreal:
+        # if i["properties"]["Name"] == arrondissement_montreal:
             polygone = i["geometry"]["coordinates"][0]
             break
 
@@ -97,8 +100,8 @@ with open("limadmin.geojson.json") as f:
 point_a_tester = []
 data = ""
 m=0
-file_to_open = "plaza_rosemont.geojson"
-# file_to_open = "data/places_with_reglementations.geojson"
+# file_to_open = "signalisation_stationnement.geojson"
+file_to_open = "data/places_with_reglementations.geojson"
 with open(file_to_open) as f:
     data = json.load(f)
     n=0
@@ -120,7 +123,7 @@ with open(file_to_open) as f:
 # print(polygone)
 # print(l)
 print(arrondissement_montreal, "-- in: ", p, ", out: ", n, ", total: ", m)
-outfile = "mtl-places-" + arrondissement_montreal.replace(" ","-") + ".filtred.geojson"
+outfile = "mtl-places-" + arrondissement_montreal.replace(" ","-").replace("+","-") + ".filtred.geojson"
 with open(outfile, mode="w") as f:
     json.dump(data, f)
 print("filtrage terminé")

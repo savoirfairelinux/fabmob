@@ -1,10 +1,12 @@
-#Telechargement
-get_files()
+from parcometres import *
 
-#conversion
-convert_places()
-convert_bornes_hors_rue()
-convert_bornes_sur_rue()
+#Telechargement
+# get_files()
+
+# #conversion
+# convert_places()
+# convert_bornes_hors_rue()
+# convert_bornes_sur_rue()
 
 '''
     NB:

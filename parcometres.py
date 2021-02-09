@@ -57,7 +57,7 @@ def get_files():
 
 
 #places
-PATH = "/home/YOURNAME/Bureau/Labo/Curblr/data/"
+PATH = "/home/eanoh/Bureau/Labo/Curblr/data/"
 
 
 '''
