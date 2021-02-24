@@ -46,19 +46,18 @@ urls_name = [
 '''
     Téléchargment des différents fichiers de données
 '''
+
+#places
+PATH = "data/"
+
 def get_files():
     for i, url in enumerate(urls):
         r = requests.get(url, stream = True)
-        file_name ="/home/eanoh/Bureau/Labo/Curblr/data/"+urls_name[i] +  ".csv"
+        file_name = PATH + urls_name[i] + ".csv"
         with open(file_name, "wb") as f:
             for chunk in r.iter_content(chunk_size = 1024):
                 if chunk:
                     f.write(chunk)
-
-
-#places
-PATH = "/home/eanoh/Bureau/Labo/Curblr/data/"
-
 
 '''
     Conversion des différents fichiers .csv au format geojson
@@ -203,7 +202,7 @@ def convert_places():
     '''
 
     collection = add_reglementations(collection)
-    r = "_with_reglementations"            
+    r = "_with_reglementations"
     file_name = PATH + urls_name[0] + r +".geojson"
     with open(file_name, "w") as f:
         f.write('%s' % collection)
@@ -338,7 +337,7 @@ def turn_regl_to_regu(buffered_file):
                 regulation = {}    
                 regulation["rule"] = { #https://github.com/curblr/curblr-spec/blob/master/Rule.md
                                         "activity": "parking", #parking, no parking, standing, no standing, loading, no loading
-                                        "priorityCategory": "paid parking",
+                                        "priority": "6", #"paid parking",
                                         "maxStay": max(durations),
                                         # "reason": "construction",
                                         # "noReturn": 240,
@@ -454,82 +453,6 @@ def turn_regl_to_regu(buffered_file):
                             # "status": "proposed"
                         },
                         "regulations": regulations
-                        # '''
-                        # [
-                        #     {
-                        #         "rule": { #https://github.com/curblr/curblr-spec/blob/master/Rule.md
-                        #             "activity": "parking",
-                        #             "priorityCategory": "5",
-                        #             # "maxStay": 30,
-                        #             # "reason": "construction",
-                        #             # "noReturn": 240,
-                        #             "payment": True #
-                        #         },
-                        #         "userClasses": [#https://github.com/curblr/curblr-spec/blob/master/UserClasses.md
-                        #             {
-                        #                 # "classes": ["permit"],
-                        #                 # "subclasses": ["zone 5"]
-                        #             },
-                        #         ],
-                        #         "timeSpans": [#https://github.com/curblr/curblr-spec/blob/master/TimeSpans.md
-                        #             {
-                        #                 "daysOfWeek": {
-                        #                     "days": [
-                        #                         "mo","tu", "we","th","fr","sa"
-                        #                     ],
-                        #                     "occurrencesInMonth": ["2nd", "4th"]
-                        #                 },
-                        #                 "timesOfDay": [
-                        #                     {
-                        #                         "from": "07:00",
-                        #                         "to": "19:00"
-                        #                     }
-                        #                 ],
-                        #                 "designatedPeriods": [
-                        #                     {
-                        #                         "name": "holidays",
-                        #                         "apply": "except during"
-                        #                     }
-                        #                 ],
-                        #                 "effectiveDates": [
-                        #                     {"from": "12-01", "to": "12-31"},
-                        #                     {"from": "01-01", "to": "03-31"}
-                        #                 ],
-                        #             }
-                        #         ],
-                        #         "payment": {#https://github.com/curblr/curblr-spec/blob/master/Payment.md
-                        #             "rates": [
-                        #                 {
-                        #                     "fees": [
-                        #                         # 0.5
-
-                        #                     ],
-                        #                     "durations": [
-                        #                         15
-                        #                     ]
-                        #                 }
-                        #             ],
-                        #             "methods": [
-                        #                 "pay_station",
-                        #                 "digital"
-                        #             ],
-                        #             "forms": [
-                        #                 "Visa",
-                        #                 "Mastercard",
-                        #                 "American Express",
-                        #                 "Smart Card",
-                        #                 "coins",
-                        #                 "Parking Kitty"
-                        #             ],
-                        #             "phone": "+15032785410",
-                        #             "operator": "PBOT",
-                        #             "deviceIds": [
-                        #                 "zone 1002"
-                        #             ]
-                        #         }
-                        #     }
-                        # ]
-                        # '''
                     },
                     "geometry": feature["geometry"],
                     # "images": [
@@ -538,13 +461,91 @@ def turn_regl_to_regu(buffered_file):
 
                 }
             )
-    
-    outfile = "last_converted.curblr.json"
+    outfile = buffered_file.replace(".buffered.geojson", ".curblr.json")
+    # outfile = "last_converted.curblr.json"
     # outfile = "last_converted_all.curblr.json"
+    # print(1,outfile)
     with open(outfile, mode="w") as f:
+        # print(2,outfile)
         json.dump(geojson, f)
-
-
+        # print(3,outfile)
+    return outfile
 # %%
 
+'''
+                        [
+                            {
+                                "rule": { #https://github.com/curblr/curblr-spec/blob/master/Rule.md
+                                    "activity": "parking",
+                                    "priorityCategory": "5",
+                                    # "maxStay": 30,
+                                    # "reason": "construction",
+                                    # "noReturn": 240,
+                                    "payment": True #
+                                },
+                                "userClasses": [#https://github.com/curblr/curblr-spec/blob/master/UserClasses.md
+                                    {
+                                        # "classes": ["permit"],
+                                        # "subclasses": ["zone 5"]
+                                    },
+                                ],
+                                "timeSpans": [#https://github.com/curblr/curblr-spec/blob/master/TimeSpans.md
+                                    {
+                                        "daysOfWeek": {
+                                            "days": [
+                                                "mo","tu", "we","th","fr","sa"
+                                            ],
+                                            "occurrencesInMonth": ["2nd", "4th"]
+                                        },
+                                        "timesOfDay": [
+                                            {
+                                                "from": "07:00",
+                                                "to": "19:00"
+                                            }
+                                        ],
+                                        "designatedPeriods": [
+                                            {
+                                                "name": "holidays",
+                                                "apply": "except during"
+                                            }
+                                        ],
+                                        "effectiveDates": [
+                                            {"from": "12-01", "to": "12-31"},
+                                            {"from": "01-01", "to": "03-31"}
+                                        ],
+                                    }
+                                ],
+                                "payment": {#https://github.com/curblr/curblr-spec/blob/master/Payment.md
+                                    "rates": [
+                                        {
+                                            "fees": [
+                                                # 0.5
+
+                                            ],
+                                            "durations": [
+                                                15
+                                            ]
+                                        }
+                                    ],
+                                    "methods": [
+                                        "pay_station",
+                                        "digital"
+                                    ],
+                                    "forms": [
+                                        "Visa",
+                                        "Mastercard",
+                                        "American Express",
+                                        "Smart Card",
+                                        "coins",
+                                        "Parking Kitty"
+                                    ],
+                                    "phone": "+15032785410",
+                                    "operator": "PBOT",
+                                    "deviceIds": [
+                                        "zone 1002"
+                                    ]
+                                }
+                            }
+                        ]
+'''
 # %%

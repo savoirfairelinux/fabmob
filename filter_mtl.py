@@ -80,51 +80,59 @@ filtrage terminé
 '''
     Pour filtrer tous les arrondissements en même temps
 '''
-# for i in arrondissements:
-# arrondissement_montreal = i
+def filter_mtl(arronds=["Rosemont-La Petite-Patrie"]):
+    l_out_file = []
+    for i in arronds:
+        # if arrond == "all":
+        #     arrondissement_montreal = i
+        # else:
+        #     arrondissement_montreal = "Rosemont-La Petite-Patrie"
+        arrondissement_montreal = i
+        polygone = []
 
+        file_to_open = "limadmin.geojson.json"
+        with open(file_to_open) as f:
+            data = json.load(f)
+            for i in (data["features"]):
+                if i["properties"]["NOM"] == arrondissement_montreal:
+                # if i["properties"]["Name"] == arrondissement_montreal:
+                    polygone = i["geometry"]["coordinates"][0]
+                    break
 
-arrondissement_montreal = "Rosemont-La Petite-Patrie"
-polygone = []
+        point_a_tester = []
+        data = ""
+        m=0
+        # file_to_open = "signalisation_stationnement.geojson"
+        file_to_open = "data/places_with_reglementations.geojson"
+        with open(file_to_open) as f:
+            data = json.load(f)
+            n=0
+            p =0
+            l = []
+            for i in (data["features"]):
+                m+=1
+                point_a_tester = i["geometry"]["coordinates"]
+                # print(i["properties"]["nPositionCentreLongitude"])
+                # print(point_a_tester)
+                point_format_turfpy = Feature(geometry=Point(point_a_tester))
+                polygone_format_turfpy = Polygon(polygone)
+                if(boolean_point_in_polygon(point_format_turfpy, polygone_format_turfpy)) == True:
+                    l.append(i)
+                    p += 1
+                else:
+                    n += 1
+            data["features"] = l
+        # print(polygone)
+        # print(l)
+        print(arrondissement_montreal, "-- in: ", p, ", out: ", n, ", total: ", m)
+        outfile = "mtl-parco-" + arrondissement_montreal.replace(" ","-").replace("+","-") + ".filtred.geojson"
+        with open(outfile, mode="w") as f:
+            json.dump(data, f)
+        print("filtrage terminé")
 
-file_to_open = "limadmin.geojson.json"
-with open(file_to_open) as f:
-    data = json.load(f)
-    for i in (data["features"]):
-        if i["properties"]["NOM"] == arrondissement_montreal:
-        # if i["properties"]["Name"] == arrondissement_montreal:
-            polygone = i["geometry"]["coordinates"][0]
-            break
-
-
-point_a_tester = []
-data = ""
-m=0
-# file_to_open = "signalisation_stationnement.geojson"
-file_to_open = "data/places_with_reglementations.geojson"
-with open(file_to_open) as f:
-    data = json.load(f)
-    n=0
-    p =0
-    l = []
-    for i in (data["features"]):
-        m+=1
-        point_a_tester = i["geometry"]["coordinates"]
-        # print(i["properties"]["nPositionCentreLongitude"])
-        # print(point_a_tester)
-        point_format_turfpy = Feature(geometry=Point(point_a_tester))
-        polygone_format_turfpy = Polygon(polygone)
-        if(boolean_point_in_polygon(point_format_turfpy, polygone_format_turfpy)) == True:
-            l.append(i)
-            p += 1
-        else:
-            n += 1
-    data["features"] = l
-# print(polygone)
-# print(l)
-print(arrondissement_montreal, "-- in: ", p, ", out: ", n, ", total: ", m)
-outfile = "mtl-places-" + arrondissement_montreal.replace(" ","-").replace("+","-") + ".filtred.geojson"
-with open(outfile, mode="w") as f:
-    json.dump(data, f)
-print("filtrage terminé")
-
+        l_out_file.append(outfile)
+        
+        # if arrond != "all"
+        #     break          
+    return l_out_file
+    
