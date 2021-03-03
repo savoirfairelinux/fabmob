@@ -337,7 +337,7 @@ def turn_regl_to_regu(buffered_file):
                 regulation = {}    
                 regulation["rule"] = { #https://github.com/curblr/curblr-spec/blob/master/Rule.md
                                         "activity": "parking", #parking, no parking, standing, no standing, loading, no loading
-                                        "priority": "6", #"paid parking",
+                                        "priority": "paid parking",
                                         "maxStay": max(durations),
                                         # "reason": "construction",
                                         # "noReturn": 240,
@@ -345,7 +345,7 @@ def turn_regl_to_regu(buffered_file):
                                     }
                 regulation["userClasses"] = [#https://github.com/curblr/curblr-spec/blob/master/UserClasses.md
                                     {
-                                        "classes": ["permit"],
+                                        # "classes": ["permit"],
                                         # "subclasses": ["zone 5"]
                                     }
                                 ]

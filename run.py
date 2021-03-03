@@ -4,20 +4,20 @@ from filter_mtl import *
 import os
 if __name__ == "__main__":
 
-    arronds = [
+    arronds0 = [
         "Outremont",#0
         "LaSalle",
-        "Mont-Royal",
+        "Mont-Royal", #absent dans curbconvert
         "Ville-Marie",
-        "Le Plateau-Mont-Royal", #4
-        "Hampstead",
-        "Le Sud-Ouest",
-        "Rivière-des-Prairies-Pointe-aux-Trembles",
+        "Le Plateau-Mont-Royal", #4 #Plateau-Mont-Royal
+        "Hampstead", #absent dans curbconvert
+        "Le Sud-Ouest", #"Sud-Ouest"
+        "Rivière-des-Prairies-Pointe-aux-Trembles", #"Rivière-des-Prairies - Pointe-aux-Trembles"
         "Lachine", #8
-        "Dorval",
-        "Montréal-Nord",
-        "L'Île-Bizard-Sainte-Geneviève",
-        "Kirkland", #12
+        "Dorval", #absent
+        "Montréal-Nord", 
+        "L'Île-Bizard-Sainte-Geneviève", #un script pour extraire tous les noms arrond? #"L'Île-Bizard - Sainte-Geneviève"
+        "Kirkland", #12 #Absent
         "Dollard-des-Ormeaux",
         "Senneville",
         "Ahuntsic-Cartierville",
@@ -40,7 +40,42 @@ if __name__ == "__main__":
         "Verdun", #32
         "Baie-d'Urfé"
     ]
-
+    arronds = [
+        "Outremont",#0
+        # "LaSalle",
+        # "Mont-Royal", #absent dans curbconvert
+        "Ville-Marie",
+        "Le Plateau-Mont-Royal", #4 #Plateau-Mont-Royal
+        # "Hampstead", #absent dans curbconvert
+        "Le Sud-Ouest", #"Sud-Ouest"
+        # "Rivière-des-Prairies-Pointe-aux-Trembles", #"Rivière-des-Prairies - Pointe-aux-Trembles"
+        "Lachine", #8
+        # "Dorval", #absent
+        # "Montréal-Nord", 
+        # "L'Île-Bizard-Sainte-Geneviève", #un script pour extraire tous les noms arrond? #"L'Île-Bizard - Sainte-Geneviève"
+        # "Kirkland", #12 #Absent
+        # "Dollard-des-Ormeaux",
+        # "Senneville",
+        "Ahuntsic-Cartierville",
+        # "Côte-Saint-Luc", #16
+        # "Saint-Léonard",
+        # "Montréal-Ouest",
+        # "Pointe-Claire",
+        # "L'Île-Dorval", #20
+        "Mercier-Hochelaga-Maisonneuve",
+        "Côte-des-Neiges-Notre-Dame-de-Grâce",
+        "Rosemont-La Petite-Patrie",
+        # "Saint-Laurent", #24
+        # "Beaconsfield",
+        "Villeray-Saint-Michel-Parc-Extension",
+        # "Westmount",
+        # "Montréal-Est", #28
+        # "Anjou",
+        # "Pierrefonds-Roxboro",
+        # "Sainte-Anne-de-Bellevue",
+        "Verdun", #32
+        # "Baie-d'Urfé"
+    ]
     #Telechargement
     print("1a - début téléchargements")
     get_files()
@@ -56,7 +91,9 @@ if __name__ == "__main__":
 
 
     print("\n3a - début filtrage")
-    files = filter_mtl([arronds[0]])#[:4]
+
+    # files = filter_mtl([arronds[0]])#[:4]
+    files = filter_mtl(arronds)#[:4]
     print("3b - fin filtrage")
     '''
     NB:
