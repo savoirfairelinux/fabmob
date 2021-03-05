@@ -328,9 +328,11 @@ def turn_regl_to_regu(buffered_file):
         geojson['type'] = 'FeatureCollection'
         geojson['features'] = []
         
-        
+        p = 0
         for feature in data['features']:
+            # print(feature)
             regulations = []
+            n = 0
             for autocollant in feature["properties"]["pp_liste_scodeautocollant_name"]: 
                 durations = [int(value["maxHeures"])*60 for value in feature["properties"]["pp_scodeautocollant_name"].values()]
                 sub_prob = feature["properties"]["pp_scodeautocollant_name"][autocollant]
@@ -350,6 +352,7 @@ def turn_regl_to_regu(buffered_file):
                                     }
                                 ]
                 regulation["timeSpans"] = []
+                
                 # print(feature["properties"]["pp_scodeautocollant_name"][autocollant]["sub_prob"])
                 for sub_prob in feature["properties"]["pp_scodeautocollant_name"][autocollant]["sub_prob"]:
                     days = []
@@ -369,37 +372,35 @@ def turn_regl_to_regu(buffered_file):
                     if sub_prob["periodes"]["bDim"] == "1":
                         days.append("su")
                     timeSpan = {
-                                    "daysOfWeek": {
-                                        "days": days 
-                                        # [
-                                        #     "mo","tu", "we","th","fr","sa"
-                                            
-                                        # ],
-                                        # "occurrencesInMonth": ["2nd", "4th"]
-                                    },
-                                    "timesOfDay": [
-                                        {
-                                            "from": sub_prob["periodes"]["dtHeureDebut"][:5],#couper les secondes
-                                            "to": sub_prob["periodes"]["dtHeureFin"][:5]
-                                            # "from": "07:00",
-                                            # "to": "19:00"
-                                        }
-                                    ],
-                                    # "designatedPeriods": [
-                                    #     {
-                                    #         "name": "holidays",
-                                    #         "apply": "except during"
-                                    #     }
-                                    # ],
-                                    "effectiveDates": [
-                                        {
-                                            "from": feature["properties"]["pp_scodeautocollant_name"][autocollant]["DateDebut"][2:]+"-"+ feature["properties"]["pp_scodeautocollant_name"][autocollant]["DateDebut"][:2],
-                                            "to":  feature["properties"]["pp_scodeautocollant_name"][autocollant]["DateFin"][2:]+"-"+ feature["properties"]["pp_scodeautocollant_name"][autocollant]["DateFin"][:2]
-                                        }
-                                        # {"from": "12-01", "to": "12-31"},
-                                        # {"from": "01-01", "to": "03-31"}
-                                    ],
-                                }
+                        "daysOfWeek": {
+                            "days": days 
+                            # [
+                            #     "mo","tu", "we","th","fr","sa"
+                                
+                            # ],
+                            # "occurrencesInMonth": ["2nd", "4th"]
+                        },
+                        "timesOfDay": [
+                            {
+                                "from": sub_prob["periodes"]["dtHeureDebut"][:5],#couper les secondes
+                                "to": sub_prob["periodes"]["dtHeureFin"][:5]
+                                # "from": "07:00",
+                                # "to": "19:00"
+                            }
+                        ],
+                        # "designated 
+                        "effectiveDates": [
+                            {
+                                "from": feature["properties"]["pp_scodeautocollant_name"][autocollant]["DateDebut"][2:]+"-"+ feature["properties"]["pp_scodeautocollant_name"][autocollant]["DateDebut"][:2],
+                                "to":  feature["properties"]["pp_scodeautocollant_name"][autocollant]["DateFin"][2:]+"-"+ feature["properties"]["pp_scodeautocollant_name"][autocollant]["DateFin"][:2]
+                            }
+                            # {"from": "12-01", "to": "12-31"},
+                            # {"from": "01-01", "to": "03-31"}
+                        ],
+                    }
+                    a = feature["properties"]["pp_snoplace_snoemplacement"]
+                    if a == "RB133":
+                        print(p, " ", a," - " ,n, " ", autocollant,  ": ", timeSpan)
                     regulation["timeSpans"].append(timeSpan)
                     regulation["payment"] = {#https://github.com/curblr/curblr-spec/blob/master/Payment.md
                                     "rates": [
@@ -434,6 +435,8 @@ def turn_regl_to_regu(buffered_file):
                                     # ]
                                 }
                 regulations.append(regulation)
+                n += 1
+                # break#
             geojson['features'].append(
                 {
                     "type": feature["type"],
@@ -461,6 +464,7 @@ def turn_regl_to_regu(buffered_file):
 
                 }
             )
+            p += 1
     outfile = buffered_file.replace(".buffered.geojson", ".curblr.json")
     # outfile = "last_converted.curblr.json"
     # outfile = "last_converted_all.curblr.json"

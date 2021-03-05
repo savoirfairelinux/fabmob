@@ -4,7 +4,8 @@ from filter_mtl import *
 import os
 if __name__ == "__main__":
 
-    arronds0 = [
+    arrondissements = [
+        "plaza",
         "Outremont",#0
         "LaSalle",
         "Mont-Royal", #absent dans curbconvert
@@ -41,6 +42,7 @@ if __name__ == "__main__":
         "Baie-d'Urfé"
     ]
     arronds = [
+        "plaza", 
         "Outremont",#0
         # "LaSalle",
         # "Mont-Royal", #absent dans curbconvert
@@ -76,6 +78,7 @@ if __name__ == "__main__":
         "Verdun", #32
         # "Baie-d'Urfé"
     ]
+    arronds = arrondissements
     #Telechargement
     print("1a - début téléchargements")
     get_files()
@@ -141,7 +144,7 @@ if __name__ == "__main__":
             print("Type error", e)
     print("\n5c - fin curblr")
 
-    print("début déplacement vers curb map")
+    print("déplacement vers curb map")
     for file_i in files_to_mv:
         c = "mv " + file_i + " ../../CurbLr/conversion-mt-qc-et-map/erwin_fork/curb-map/src/assets/data/"
         os.system(c)
