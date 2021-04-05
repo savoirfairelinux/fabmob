@@ -53,10 +53,8 @@ class FileFieldView(FormView):
         polylines_fc = self.request.session.get("polylines_fc")
         # points_fc = json.dumps(points_fc)
         # polylines_fc = json.dumps(polylines_fc)
-        print(points_fc, polylines_fc)
+        # print(points_fc, polylines_fc)
 
-        # points_fc = "{'type': 'FeatureCollection',"+str(points_fc)
-        # polylines_fc = "{'type': 'FeatureCollection',"+str(polylines_fc)
         context["points_fc"] = points_fc
         context["polylines_fc"] = polylines_fc
         context["file_updated"] = self.kwargs.get("key", None)

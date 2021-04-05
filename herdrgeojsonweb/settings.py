@@ -28,7 +28,9 @@ SECRET_KEY = 'fmn&x+#2u#pifsog-!bc5fgnu#k4hr1ed%+f()-tdo)#suk)jl'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-        'herdr-geojson-converter.herokuapp.com',
+    # '127.0.0.1:8080'
+    '*',
+    'herdr-geojson-converter.herokuapp.com',
 ]
 
 
@@ -86,6 +88,9 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+if 'DATABASE_URL' in os.environ:
+    import dj_database_url
+    DATABASES = {'default': dj_database_url.config()}
 
 
 # Password validation
