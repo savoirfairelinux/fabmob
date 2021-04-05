@@ -51,8 +51,8 @@ class FileFieldView(FormView):
         context = super().get_context_data(**kwargs)                             
         points_fc = self.request.session.get("points_fc")
         polylines_fc = self.request.session.get("polylines_fc")
-        # points_fc = json.dumps(points_fc)
-        # polylines_fc = json.dumps(polylines_fc)
+        points_fc = json.dumps(points_fc)
+        polylines_fc = json.dumps(polylines_fc)
         # print(points_fc, polylines_fc)
 
         context["points_fc"] = points_fc
