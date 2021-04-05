@@ -28,7 +28,7 @@ SECRET_KEY = 'fmn&x+#2u#pifsog-!bc5fgnu#k4hr1ed%+f()-tdo)#suk)jl'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-        'herdrgeojsonconverter-app.herokuapp.com',
+        'herdr-geojson-converter.herokuapp.com',
 ]
 
 
