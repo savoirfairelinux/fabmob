@@ -78,7 +78,7 @@ if __name__ == "__main__":
         "Verdun", #32
         # "Baie-d'Urfé"
     ]
-    arronds = arrondissements
+    # arronds = arrondissements
     #Telechargement
     print("1a - début téléchargements")
     get_files()
