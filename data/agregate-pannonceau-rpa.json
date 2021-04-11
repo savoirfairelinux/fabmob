@@ -2948,6 +2948,71 @@
       }
     ]
   },
+  "1464_2413": {
+    "agregateID_RPA": "1464_2413",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 2413,
+        "DESCRIPTION_RPA": "\\P EN TOUT TEMPS",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SD-TT",
+        "RULES": [
+          {
+            "priorityCategory": "5",
+            "rule": {
+              "activity": "parking"
+            },
+            "timeSpans": []
+          },
+          {
+            "priorityCategory": "4",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": []
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1464,
+        "DESCRIPTION_RPA": "PANONCEAU 1 DEC. AU 1 AVRIL",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-AI",
+        "RULES": [
+          {
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "12-01",
+                    "to": "04-01"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": "5",
+        "rule": {
+          "activity": "parking"
+        },
+        "timeSpans": []
+      },
+      {
+        "priorityCategory": "4",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": []
+      }
+    ]
+  },
   "1482_2413": {
     "agregateID_RPA": "1482_2413",
     "unmmanaged": [],
@@ -3199,6 +3264,57 @@
             ]
           }
         ]
+      }
+    ]
+  },
+  "1495_1762": {
+    "agregateID_RPA": "1495_1762",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1762,
+        "DESCRIPTION_RPA": "\\P RESERVE DEBARCADERE HANDICAPES EN TOUT TEMPS",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "RD-TT",
+        "RULES": [
+          {
+            "priorityCategory": "4",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": []
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1495,
+        "DESCRIPTION_RPA": "PANONCEAU 08h-20h",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-JP",
+        "RULES": [
+          {
+            "timeSpans": [
+              {
+                "timesOfDay": [
+                  {
+                    "from": "08:00",
+                    "to": "20:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": "4",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": []
       }
     ]
   },
@@ -8524,6 +8640,61 @@
       }
     ]
   },
+  "1260_9488": {
+    "agregateID_RPA": "1260_9488",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 9488,
+        "DESCRIPTION_RPA": "PANONCEAU - EXCEPTE VEHICULES MUNIS D'UN PERMIS",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PR"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1260,
+        "DESCRIPTION_RPA": "P 02h 09h-21h",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "PD-JD",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "parking"
+            },
+            "timeSpans": [
+              {
+                "timesOfDay": [
+                  {
+                    "from": "09:00",
+                    "to": "21:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "parking"
+        },
+        "timeSpans": [
+          {
+            "timesOfDay": [
+              {
+                "from": "09:00",
+                "to": "21:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "1506_2741": {
     "agregateID_RPA": "1506_2741",
     "unmmanaged": [],
@@ -9164,71 +9335,6 @@
     "regulations": [
       {
         "priorityCategory": 5,
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": []
-      }
-    ]
-  },
-  "1464_2413": {
-    "agregateID_RPA": "1464_2413",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 2413,
-        "DESCRIPTION_RPA": "\\P EN TOUT TEMPS",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SD-TT",
-        "RULES": [
-          {
-            "priorityCategory": "5",
-            "rule": {
-              "activity": "parking"
-            },
-            "timeSpans": []
-          },
-          {
-            "priorityCategory": "4",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": []
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1464,
-        "DESCRIPTION_RPA": "PANONCEAU 1 DEC. AU 1 AVRIL",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-AI",
-        "RULES": [
-          {
-            "timeSpans": [
-              {
-                "effectiveDates": [
-                  {
-                    "from": "12-01",
-                    "to": "04-01"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": "5",
-        "rule": {
-          "activity": "parking"
-        },
-        "timeSpans": []
-      },
-      {
-        "priorityCategory": "4",
         "rule": {
           "activity": "no parking"
         },
@@ -10270,83 +10376,6 @@
       }
     ]
   },
-  "14103_1519": {
-    "agregateID_RPA": "14103_1519",
-    "unmmanaged": [
-      {
-        "PANNEAU_ID_RPA": 1519,
-        "DESCRIPTION_RPA": "PANONCEAU LORSQUE STATIONNEMENT PERMIS-PETITES VOITURES",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PV"
-      }
-    ],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 14103,
-        "DESCRIPTION_RPA": "\\P 13h30-14h30 MER. 1 AVRIL AU 1 DEC.",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SU-NM-A",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": [
-              {
-                "effectiveDates": [
-                  {
-                    "from": "04-01",
-                    "to": "12-01"
-                  }
-                ],
-                "daysOfWeek": {
-                  "days": [
-                    "we"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "13:30",
-                    "to": "14:30"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": [
-      {
-        "priorityCategory": "3",
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": [
-          {
-            "effectiveDates": [
-              {
-                "from": "04-01",
-                "to": "12-01"
-              }
-            ],
-            "daysOfWeek": {
-              "days": [
-                "we"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "13:30",
-                "to": "14:30"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "14087_1519": {
     "agregateID_RPA": "14087_1519",
     "unmmanaged": [
@@ -10561,6 +10590,91 @@
               {
                 "from": "15:00",
                 "to": "18:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "1460_16093": {
+    "agregateID_RPA": "1460_16093",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 1460,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE AUTOBUS SCOLAIRE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-AE"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 16093,
+        "DESCRIPTION_RPA": "\\P 08h-15h LUN A VEN SEPT. A JUIN",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SE-JP",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "09-01",
+                    "to": "06-30"
+                  }
+                ],
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "08:00",
+                    "to": "15:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "effectiveDates": [
+              {
+                "from": "09-01",
+                "to": "06-30"
+              }
+            ],
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "08:00",
+                "to": "15:00"
               }
             ]
           }
@@ -11307,6 +11421,91 @@
       }
     ]
   },
+  "1512_16299": {
+    "agregateID_RPA": "1512_16299",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 16299,
+        "DESCRIPTION_RPA": "\\P 07h-17h LUN A VEN SEPT. A JUIN",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SE-JU",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "09-01",
+                    "to": "06-30"
+                  }
+                ],
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "07:00",
+                    "to": "17:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1512,
+        "DESCRIPTION_RPA": "PANONCEAU DEBAR. SEULEMENT",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PD"
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "loading"
+        },
+        "timeSpans": [
+          {
+            "effectiveDates": [
+              {
+                "from": "09-01",
+                "to": "06-30"
+              }
+            ],
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "07:00",
+                "to": "17:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "1260_1514": {
     "agregateID_RPA": "1260_1514",
     "unmmanaged": [],
@@ -11509,6 +11708,83 @@
               {
                 "from": "13:00",
                 "to": "14:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "14103_1519": {
+    "agregateID_RPA": "14103_1519",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 1519,
+        "DESCRIPTION_RPA": "PANONCEAU LORSQUE STATIONNEMENT PERMIS-PETITES VOITURES",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PV"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 14103,
+        "DESCRIPTION_RPA": "\\P 13h30-14h30 MER. 1 AVRIL AU 1 DEC.",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SU-NM-A",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "04-01",
+                    "to": "12-01"
+                  }
+                ],
+                "daysOfWeek": {
+                  "days": [
+                    "we"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "13:30",
+                    "to": "14:30"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "effectiveDates": [
+              {
+                "from": "04-01",
+                "to": "12-01"
+              }
+            ],
+            "daysOfWeek": {
+              "days": [
+                "we"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "13:30",
+                "to": "14:30"
               }
             ]
           }
@@ -12160,138 +12436,6 @@
       }
     ]
   },
-  "14076_1519": {
-    "agregateID_RPA": "14076_1519",
-    "unmmanaged": [
-      {
-        "PANNEAU_ID_RPA": 1519,
-        "DESCRIPTION_RPA": "PANONCEAU LORSQUE STATIONNEMENT PERMIS-PETITES VOITURES",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PV"
-      }
-    ],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 14076,
-        "DESCRIPTION_RPA": "\\P 12h-13h MAR. 1 AVRIL AU 1 DEC.",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SU-MJ-A",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": [
-              {
-                "effectiveDates": [
-                  {
-                    "from": "04-01",
-                    "to": "12-01"
-                  }
-                ],
-                "daysOfWeek": {
-                  "days": [
-                    "tu"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "12:00",
-                    "to": "13:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": [
-      {
-        "priorityCategory": "3",
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": [
-          {
-            "effectiveDates": [
-              {
-                "from": "04-01",
-                "to": "12-01"
-              }
-            ],
-            "daysOfWeek": {
-              "days": [
-                "tu"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "12:00",
-                "to": "13:00"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "1481_2367": {
-    "agregateID_RPA": "1481_2367",
-    "unmmanaged": [
-      {
-        "PANNEAU_ID_RPA": 1481,
-        "DESCRIPTION_RPA": "PANONCEAU RESERVE HANDICAPE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-HC"
-      }
-    ],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 2367,
-        "DESCRIPTION_RPA": "\\P 09h-22h",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SD-JR",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": [
-              {
-                "timesOfDay": [
-                  {
-                    "from": "09:00",
-                    "to": "22:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": [
-      {
-        "priorityCategory": "3",
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": [
-          {
-            "timesOfDay": [
-              {
-                "from": "09:00",
-                "to": "22:00"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "14202_1519": {
     "agregateID_RPA": "14202_1519",
     "unmmanaged": [
@@ -12369,8 +12513,63 @@
       }
     ]
   },
-  "14102_1519": {
-    "agregateID_RPA": "14102_1519",
+  "1481_2367": {
+    "agregateID_RPA": "1481_2367",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 1481,
+        "DESCRIPTION_RPA": "PANONCEAU RESERVE HANDICAPE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-HC"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 2367,
+        "DESCRIPTION_RPA": "\\P 09h-22h",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SD-JR",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "timesOfDay": [
+                  {
+                    "from": "09:00",
+                    "to": "22:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "timesOfDay": [
+              {
+                "from": "09:00",
+                "to": "22:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "14025_1519": {
+    "agregateID_RPA": "14025_1519",
     "unmmanaged": [
       {
         "PANNEAU_ID_RPA": 1519,
@@ -12381,10 +12580,10 @@
     ],
     "managed": [
       {
-        "PANNEAU_ID_RPA": 14102,
-        "DESCRIPTION_RPA": "\\P 13h-14h MER. 1 AVRIL AU 1 DEC.",
+        "PANNEAU_ID_RPA": 14025,
+        "DESCRIPTION_RPA": "\\P 08h30-09h30 JEU. 1 AVRIL AU 1 DEC.",
         "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SU-NL-A",
+        "CODE_RPA": "SU-JB-A",
         "RULES": [
           {
             "priorityCategory": "3",
@@ -12401,13 +12600,13 @@
                 ],
                 "daysOfWeek": {
                   "days": [
-                    "we"
+                    "th"
                   ]
                 },
                 "timesOfDay": [
                   {
-                    "from": "13:00",
-                    "to": "14:00"
+                    "from": "08:30",
+                    "to": "09:30"
                   }
                 ]
               }
@@ -12432,13 +12631,13 @@
             ],
             "daysOfWeek": {
               "days": [
-                "we"
+                "th"
               ]
             },
             "timesOfDay": [
               {
-                "from": "13:00",
-                "to": "14:00"
+                "from": "08:30",
+                "to": "09:30"
               }
             ]
           }
@@ -12502,6 +12701,79 @@
                 "fr"
               ]
             }
+          }
+        ]
+      }
+    ]
+  },
+  "1413_1514": {
+    "agregateID_RPA": "1413_1514",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1413,
+        "DESCRIPTION_RPA": "P 15 min 09h30-17h LUN. AU VEN.",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "PV-DD",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "parking"
+            },
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "09:30",
+                    "to": "17:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1514,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PH"
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": 4,
+        "rule": {
+          "activity": "parking"
+        },
+        "timeSpans": [
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "09:30",
+                "to": "17:00"
+              }
+            ]
           }
         ]
       }
@@ -12628,8 +12900,8 @@
       }
     ]
   },
-  "14160_1519": {
-    "agregateID_RPA": "14160_1519",
+  "14066_1519": {
+    "agregateID_RPA": "14066_1519",
     "unmmanaged": [
       {
         "PANNEAU_ID_RPA": 1519,
@@ -12640,10 +12912,87 @@
     ],
     "managed": [
       {
-        "PANNEAU_ID_RPA": 14160,
-        "DESCRIPTION_RPA": "\\P 09h30-10h30 VEN. 1 AVRIL AU 1 DEC.",
+        "PANNEAU_ID_RPA": 14066,
+        "DESCRIPTION_RPA": "\\P 07h-08h LUN. 1 AVRIL AU 1 DEC.",
         "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SU-VD-A",
+        "CODE_RPA": "SU-LS-A",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "04-01",
+                    "to": "12-01"
+                  }
+                ],
+                "daysOfWeek": {
+                  "days": [
+                    "mo"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "07:00",
+                    "to": "08:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "effectiveDates": [
+              {
+                "from": "04-01",
+                "to": "12-01"
+              }
+            ],
+            "daysOfWeek": {
+              "days": [
+                "mo"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "07:00",
+                "to": "08:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "14171_1519": {
+    "agregateID_RPA": "14171_1519",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 1519,
+        "DESCRIPTION_RPA": "PANONCEAU LORSQUE STATIONNEMENT PERMIS-PETITES VOITURES",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PV"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 14171,
+        "DESCRIPTION_RPA": "\\P 15h-16h VEN. 1 AVRIL AU 1 DEC.",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SU-VP-A",
         "RULES": [
           {
             "priorityCategory": "3",
@@ -12665,8 +13014,8 @@
                 },
                 "timesOfDay": [
                   {
-                    "from": "09:30",
-                    "to": "10:30"
+                    "from": "15:00",
+                    "to": "16:00"
                   }
                 ]
               }
@@ -12696,8 +13045,8 @@
             },
             "timesOfDay": [
               {
-                "from": "09:30",
-                "to": "10:30"
+                "from": "15:00",
+                "to": "16:00"
               }
             ]
           }
@@ -12843,79 +13192,6 @@
       }
     ]
   },
-  "1451_1514": {
-    "agregateID_RPA": "1451_1514",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 1451,
-        "DESCRIPTION_RPA": "P 02h 09h-18h LUN. AU VEN.",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "PV-PB",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "parking"
-            },
-            "timeSpans": [
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "09:00",
-                    "to": "18:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1514,
-        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PH"
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": 4,
-        "rule": {
-          "activity": "parking"
-        },
-        "timeSpans": [
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "09:00",
-                "to": "18:00"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "14168_1519": {
     "agregateID_RPA": "14168_1519",
     "unmmanaged": [
@@ -12986,6 +13262,83 @@
               {
                 "from": "13:30",
                 "to": "14:30"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "14102_1519": {
+    "agregateID_RPA": "14102_1519",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 1519,
+        "DESCRIPTION_RPA": "PANONCEAU LORSQUE STATIONNEMENT PERMIS-PETITES VOITURES",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PV"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 14102,
+        "DESCRIPTION_RPA": "\\P 13h-14h MER. 1 AVRIL AU 1 DEC.",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SU-NL-A",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "04-01",
+                    "to": "12-01"
+                  }
+                ],
+                "daysOfWeek": {
+                  "days": [
+                    "we"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "13:00",
+                    "to": "14:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "effectiveDates": [
+              {
+                "from": "04-01",
+                "to": "12-01"
+              }
+            ],
+            "daysOfWeek": {
+              "days": [
+                "we"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "13:00",
+                "to": "14:00"
               }
             ]
           }
@@ -13066,8 +13419,8 @@
       }
     ]
   },
-  "14102_1514_1519": {
-    "agregateID_RPA": "14102_1514_1519",
+  "14101_1514_1519": {
+    "agregateID_RPA": "14101_1514_1519",
     "unmmanaged": [
       {
         "PANNEAU_ID_RPA": 1519,
@@ -13078,10 +13431,10 @@
     ],
     "managed": [
       {
-        "PANNEAU_ID_RPA": 14102,
-        "DESCRIPTION_RPA": "\\P 13h-14h MER. 1 AVRIL AU 1 DEC.",
+        "PANNEAU_ID_RPA": 14101,
+        "DESCRIPTION_RPA": "\\P 12h30-13h30 MER. 1 AVRIL AU 1 DEC.",
         "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SU-NL-A",
+        "CODE_RPA": "SU-NK-A",
         "RULES": [
           {
             "priorityCategory": "3",
@@ -13103,8 +13456,8 @@
                 },
                 "timesOfDay": [
                   {
-                    "from": "13:00",
-                    "to": "14:00"
+                    "from": "12:30",
+                    "to": "13:30"
                   }
                 ]
               }
@@ -13140,8 +13493,235 @@
             },
             "timesOfDay": [
               {
-                "from": "13:00",
-                "to": "14:00"
+                "from": "12:30",
+                "to": "13:30"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "14094_1519": {
+    "agregateID_RPA": "14094_1519",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 1519,
+        "DESCRIPTION_RPA": "PANONCEAU LORSQUE STATIONNEMENT PERMIS-PETITES VOITURES",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PV"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 14094,
+        "DESCRIPTION_RPA": "\\P 09h-10h MER. 1 AVRIL AU 1 DEC.",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SU-NC-A",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "04-01",
+                    "to": "12-01"
+                  }
+                ],
+                "daysOfWeek": {
+                  "days": [
+                    "we"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "09:00",
+                    "to": "10:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "effectiveDates": [
+              {
+                "from": "04-01",
+                "to": "12-01"
+              }
+            ],
+            "daysOfWeek": {
+              "days": [
+                "we"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "09:00",
+                "to": "10:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "14169_1519": {
+    "agregateID_RPA": "14169_1519",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 1519,
+        "DESCRIPTION_RPA": "PANONCEAU LORSQUE STATIONNEMENT PERMIS-PETITES VOITURES",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PV"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 14169,
+        "DESCRIPTION_RPA": "\\P 14h-15h VEN. 1 AVRIL AU 1 DEC.",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SU-VN-A",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "04-01",
+                    "to": "12-01"
+                  }
+                ],
+                "daysOfWeek": {
+                  "days": [
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "14:00",
+                    "to": "15:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "effectiveDates": [
+              {
+                "from": "04-01",
+                "to": "12-01"
+              }
+            ],
+            "daysOfWeek": {
+              "days": [
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "14:00",
+                "to": "15:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "1411_1487": {
+    "agregateID_RPA": "1411_1487",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 1487,
+        "DESCRIPTION_RPA": "PANONCEAU \"JOURS D'ECOLE\"",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-JE"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1411,
+        "DESCRIPTION_RPA": "P 15 min 07h-18h LUN. AU VEN.",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "PV-DB",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "parking"
+            },
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "07:00",
+                    "to": "18:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "parking"
+        },
+        "timeSpans": [
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "07:00",
+                "to": "18:00"
               }
             ]
           }
@@ -13257,83 +13837,6 @@
           "activity": "no parking"
         },
         "timeSpans": []
-      }
-    ]
-  },
-  "14169_1519": {
-    "agregateID_RPA": "14169_1519",
-    "unmmanaged": [
-      {
-        "PANNEAU_ID_RPA": 1519,
-        "DESCRIPTION_RPA": "PANONCEAU LORSQUE STATIONNEMENT PERMIS-PETITES VOITURES",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PV"
-      }
-    ],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 14169,
-        "DESCRIPTION_RPA": "\\P 14h-15h VEN. 1 AVRIL AU 1 DEC.",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SU-VN-A",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": [
-              {
-                "effectiveDates": [
-                  {
-                    "from": "04-01",
-                    "to": "12-01"
-                  }
-                ],
-                "daysOfWeek": {
-                  "days": [
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "14:00",
-                    "to": "15:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": [
-      {
-        "priorityCategory": "3",
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": [
-          {
-            "effectiveDates": [
-              {
-                "from": "04-01",
-                "to": "12-01"
-              }
-            ],
-            "daysOfWeek": {
-              "days": [
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "14:00",
-                "to": "15:00"
-              }
-            ]
-          }
-        ]
       }
     ]
   },
@@ -13492,83 +13995,6 @@
           "activity": "no standing"
         },
         "timeSpans": []
-      }
-    ]
-  },
-  "14079_1519": {
-    "agregateID_RPA": "14079_1519",
-    "unmmanaged": [
-      {
-        "PANNEAU_ID_RPA": 1519,
-        "DESCRIPTION_RPA": "PANONCEAU LORSQUE STATIONNEMENT PERMIS-PETITES VOITURES",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PV"
-      }
-    ],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 14079,
-        "DESCRIPTION_RPA": "\\P 13h30-14h30 MAR. 1 AVRIL AU 1 DEC.",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SU-MM-A",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": [
-              {
-                "effectiveDates": [
-                  {
-                    "from": "04-01",
-                    "to": "12-01"
-                  }
-                ],
-                "daysOfWeek": {
-                  "days": [
-                    "tu"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "13:30",
-                    "to": "14:30"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": [
-      {
-        "priorityCategory": "3",
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": [
-          {
-            "effectiveDates": [
-              {
-                "from": "04-01",
-                "to": "12-01"
-              }
-            ],
-            "daysOfWeek": {
-              "days": [
-                "tu"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "13:30",
-                "to": "14:30"
-              }
-            ]
-          }
-        ]
       }
     ]
   },
@@ -14349,15 +14775,15 @@
       }
     ]
   },
-  "14057_1486_1514": {
-    "agregateID_RPA": "14057_1486_1514",
+  "14102_1486_1514": {
+    "agregateID_RPA": "14102_1486_1514",
     "unmmanaged": [],
     "managed": [
       {
-        "PANNEAU_ID_RPA": 14057,
-        "DESCRIPTION_RPA": "\\P 12h-13h LUN. 1 AVRIL AU 1 DEC.",
+        "PANNEAU_ID_RPA": 14102,
+        "DESCRIPTION_RPA": "\\P 13h-14h MER. 1 AVRIL AU 1 DEC.",
         "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SU-LJ-A",
+        "CODE_RPA": "SU-NL-A",
         "RULES": [
           {
             "priorityCategory": "3",
@@ -14374,13 +14800,13 @@
                 ],
                 "daysOfWeek": {
                   "days": [
-                    "mo"
+                    "we"
                   ]
                 },
                 "timesOfDay": [
                   {
-                    "from": "12:00",
-                    "to": "13:00"
+                    "from": "13:00",
+                    "to": "14:00"
                   }
                 ]
               }
@@ -14432,13 +14858,13 @@
             ],
             "daysOfWeek": {
               "days": [
-                "mo"
+                "we"
               ]
             },
             "timesOfDay": [
               {
-                "from": "12:00",
-                "to": "13:00"
+                "from": "13:00",
+                "to": "14:00"
               }
             ]
           }
@@ -14493,6 +14919,79 @@
             "timesOfDay": [
               {
                 "from": "08:00",
+                "to": "18:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "1451_1514": {
+    "agregateID_RPA": "1451_1514",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1451,
+        "DESCRIPTION_RPA": "P 02h 09h-18h LUN. AU VEN.",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "PV-PB",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "parking"
+            },
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "09:00",
+                    "to": "18:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1514,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PH"
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": 4,
+        "rule": {
+          "activity": "parking"
+        },
+        "timeSpans": [
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "09:00",
                 "to": "18:00"
               }
             ]
@@ -14848,6 +15347,119 @@
             "timesOfDay": [
               {
                 "from": "16:00",
+                "to": "18:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "1514_2726_9488": {
+    "agregateID_RPA": "1514_2726_9488",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 9488,
+        "DESCRIPTION_RPA": "PANONCEAU - EXCEPTE VEHICULES MUNIS D'UN PERMIS",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PR"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 2726,
+        "DESCRIPTION_RPA": "\\P 09h00 A 11h00 et 15h00 A 18h00 LUNDI AU VENDREDI",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SV-OA",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "09:00",
+                    "to": "11:00"
+                  }
+                ]
+              },
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "15:00",
+                    "to": "18:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1514,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PH"
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": 4,
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "09:00",
+                "to": "11:00"
+              }
+            ]
+          },
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "15:00",
                 "to": "18:00"
               }
             ]
@@ -15242,6 +15854,85 @@
     ],
     "tempRules": []
   },
+  "1256_1484_1514": {
+    "agregateID_RPA": "1256_1484_1514",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1256,
+        "DESCRIPTION_RPA": "P 15 min",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "PD-DT",
+        "RULES": [
+          {
+            "priorityCategory": "4",
+            "rule": {
+              "activity": "parking"
+            },
+            "timeSpans": []
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1514,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PH"
+      },
+      {
+        "PANNEAU_ID_RPA": 1484,
+        "DESCRIPTION_RPA": "PANONCEAU 09h30-18h LUN. MAR. MERC. SAM. 09h30-21h JEU.",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-JB",
+        "RULES": [
+          {
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "09:30",
+                    "to": "18:00"
+                  }
+                ]
+              },
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "09:30",
+                    "to": "21:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": 5,
+        "rule": {
+          "activity": "parking"
+        },
+        "timeSpans": []
+      }
+    ]
+  },
   "1460_15": {
     "agregateID_RPA": "1460_15",
     "unmmanaged": [
@@ -15345,6 +16036,61 @@
               {
                 "from": "07:00",
                 "to": "16:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "1522_2350": {
+    "agregateID_RPA": "1522_2350",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 1522,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE AUTOBUS",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-SA"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 2350,
+        "DESCRIPTION_RPA": "\\P 07h-19h",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SD-JA",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "timesOfDay": [
+                  {
+                    "from": "07:00",
+                    "to": "19:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "timesOfDay": [
+              {
+                "from": "07:00",
+                "to": "19:00"
               }
             ]
           }
@@ -17190,7 +17936,7 @@
     "managed": [
       {
         "PANNEAU_ID_RPA": 1567,
-        "DESCRIPTION_RPA": "\\P RESERVE CORPS DIPLOMATIQUE",
+        "DESCRIPTION_RPA": "\\P EXCEPTÉ CORPS DIPLOMATIQUES",
         "DESCRIPTION_CAT": "STATIONNEMENT",
         "CODE_RPA": "R-CD",
         "RULES": [
@@ -20433,6 +21179,113 @@
       }
     ]
   },
+  "1528_16338": {
+    "agregateID_RPA": "1528_16338",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 16338,
+        "DESCRIPTION_RPA": "\\A 06h-10h ET 14h30-19h30 LUN A VEN",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "AV-RR",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no standing"
+            },
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "06:00",
+                    "to": "10:00"
+                  }
+                ]
+              },
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "14:30",
+                    "to": "19:30"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1528,
+        "DESCRIPTION_RPA": "PANONCEAU ZONE DE REMORQUAGE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-ZT"
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "no standing"
+        },
+        "timeSpans": [
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "06:00",
+                "to": "10:00"
+              }
+            ]
+          },
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "14:30",
+                "to": "19:30"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "11_1461": {
     "agregateID_RPA": "11_1461",
     "unmmanaged": [],
@@ -23606,113 +24459,6 @@
       }
     ]
   },
-  "1528_16338": {
-    "agregateID_RPA": "1528_16338",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 16338,
-        "DESCRIPTION_RPA": "\\A 06h-10h ET 14h30-19h30 LUN A VEN",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "AV-RR",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no standing"
-            },
-            "timeSpans": [
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "06:00",
-                    "to": "10:00"
-                  }
-                ]
-              },
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "14:30",
-                    "to": "19:30"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1528,
-        "DESCRIPTION_RPA": "PANONCEAU ZONE DE REMORQUAGE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-ZT"
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": "3",
-        "rule": {
-          "activity": "no standing"
-        },
-        "timeSpans": [
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "06:00",
-                "to": "10:00"
-              }
-            ]
-          },
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "14:30",
-                "to": "19:30"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "14647_1528": {
     "agregateID_RPA": "14647_1528",
     "unmmanaged": [],
@@ -23813,61 +24559,6 @@
               {
                 "from": "14:30",
                 "to": "18:30"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "1514_1760": {
-    "agregateID_RPA": "1514_1760",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 1760,
-        "DESCRIPTION_RPA": "\\P RESERVE HANDICAPES DE 09h00 A 21h00",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "RD-JD",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": [
-              {
-                "timesOfDay": [
-                  {
-                    "from": "09:00",
-                    "to": "21:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1514,
-        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PH"
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": 4,
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": [
-          {
-            "timesOfDay": [
-              {
-                "from": "09:00",
-                "to": "21:00"
               }
             ]
           }
@@ -24177,8 +24868,8 @@
       }
     ]
   },
-  "1421_9488": {
-    "agregateID_RPA": "1421_9488",
+  "1427_9488": {
+    "agregateID_RPA": "1427_9488",
     "unmmanaged": [
       {
         "PANNEAU_ID_RPA": 9488,
@@ -24189,10 +24880,10 @@
     ],
     "managed": [
       {
-        "PANNEAU_ID_RPA": 1421,
-        "DESCRIPTION_RPA": "P 60 min 09h-15h LUN. AU VEN.",
+        "PANNEAU_ID_RPA": 1427,
+        "DESCRIPTION_RPA": "P 60 min 09h-16h LUN. AU VEN.",
         "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "PV-JA",
+        "CODE_RPA": "PV-JG",
         "RULES": [
           {
             "priorityCategory": "3",
@@ -24213,7 +24904,7 @@
                 "timesOfDay": [
                   {
                     "from": "09:00",
-                    "to": "15:00"
+                    "to": "16:00"
                   }
                 ]
               }
@@ -24242,7 +24933,7 @@
             "timesOfDay": [
               {
                 "from": "09:00",
-                "to": "15:00"
+                "to": "16:00"
               }
             ]
           }
@@ -24287,15 +24978,15 @@
       }
     ]
   },
-  "1295_1508_1514": {
-    "agregateID_RPA": "1295_1508_1514",
+  "1453_1508_1514": {
+    "agregateID_RPA": "1453_1508_1514",
     "unmmanaged": [],
     "managed": [
       {
-        "PANNEAU_ID_RPA": 1295,
-        "DESCRIPTION_RPA": "P 15 MIN.  7h30-8h30 ET 12h-15h   JOURS D'ECOLE",
+        "PANNEAU_ID_RPA": 1453,
+        "DESCRIPTION_RPA": "P 15 min 07h30-9h ET 14h30-16h30 LUN. AU VEN.",
         "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "PE-QB",
+        "CODE_RPA": "PV-QA",
         "RULES": [
           {
             "priorityCategory": "3",
@@ -24304,18 +24995,36 @@
             },
             "timeSpans": [
               {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
                 "timesOfDay": [
                   {
                     "from": "07:30",
-                    "to": "08:30"
+                    "to": "09:00"
                   }
                 ]
               },
               {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
                 "timesOfDay": [
                   {
-                    "from": "12:00",
-                    "to": "15:00"
+                    "from": "14:30",
+                    "to": "16:30"
                   }
                 ]
               }
@@ -24359,18 +25068,36 @@
         },
         "timeSpans": [
           {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
             "timesOfDay": [
               {
                 "from": "07:30",
-                "to": "08:30"
+                "to": "09:00"
               }
             ]
           },
           {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
             "timesOfDay": [
               {
-                "from": "12:00",
-                "to": "15:00"
+                "from": "14:30",
+                "to": "16:30"
               }
             ]
           }
@@ -24378,38 +25105,21 @@
       }
     ]
   },
-  "1256_1514_16057": {
-    "agregateID_RPA": "1256_1514_16057",
+  "1508_52": {
+    "agregateID_RPA": "1508_52",
     "unmmanaged": [],
     "managed": [
       {
-        "PANNEAU_ID_RPA": 1256,
-        "DESCRIPTION_RPA": "P 15 min",
+        "PANNEAU_ID_RPA": 52,
+        "DESCRIPTION_RPA": "\\A 07h-18h LUN. AU VEN.",
         "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "PD-DT",
+        "CODE_RPA": "AV-OC",
         "RULES": [
           {
-            "priorityCategory": "4",
+            "priorityCategory": "3",
             "rule": {
-              "activity": "parking"
+              "activity": "no standing"
             },
-            "timeSpans": []
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1514,
-        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PH"
-      },
-      {
-        "PANNEAU_ID_RPA": 16057,
-        "DESCRIPTION_RPA": "PANONCEAU 07h-15h LUN A VEN",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-KA",
-        "RULES": [
-          {
             "timeSpans": [
               {
                 "daysOfWeek": {
@@ -24424,7 +25134,27 @@
                 "timesOfDay": [
                   {
                     "from": "07:00",
-                    "to": "15:00"
+                    "to": "18:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1508,
+        "DESCRIPTION_RPA": "PANONCEAU 1 SEPT. AU 30 JUIN",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-MP",
+        "RULES": [
+          {
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "09-01",
+                    "to": "06-30"
                   }
                 ]
               }
@@ -24436,11 +25166,29 @@
     "tempRules": null,
     "regulations": [
       {
-        "priorityCategory": 5,
+        "priorityCategory": "3",
         "rule": {
-          "activity": "parking"
+          "activity": "no standing"
         },
-        "timeSpans": []
+        "timeSpans": [
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "07:00",
+                "to": "18:00"
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -24609,229 +25357,6 @@
               {
                 "from": "09:00",
                 "to": "21:00"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "1514_1618": {
-    "agregateID_RPA": "1514_1618",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 1618,
-        "DESCRIPTION_RPA": "\\P RESERVE S3R 09h-21h LUN A SAM",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "R-QD",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": [
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr",
-                    "sa"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "09:00",
-                    "to": "21:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1514,
-        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PH"
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": 4,
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": [
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr",
-                "sa"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "09:00",
-                "to": "21:00"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "1393_9488": {
-    "agregateID_RPA": "1393_9488",
-    "unmmanaged": [
-      {
-        "PANNEAU_ID_RPA": 9488,
-        "DESCRIPTION_RPA": "PANONCEAU - EXCEPTE VEHICULES MUNIS D'UN PERMIS",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PR"
-      }
-    ],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 1393,
-        "DESCRIPTION_RPA": "P 60 min 09h-15h LUN. AU SAM.",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "PS-JU",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "parking"
-            },
-            "timeSpans": [
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr",
-                    "sa"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "09:00",
-                    "to": "15:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": [
-      {
-        "priorityCategory": "3",
-        "rule": {
-          "activity": "parking"
-        },
-        "timeSpans": [
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr",
-                "sa"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "09:00",
-                "to": "15:00"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "14252_1514": {
-    "agregateID_RPA": "14252_1514",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 14252,
-        "DESCRIPTION_RPA": "\\P LIVRAISON SEULEMENT 8h-15h LUN A VEN",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SL-JZ",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": [
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "08:00",
-                    "to": "15:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1514,
-        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PH"
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": 4,
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": [
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "08:00",
-                "to": "15:00"
               }
             ]
           }
@@ -26127,6 +26652,91 @@
       }
     ]
   },
+  "1514_16028": {
+    "agregateID_RPA": "1514_16028",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 16028,
+        "DESCRIPTION_RPA": "P 15 min 07h-09 ET 14h-18h LUN A VEN SEPT. A JUIN",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "PE-JN",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "parking"
+            },
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "09-01",
+                    "to": "06-30"
+                  }
+                ],
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "14:00",
+                    "to": "18:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1514,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PH"
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": 4,
+        "rule": {
+          "activity": "parking"
+        },
+        "timeSpans": [
+          {
+            "effectiveDates": [
+              {
+                "from": "09-01",
+                "to": "06-30"
+              }
+            ],
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "14:00",
+                "to": "18:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "1265_1514": {
     "agregateID_RPA": "1265_1514",
     "unmmanaged": [],
@@ -26237,27 +26847,20 @@
       }
     ]
   },
-  "14308_14368_1460": {
-    "agregateID_RPA": "14308_14368_1460",
-    "unmmanaged": [
-      {
-        "PANNEAU_ID_RPA": 1460,
-        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE AUTOBUS SCOLAIRE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-AE"
-      }
-    ],
+  "10688_14308_1514": {
+    "agregateID_RPA": "10688_14308_1514",
+    "unmmanaged": [],
     "managed": [
       {
-        "PANNEAU_ID_RPA": 14368,
-        "DESCRIPTION_RPA": "\\A 07h-09h30  14h30-18h30 LUN A VEN",
+        "PANNEAU_ID_RPA": 10688,
+        "DESCRIPTION_RPA": "P 15 MIN 07h-16h LUN A VEN",
         "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "AV-RL",
+        "CODE_RPA": "PV-DN",
         "RULES": [
           {
             "priorityCategory": "3",
             "rule": {
-              "activity": "no standing"
+              "activity": "parking"
             },
             "timeSpans": [
               {
@@ -26273,30 +26876,19 @@
                 "timesOfDay": [
                   {
                     "from": "07:00",
-                    "to": "09:30"
-                  }
-                ]
-              },
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "14:30",
-                    "to": "18:30"
+                    "to": "16:00"
                   }
                 ]
               }
             ]
           }
         ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1514,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PH"
       },
       {
         "PANNEAU_ID_RPA": 14308,
@@ -26319,11 +26911,12 @@
         ]
       }
     ],
-    "tempRules": [
+    "tempRules": null,
+    "regulations": [
       {
-        "priorityCategory": "3",
+        "priorityCategory": 4,
         "rule": {
-          "activity": "no standing"
+          "activity": "parking"
         },
         "timeSpans": [
           {
@@ -26339,24 +26932,7 @@
             "timesOfDay": [
               {
                 "from": "07:00",
-                "to": "09:30"
-              }
-            ]
-          },
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "14:30",
-                "to": "18:30"
+                "to": "16:00"
               }
             ]
           }
@@ -26457,20 +27033,27 @@
       }
     ]
   },
-  "10688_14308": {
-    "agregateID_RPA": "10688_14308",
-    "unmmanaged": [],
+  "14270_14308_1460": {
+    "agregateID_RPA": "14270_14308_1460",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 1460,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE AUTOBUS SCOLAIRE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-AE"
+      }
+    ],
     "managed": [
       {
-        "PANNEAU_ID_RPA": 10688,
-        "DESCRIPTION_RPA": "P 15 MIN 07h-16h LUN A VEN",
+        "PANNEAU_ID_RPA": 14270,
+        "DESCRIPTION_RPA": "\\A 07h30-08h30  ET  14h30-15H30  LUN A VEN",
         "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "PV-DN",
+        "CODE_RPA": "AE-QB",
         "RULES": [
           {
             "priorityCategory": "3",
             "rule": {
-              "activity": "parking"
+              "activity": "no standing"
             },
             "timeSpans": [
               {
@@ -26485,8 +27068,25 @@
                 },
                 "timesOfDay": [
                   {
-                    "from": "07:00",
-                    "to": "16:00"
+                    "from": "07:30",
+                    "to": "08:30"
+                  }
+                ]
+              },
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "14:30",
+                    "to": "15:30"
                   }
                 ]
               }
@@ -26515,12 +27115,11 @@
         ]
       }
     ],
-    "tempRules": null,
-    "regulations": [
+    "tempRules": [
       {
         "priorityCategory": "3",
         "rule": {
-          "activity": "parking"
+          "activity": "no standing"
         },
         "timeSpans": [
           {
@@ -26535,8 +27134,25 @@
             },
             "timesOfDay": [
               {
-                "from": "07:00",
-                "to": "16:00"
+                "from": "07:30",
+                "to": "08:30"
+              }
+            ]
+          },
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "14:30",
+                "to": "15:30"
               }
             ]
           }
@@ -27800,61 +28416,6 @@
       }
     ]
   },
-  "1514_1637": {
-    "agregateID_RPA": "1514_1637",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 1637,
-        "DESCRIPTION_RPA": "\\P RESERVE S3R 09h30-18h",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "R-QW",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": [
-              {
-                "timesOfDay": [
-                  {
-                    "from": "09:30",
-                    "to": "18:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1514,
-        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PH"
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": 4,
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": [
-          {
-            "timesOfDay": [
-              {
-                "from": "09:30",
-                "to": "18:00"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "14206_1503": {
     "agregateID_RPA": "14206_1503",
     "unmmanaged": [],
@@ -28984,8 +29545,8 @@
       }
     ]
   },
-  "14025_1519": {
-    "agregateID_RPA": "14025_1519",
+  "14158_1519": {
+    "agregateID_RPA": "14158_1519",
     "unmmanaged": [
       {
         "PANNEAU_ID_RPA": 1519,
@@ -28996,10 +29557,10 @@
     ],
     "managed": [
       {
-        "PANNEAU_ID_RPA": 14025,
-        "DESCRIPTION_RPA": "\\P 08h30-09h30 JEU. 1 AVRIL AU 1 DEC.",
+        "PANNEAU_ID_RPA": 14158,
+        "DESCRIPTION_RPA": "\\P 08h30-09h30 VEN. 1 AVRIL AU 1 DEC.",
         "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SU-JB-A",
+        "CODE_RPA": "SU-VB-A",
         "RULES": [
           {
             "priorityCategory": "3",
@@ -29016,7 +29577,7 @@
                 ],
                 "daysOfWeek": {
                   "days": [
-                    "th"
+                    "fr"
                   ]
                 },
                 "timesOfDay": [
@@ -29047,7 +29608,7 @@
             ],
             "daysOfWeek": {
               "days": [
-                "th"
+                "fr"
               ]
             },
             "timesOfDay": [
@@ -29175,83 +29736,6 @@
               {
                 "from": "15:00",
                 "to": "18:00"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "14158_1519": {
-    "agregateID_RPA": "14158_1519",
-    "unmmanaged": [
-      {
-        "PANNEAU_ID_RPA": 1519,
-        "DESCRIPTION_RPA": "PANONCEAU LORSQUE STATIONNEMENT PERMIS-PETITES VOITURES",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PV"
-      }
-    ],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 14158,
-        "DESCRIPTION_RPA": "\\P 08h30-09h30 VEN. 1 AVRIL AU 1 DEC.",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SU-VB-A",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": [
-              {
-                "effectiveDates": [
-                  {
-                    "from": "04-01",
-                    "to": "12-01"
-                  }
-                ],
-                "daysOfWeek": {
-                  "days": [
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "08:30",
-                    "to": "09:30"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": [
-      {
-        "priorityCategory": "3",
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": [
-          {
-            "effectiveDates": [
-              {
-                "from": "04-01",
-                "to": "12-01"
-              }
-            ],
-            "daysOfWeek": {
-              "days": [
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "08:30",
-                "to": "09:30"
               }
             ]
           }
@@ -29733,6 +30217,113 @@
       }
     ]
   },
+  "15858_9095": {
+    "agregateID_RPA": "15858_9095",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 15858,
+        "DESCRIPTION_RPA": "P 15 MIN 07h-10h ET 15h30-18h LUN A VEN",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "PV-QB",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "parking"
+            },
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "07:00",
+                    "to": "10:00"
+                  }
+                ]
+              },
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "15:30",
+                    "to": "18:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 9095,
+        "DESCRIPTION_RPA": "PANONCEAU RESERVE GARDERIE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-EU"
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "loading"
+        },
+        "timeSpans": [
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "07:00",
+                "to": "10:00"
+              }
+            ]
+          },
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "15:30",
+                "to": "18:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "1460_16299": {
     "agregateID_RPA": "1460_16299",
     "unmmanaged": [
@@ -29811,133 +30402,6 @@
               {
                 "from": "07:00",
                 "to": "17:00"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "14270_14308_1460": {
-    "agregateID_RPA": "14270_14308_1460",
-    "unmmanaged": [
-      {
-        "PANNEAU_ID_RPA": 1460,
-        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE AUTOBUS SCOLAIRE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-AE"
-      }
-    ],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 14270,
-        "DESCRIPTION_RPA": "\\A 07h30-08h30  ET  14h30-15H30  LUN A VEN",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "AE-QB",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no standing"
-            },
-            "timeSpans": [
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "07:30",
-                    "to": "08:30"
-                  }
-                ]
-              },
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "14:30",
-                    "to": "15:30"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 14308,
-        "DESCRIPTION_RPA": "PANONCEAU 20 AOÛT AU 30 JUIN",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-AX",
-        "RULES": [
-          {
-            "timeSpans": [
-              {
-                "effectiveDates": [
-                  {
-                    "from": "08-20",
-                    "to": "06-30"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": [
-      {
-        "priorityCategory": "3",
-        "rule": {
-          "activity": "no standing"
-        },
-        "timeSpans": [
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "07:30",
-                "to": "08:30"
-              }
-            ]
-          },
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "14:30",
-                "to": "15:30"
               }
             ]
           }
@@ -31805,79 +32269,6 @@
       }
     ]
   },
-  "1427_9488": {
-    "agregateID_RPA": "1427_9488",
-    "unmmanaged": [
-      {
-        "PANNEAU_ID_RPA": 9488,
-        "DESCRIPTION_RPA": "PANONCEAU - EXCEPTE VEHICULES MUNIS D'UN PERMIS",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PR"
-      }
-    ],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 1427,
-        "DESCRIPTION_RPA": "P 60 min 09h-16h LUN. AU VEN.",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "PV-JG",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "parking"
-            },
-            "timeSpans": [
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "09:00",
-                    "to": "16:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": [
-      {
-        "priorityCategory": "3",
-        "rule": {
-          "activity": "parking"
-        },
-        "timeSpans": [
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "09:00",
-                "to": "16:00"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "1482_1514_2709": {
     "agregateID_RPA": "1482_1514_2709",
     "unmmanaged": [],
@@ -32506,8 +32897,8 @@
       }
     ]
   },
-  "14057_1524": {
-    "agregateID_RPA": "14057_1524",
+  "14049_1524": {
+    "agregateID_RPA": "14049_1524",
     "unmmanaged": [
       {
         "PANNEAU_ID_RPA": 1524,
@@ -32518,10 +32909,10 @@
     ],
     "managed": [
       {
-        "PANNEAU_ID_RPA": 14057,
-        "DESCRIPTION_RPA": "\\P 12h-13h LUN. 1 AVRIL AU 1 DEC.",
+        "PANNEAU_ID_RPA": 14049,
+        "DESCRIPTION_RPA": "\\P 08h-09h LUN. 1 AVRIL AU 1 DEC.",
         "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SU-LJ-A",
+        "CODE_RPA": "SU-LA-A",
         "RULES": [
           {
             "priorityCategory": "3",
@@ -32543,8 +32934,8 @@
                 },
                 "timesOfDay": [
                   {
-                    "from": "12:00",
-                    "to": "13:00"
+                    "from": "08:00",
+                    "to": "09:00"
                   }
                 ]
               }
@@ -32574,8 +32965,8 @@
             },
             "timesOfDay": [
               {
-                "from": "12:00",
-                "to": "13:00"
+                "from": "08:00",
+                "to": "09:00"
               }
             ]
           }
@@ -32998,6 +33389,43 @@
             ]
           }
         ]
+      }
+    ]
+  },
+  "1274_9488": {
+    "agregateID_RPA": "1274_9488",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 9488,
+        "DESCRIPTION_RPA": "PANONCEAU - EXCEPTE VEHICULES MUNIS D'UN PERMIS",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PR"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1274,
+        "DESCRIPTION_RPA": "P 02h",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "PD-TB",
+        "RULES": [
+          {
+            "priorityCategory": "4",
+            "rule": {
+              "activity": "parking"
+            },
+            "timeSpans": []
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "4",
+        "rule": {
+          "activity": "parking"
+        },
+        "timeSpans": []
       }
     ]
   },
@@ -33707,61 +34135,6 @@
               {
                 "from": "08:00",
                 "to": "17:00"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "1260_9488": {
-    "agregateID_RPA": "1260_9488",
-    "unmmanaged": [
-      {
-        "PANNEAU_ID_RPA": 9488,
-        "DESCRIPTION_RPA": "PANONCEAU - EXCEPTE VEHICULES MUNIS D'UN PERMIS",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PR"
-      }
-    ],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 1260,
-        "DESCRIPTION_RPA": "P 02h 09h-21h",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "PD-JD",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "parking"
-            },
-            "timeSpans": [
-              {
-                "timesOfDay": [
-                  {
-                    "from": "09:00",
-                    "to": "21:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": [
-      {
-        "priorityCategory": "3",
-        "rule": {
-          "activity": "parking"
-        },
-        "timeSpans": [
-          {
-            "timesOfDay": [
-              {
-                "from": "09:00",
-                "to": "21:00"
               }
             ]
           }
@@ -35026,6 +35399,81 @@
       }
     ]
   },
+  "1514_1618": {
+    "agregateID_RPA": "1514_1618",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1618,
+        "DESCRIPTION_RPA": "\\P RESERVE S3R 09h-21h LUN A SAM",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "R-QD",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr",
+                    "sa"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "09:00",
+                    "to": "21:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1514,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PH"
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": 4,
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr",
+                "sa"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "09:00",
+                "to": "21:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "14178_1524": {
     "agregateID_RPA": "14178_1524",
     "unmmanaged": [
@@ -35541,80 +35989,6 @@
             ]
           }
         ]
-      }
-    ]
-  },
-  "11_15730": {
-    "agregateID_RPA": "11_15730",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 11,
-        "DESCRIPTION_RPA": "\\A EN TOUT TEMPS",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "AD-TT",
-        "RULES": [
-          {
-            "priorityCategory": "5",
-            "rule": {
-              "activity": "parking"
-            },
-            "timeSpans": []
-          },
-          {
-            "priorityCategory": "4",
-            "rule": {
-              "activity": "no standing"
-            },
-            "timeSpans": []
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 15730,
-        "DESCRIPTION_RPA": "PANONCEAU 09h-16h LUN A VEN",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-JN",
-        "RULES": [
-          {
-            "timeSpans": [
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "09:00",
-                    "to": "16:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": "5",
-        "rule": {
-          "activity": "parking"
-        },
-        "timeSpans": []
-      },
-      {
-        "priorityCategory": "4",
-        "rule": {
-          "activity": "no standing"
-        },
-        "timeSpans": []
       }
     ]
   },
@@ -39215,6 +39589,83 @@
       }
     ]
   },
+  "14076_1519": {
+    "agregateID_RPA": "14076_1519",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 1519,
+        "DESCRIPTION_RPA": "PANONCEAU LORSQUE STATIONNEMENT PERMIS-PETITES VOITURES",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PV"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 14076,
+        "DESCRIPTION_RPA": "\\P 12h-13h MAR. 1 AVRIL AU 1 DEC.",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SU-MJ-A",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "04-01",
+                    "to": "12-01"
+                  }
+                ],
+                "daysOfWeek": {
+                  "days": [
+                    "tu"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "12:00",
+                    "to": "13:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "effectiveDates": [
+              {
+                "from": "04-01",
+                "to": "12-01"
+              }
+            ],
+            "daysOfWeek": {
+              "days": [
+                "tu"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "12:00",
+                "to": "13:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "1481_2713": {
     "agregateID_RPA": "1481_2713",
     "unmmanaged": [
@@ -39476,77 +39927,6 @@
           "activity": "loading"
         },
         "timeSpans": []
-      }
-    ]
-  },
-  "1469_15833": {
-    "agregateID_RPA": "1469_15833",
-    "unmmanaged": [
-      {
-        "PANNEAU_ID_RPA": 1469,
-        "DESCRIPTION_RPA": "PANONCEAU DEBAR. AUTOBUS SCOLAIRE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-AS"
-      }
-    ],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 15833,
-        "DESCRIPTION_RPA": "P DEBARCADERE 07h-08h30 ET 15h-17h30 JOURS D`ECOLE",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "PE-JJ",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "parking"
-            },
-            "timeSpans": [
-              {
-                "timesOfDay": [
-                  {
-                    "from": "07:00",
-                    "to": "08:30"
-                  }
-                ]
-              },
-              {
-                "timesOfDay": [
-                  {
-                    "from": "15:00",
-                    "to": "17:30"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": [
-      {
-        "priorityCategory": "3",
-        "rule": {
-          "activity": "parking"
-        },
-        "timeSpans": [
-          {
-            "timesOfDay": [
-              {
-                "from": "07:00",
-                "to": "08:30"
-              }
-            ]
-          },
-          {
-            "timesOfDay": [
-              {
-                "from": "15:00",
-                "to": "17:30"
-              }
-            ]
-          }
-        ]
       }
     ]
   },
@@ -41279,6 +41659,93 @@
       }
     ]
   },
+  "10688_14308": {
+    "agregateID_RPA": "10688_14308",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 10688,
+        "DESCRIPTION_RPA": "P 15 MIN 07h-16h LUN A VEN",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "PV-DN",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "parking"
+            },
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "07:00",
+                    "to": "16:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 14308,
+        "DESCRIPTION_RPA": "PANONCEAU 20 AOÛT AU 30 JUIN",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-AX",
+        "RULES": [
+          {
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "08-20",
+                    "to": "06-30"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "parking"
+        },
+        "timeSpans": [
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "07:00",
+                "to": "16:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "1512_2135": {
     "agregateID_RPA": "1512_2135",
     "unmmanaged": [],
@@ -42266,63 +42733,6 @@
       }
     ]
   },
-  "1480_1528_2413": {
-    "agregateID_RPA": "1480_1528_2413",
-    "unmmanaged": [
-      {
-        "PANNEAU_ID_RPA": 1480,
-        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE TITULAIRE DE PERMIS",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-ET"
-      }
-    ],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 2413,
-        "DESCRIPTION_RPA": "\\P EN TOUT TEMPS",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SD-TT",
-        "RULES": [
-          {
-            "priorityCategory": "5",
-            "rule": {
-              "activity": "parking"
-            },
-            "timeSpans": []
-          },
-          {
-            "priorityCategory": "4",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": []
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1528,
-        "DESCRIPTION_RPA": "PANONCEAU ZONE DE REMORQUAGE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-ZT"
-      }
-    ],
-    "tempRules": [
-      {
-        "priorityCategory": "5",
-        "rule": {
-          "activity": "parking"
-        },
-        "timeSpans": []
-      },
-      {
-        "priorityCategory": "4",
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": []
-      }
-    ]
-  },
   "1528_87": {
     "agregateID_RPA": "1528_87",
     "unmmanaged": [],
@@ -42710,113 +43120,6 @@
               {
                 "from": "10:00",
                 "to": "15:00"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "1528_72": {
-    "agregateID_RPA": "1528_72",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 72,
-        "DESCRIPTION_RPA": "\\A 06h-09h  15h30-18h LUN. AU VEN.",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "AV-QJ",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no standing"
-            },
-            "timeSpans": [
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "06:00",
-                    "to": "09:00"
-                  }
-                ]
-              },
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "15:30",
-                    "to": "18:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1528,
-        "DESCRIPTION_RPA": "PANONCEAU ZONE DE REMORQUAGE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-ZT"
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": "3",
-        "rule": {
-          "activity": "no standing"
-        },
-        "timeSpans": [
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "06:00",
-                "to": "09:00"
-              }
-            ]
-          },
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "15:30",
-                "to": "18:00"
               }
             ]
           }
@@ -46097,57 +46400,6 @@
       }
     ]
   },
-  "1463_1762": {
-    "agregateID_RPA": "1463_1762",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 1762,
-        "DESCRIPTION_RPA": "\\P RESERVE DEBARCADERE HANDICAPES EN TOUT TEMPS",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "RD-TT",
-        "RULES": [
-          {
-            "priorityCategory": "4",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": []
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1463,
-        "DESCRIPTION_RPA": "PANONCEAU 1 NOVEMBRE AU 15 AVRIL",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-AH",
-        "RULES": [
-          {
-            "timeSpans": [
-              {
-                "effectiveDates": [
-                  {
-                    "from": "11-01",
-                    "to": "04-15"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": "4",
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": []
-      }
-    ]
-  },
   "1469_2722": {
     "agregateID_RPA": "1469_2722",
     "unmmanaged": [
@@ -46528,7 +46780,7 @@
     "managed": [
       {
         "PANNEAU_ID_RPA": 1567,
-        "DESCRIPTION_RPA": "\\P RESERVE CORPS DIPLOMATIQUE",
+        "DESCRIPTION_RPA": "\\P EXCEPTÉ CORPS DIPLOMATIQUES",
         "DESCRIPTION_CAT": "STATIONNEMENT",
         "CODE_RPA": "R-CD",
         "RULES": [
@@ -49477,43 +49729,6 @@
       }
     ]
   },
-  "1514_1537": {
-    "agregateID_RPA": "1514_1537",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 1537,
-        "DESCRIPTION_RPA": "\\P RESERVE AUTOBUS TOURISTIQUES 15 min.",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "R-AM",
-        "RULES": [
-          {
-            "priorityCategory": "4",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": []
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1514,
-        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PH"
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": 5,
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": []
-      }
-    ]
-  },
   "1514_9848": {
     "agregateID_RPA": "1514_9848",
     "unmmanaged": [],
@@ -50142,6 +50357,63 @@
             ]
           }
         ]
+      }
+    ]
+  },
+  "1281_1495_1514": {
+    "agregateID_RPA": "1281_1495_1514",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1281,
+        "DESCRIPTION_RPA": "P 60 min",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "PD-TT",
+        "RULES": [
+          {
+            "priorityCategory": "4",
+            "rule": {
+              "activity": "parking"
+            },
+            "timeSpans": []
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1514,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PH"
+      },
+      {
+        "PANNEAU_ID_RPA": 1495,
+        "DESCRIPTION_RPA": "PANONCEAU 08h-20h",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-JP",
+        "RULES": [
+          {
+            "timeSpans": [
+              {
+                "timesOfDay": [
+                  {
+                    "from": "08:00",
+                    "to": "20:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": 5,
+        "rule": {
+          "activity": "parking"
+        },
+        "timeSpans": []
       }
     ]
   },
@@ -52488,8 +52760,8 @@
       }
     ]
   },
-  "14368_1460": {
-    "agregateID_RPA": "14368_1460",
+  "10688_14308_1460": {
+    "agregateID_RPA": "10688_14308_1460",
     "unmmanaged": [
       {
         "PANNEAU_ID_RPA": 1460,
@@ -52500,15 +52772,15 @@
     ],
     "managed": [
       {
-        "PANNEAU_ID_RPA": 14368,
-        "DESCRIPTION_RPA": "\\A 07h-09h30  14h30-18h30 LUN A VEN",
+        "PANNEAU_ID_RPA": 10688,
+        "DESCRIPTION_RPA": "P 15 MIN 07h-16h LUN A VEN",
         "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "AV-RL",
+        "CODE_RPA": "PV-DN",
         "RULES": [
           {
             "priorityCategory": "3",
             "rule": {
-              "activity": "no standing"
+              "activity": "parking"
             },
             "timeSpans": [
               {
@@ -52524,24 +52796,27 @@
                 "timesOfDay": [
                   {
                     "from": "07:00",
-                    "to": "09:30"
+                    "to": "16:00"
                   }
                 ]
-              },
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 14308,
+        "DESCRIPTION_RPA": "PANONCEAU 20 AOÛT AU 30 JUIN",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-AX",
+        "RULES": [
+          {
+            "timeSpans": [
               {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
+                "effectiveDates": [
                   {
-                    "from": "14:30",
-                    "to": "18:30"
+                    "from": "08-20",
+                    "to": "06-30"
                   }
                 ]
               }
@@ -52554,7 +52829,7 @@
       {
         "priorityCategory": "3",
         "rule": {
-          "activity": "no standing"
+          "activity": "parking"
         },
         "timeSpans": [
           {
@@ -52570,24 +52845,7 @@
             "timesOfDay": [
               {
                 "from": "07:00",
-                "to": "09:30"
-              }
-            ]
-          },
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "14:30",
-                "to": "18:30"
+                "to": "16:00"
               }
             ]
           }
@@ -53415,56 +53673,50 @@
       }
     ]
   },
-  "1508_52": {
-    "agregateID_RPA": "1508_52",
+  "2413_9928": {
+    "agregateID_RPA": "2413_9928",
     "unmmanaged": [],
     "managed": [
       {
-        "PANNEAU_ID_RPA": 52,
-        "DESCRIPTION_RPA": "\\A 07h-18h LUN. AU VEN.",
+        "PANNEAU_ID_RPA": 2413,
+        "DESCRIPTION_RPA": "\\P EN TOUT TEMPS",
         "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "AV-OC",
+        "CODE_RPA": "SD-TT",
         "RULES": [
           {
-            "priorityCategory": "3",
+            "priorityCategory": "5",
             "rule": {
-              "activity": "no standing"
+              "activity": "parking"
             },
-            "timeSpans": [
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "07:00",
-                    "to": "18:00"
-                  }
-                ]
-              }
-            ]
+            "timeSpans": []
+          },
+          {
+            "priorityCategory": "4",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": []
           }
         ]
       },
       {
-        "PANNEAU_ID_RPA": 1508,
-        "DESCRIPTION_RPA": "PANONCEAU 1 SEPT. AU 30 JUIN",
+        "PANNEAU_ID_RPA": 9928,
+        "DESCRIPTION_RPA": "PANONCEAU NOIR EXCEPTE 8h - 14h  DIMANCHE",
         "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-MP",
+        "CODE_RPA": "PX-FC",
         "RULES": [
           {
             "timeSpans": [
               {
-                "effectiveDates": [
+                "daysOfWeek": {
+                  "days": [
+                    "su"
+                  ]
+                },
+                "timesOfDay": [
                   {
-                    "from": "09-01",
-                    "to": "06-30"
+                    "from": "08:00",
+                    "to": "14:00"
                   }
                 ]
               }
@@ -53476,68 +53728,54 @@
     "tempRules": null,
     "regulations": [
       {
-        "priorityCategory": "3",
+        "priorityCategory": "5",
         "rule": {
-          "activity": "no standing"
+          "activity": "parking"
         },
-        "timeSpans": [
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "07:00",
-                "to": "18:00"
-              }
-            ]
-          }
-        ]
+        "timeSpans": []
+      },
+      {
+        "priorityCategory": "4",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": []
       }
     ]
   },
-  "1514_16028": {
-    "agregateID_RPA": "1514_16028",
+  "1514_15647": {
+    "agregateID_RPA": "1514_15647",
     "unmmanaged": [],
     "managed": [
       {
-        "PANNEAU_ID_RPA": 16028,
-        "DESCRIPTION_RPA": "P 15 min 07h-09 ET 14h-18h LUN A VEN SEPT. A JUIN",
+        "PANNEAU_ID_RPA": 15647,
+        "DESCRIPTION_RPA": "\\P 07h-09h LUN. MER. 1 AVRIL AU 1 DEC.",
         "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "PE-JN",
+        "CODE_RPA": "SB-BF-A",
         "RULES": [
           {
             "priorityCategory": "3",
             "rule": {
-              "activity": "parking"
+              "activity": "no parking"
             },
             "timeSpans": [
               {
                 "effectiveDates": [
                   {
-                    "from": "09-01",
-                    "to": "06-30"
+                    "from": "04-01",
+                    "to": "12-01"
                   }
                 ],
                 "daysOfWeek": {
                   "days": [
                     "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
+                    "we"
                   ]
                 },
                 "timesOfDay": [
                   {
-                    "from": "14:00",
-                    "to": "18:00"
+                    "from": "07:00",
+                    "to": "09:00"
                   }
                 ]
               }
@@ -53557,29 +53795,26 @@
       {
         "priorityCategory": 4,
         "rule": {
-          "activity": "parking"
+          "activity": "no parking"
         },
         "timeSpans": [
           {
             "effectiveDates": [
               {
-                "from": "09-01",
-                "to": "06-30"
+                "from": "04-01",
+                "to": "12-01"
               }
             ],
             "daysOfWeek": {
               "days": [
                 "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
+                "we"
               ]
             },
             "timesOfDay": [
               {
-                "from": "14:00",
-                "to": "18:00"
+                "from": "07:00",
+                "to": "09:00"
               }
             ]
           }
@@ -53639,6 +53874,43 @@
             ]
           }
         ]
+      }
+    ]
+  },
+  "12189_2461": {
+    "agregateID_RPA": "12189_2461",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 12189,
+        "DESCRIPTION_RPA": "PANONCEAU MAXIMUM 15 min",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-AU"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 2461,
+        "DESCRIPTION_RPA": "\\P LIVRAISON SEULEMENT EN TOUT TEMPS",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SL-TT",
+        "RULES": [
+          {
+            "priorityCategory": "4",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": []
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "4",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": []
       }
     ]
   },
@@ -53873,57 +54145,6 @@
         },
         "timeSpans": []
       },
-      {
-        "priorityCategory": "4",
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": []
-      }
-    ]
-  },
-  "1495_1762": {
-    "agregateID_RPA": "1495_1762",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 1762,
-        "DESCRIPTION_RPA": "\\P RESERVE DEBARCADERE HANDICAPES EN TOUT TEMPS",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "RD-TT",
-        "RULES": [
-          {
-            "priorityCategory": "4",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": []
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1495,
-        "DESCRIPTION_RPA": "PANONCEAU 08h-20h",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-JP",
-        "RULES": [
-          {
-            "timeSpans": [
-              {
-                "timesOfDay": [
-                  {
-                    "from": "08:00",
-                    "to": "20:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
       {
         "priorityCategory": "4",
         "rule": {
@@ -56725,43 +56946,6 @@
       }
     ]
   },
-  "1274_9488": {
-    "agregateID_RPA": "1274_9488",
-    "unmmanaged": [
-      {
-        "PANNEAU_ID_RPA": 9488,
-        "DESCRIPTION_RPA": "PANONCEAU - EXCEPTE VEHICULES MUNIS D'UN PERMIS",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PR"
-      }
-    ],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 1274,
-        "DESCRIPTION_RPA": "P 02h",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "PD-TB",
-        "RULES": [
-          {
-            "priorityCategory": "4",
-            "rule": {
-              "activity": "parking"
-            },
-            "timeSpans": []
-          }
-        ]
-      }
-    ],
-    "tempRules": [
-      {
-        "priorityCategory": "4",
-        "rule": {
-          "activity": "parking"
-        },
-        "timeSpans": []
-      }
-    ]
-  },
   "14048_1464": {
     "agregateID_RPA": "14048_1464",
     "unmmanaged": [],
@@ -58609,6 +58793,81 @@
               {
                 "from": "15:00",
                 "to": "18:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "1397_9488": {
+    "agregateID_RPA": "1397_9488",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 9488,
+        "DESCRIPTION_RPA": "PANONCEAU - EXCEPTE VEHICULES MUNIS D'UN PERMIS",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PR"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1397,
+        "DESCRIPTION_RPA": "P 60 min 09h-17h LUN. AU SAM.",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "PS-OP",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "parking"
+            },
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr",
+                    "sa"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "09:00",
+                    "to": "17:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "parking"
+        },
+        "timeSpans": [
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr",
+                "sa"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "09:00",
+                "to": "17:00"
               }
             ]
           }
@@ -61010,6 +61269,79 @@
       }
     ]
   },
+  "1514_2728": {
+    "agregateID_RPA": "1514_2728",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 2728,
+        "DESCRIPTION_RPA": "\\P 07h-18h LUN. AU VEN.",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SV-OC",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "07:00",
+                    "to": "18:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1514,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PH"
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": 4,
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "07:00",
+                "to": "18:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "1462_1537": {
     "agregateID_RPA": "1462_1537",
     "unmmanaged": [],
@@ -61115,99 +61447,6 @@
           "activity": "parking"
         },
         "timeSpans": []
-      }
-    ]
-  },
-  "10688_14308_1514": {
-    "agregateID_RPA": "10688_14308_1514",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 10688,
-        "DESCRIPTION_RPA": "P 15 MIN 07h-16h LUN A VEN",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "PV-DN",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "parking"
-            },
-            "timeSpans": [
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "07:00",
-                    "to": "16:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1514,
-        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PH"
-      },
-      {
-        "PANNEAU_ID_RPA": 14308,
-        "DESCRIPTION_RPA": "PANONCEAU 20 AOÛT AU 30 JUIN",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-AX",
-        "RULES": [
-          {
-            "timeSpans": [
-              {
-                "effectiveDates": [
-                  {
-                    "from": "08-20",
-                    "to": "06-30"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": 4,
-        "rule": {
-          "activity": "parking"
-        },
-        "timeSpans": [
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "07:00",
-                "to": "16:00"
-              }
-            ]
-          }
-        ]
       }
     ]
   },
@@ -61387,6 +61626,87 @@
         "priorityCategory": "4",
         "rule": {
           "activity": "loading"
+        },
+        "timeSpans": []
+      }
+    ]
+  },
+  "1274_1483_1502_1514": {
+    "agregateID_RPA": "1274_1483_1502_1514",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1274,
+        "DESCRIPTION_RPA": "P 02h",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "PD-TB",
+        "RULES": [
+          {
+            "priorityCategory": "4",
+            "rule": {
+              "activity": "parking"
+            },
+            "timeSpans": []
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1514,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PH"
+      },
+      {
+        "PANNEAU_ID_RPA": 1483,
+        "DESCRIPTION_RPA": "PANONCEAU 09h00 @ 17h00",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-JA",
+        "RULES": [
+          {
+            "timeSpans": [
+              {
+                "timesOfDay": [
+                  {
+                    "from": "09:00",
+                    "to": "17:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1502,
+        "DESCRIPTION_RPA": "PANONCEAU LUN. AU SAM.",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-LS",
+        "RULES": [
+          {
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr",
+                    "sa"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": 5,
+        "rule": {
+          "activity": "parking"
         },
         "timeSpans": []
       }
@@ -61956,6 +62276,116 @@
               {
                 "from": "14:30",
                 "to": "16:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "1460_14623": {
+    "agregateID_RPA": "1460_14623",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 1460,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE AUTOBUS SCOLAIRE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-AE"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 14623,
+        "DESCRIPTION_RPA": "\\A 07h30-18h JOURS D'ECOLE",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "AE-JH",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no standing"
+            },
+            "timeSpans": [
+              {
+                "timesOfDay": [
+                  {
+                    "from": "07:30",
+                    "to": "18:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "no standing"
+        },
+        "timeSpans": [
+          {
+            "timesOfDay": [
+              {
+                "from": "07:30",
+                "to": "18:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "1460_14624": {
+    "agregateID_RPA": "1460_14624",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 1460,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE AUTOBUS SCOLAIRE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-AE"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 14624,
+        "DESCRIPTION_RPA": "\\P 07h30-18h JOURS D'ECOLE",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SE-JK",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "timesOfDay": [
+                  {
+                    "from": "07:30",
+                    "to": "18:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "timesOfDay": [
+              {
+                "from": "07:30",
+                "to": "18:00"
               }
             ]
           }
@@ -63337,6 +63767,57 @@
       }
     ]
   },
+  "1463_1762": {
+    "agregateID_RPA": "1463_1762",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1762,
+        "DESCRIPTION_RPA": "\\P RESERVE DEBARCADERE HANDICAPES EN TOUT TEMPS",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "RD-TT",
+        "RULES": [
+          {
+            "priorityCategory": "4",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": []
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1463,
+        "DESCRIPTION_RPA": "PANONCEAU 1 NOVEMBRE AU 15 AVRIL",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-AH",
+        "RULES": [
+          {
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "11-01",
+                    "to": "04-15"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": "4",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": []
+      }
+    ]
+  },
   "14219_1503_1702": {
     "agregateID_RPA": "14219_1503_1702",
     "unmmanaged": [],
@@ -63406,6 +63887,130 @@
         "priorityCategory": "4",
         "rule": {
           "activity": "no parking"
+        },
+        "timeSpans": []
+      }
+    ]
+  },
+  "1512_2733": {
+    "agregateID_RPA": "1512_2733",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 2733,
+        "DESCRIPTION_RPA": "\\P 13h-16h LUN. AU VEN.",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SV-PB",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "13:00",
+                    "to": "16:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1512,
+        "DESCRIPTION_RPA": "PANONCEAU DEBAR. SEULEMENT",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PD"
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "loading"
+        },
+        "timeSpans": [
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "13:00",
+                "to": "16:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "1256_1485": {
+    "agregateID_RPA": "1256_1485",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1256,
+        "DESCRIPTION_RPA": "P 15 min",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "PD-DT",
+        "RULES": [
+          {
+            "priorityCategory": "4",
+            "rule": {
+              "activity": "parking"
+            },
+            "timeSpans": []
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1485,
+        "DESCRIPTION_RPA": "PANONCEAU 09h-21h",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-JC",
+        "RULES": [
+          {
+            "timeSpans": [
+              {
+                "timesOfDay": [
+                  {
+                    "from": "09:00",
+                    "to": "21:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": "4",
+        "rule": {
+          "activity": "parking"
         },
         "timeSpans": []
       }
@@ -64009,6 +64614,66 @@
       }
     ]
   },
+  "1492_1696": {
+    "agregateID_RPA": "1492_1696",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1696,
+        "DESCRIPTION_RPA": "\\P RESERVE VEHICULES DE LA VILLE",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "R-VA",
+        "RULES": [
+          {
+            "priorityCategory": "4",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": []
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1492,
+        "DESCRIPTION_RPA": "PANONCEAU 08h-16h LUN A VEN",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-JJ",
+        "RULES": [
+          {
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "08:00",
+                    "to": "16:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": "4",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": []
+      }
+    ]
+  },
   "1528_9075_9100": {
     "agregateID_RPA": "1528_9075_9100",
     "unmmanaged": [
@@ -64063,6 +64728,79 @@
               {
                 "from": "21:00",
                 "to": "08:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "1514_1670": {
+    "agregateID_RPA": "1514_1670",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1670,
+        "DESCRIPTION_RPA": "\\P RESERVE S3R 09h-23h LUN A VEN  (2 SECTEURS)",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "R-RY-2S",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "09:00",
+                    "to": "23:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1514,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PH"
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": 4,
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "09:00",
+                "to": "23:00"
               }
             ]
           }
@@ -64381,133 +65119,6 @@
           "activity": "no parking"
         },
         "timeSpans": []
-      }
-    ]
-  },
-  "14308_1481_15851": {
-    "agregateID_RPA": "14308_1481_15851",
-    "unmmanaged": [
-      {
-        "PANNEAU_ID_RPA": 1481,
-        "DESCRIPTION_RPA": "PANONCEAU RESERVE HANDICAPE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-HC"
-      }
-    ],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 15851,
-        "DESCRIPTION_RPA": "P 15 MIN 07h-09h ET 15h-18h LUN A VEN",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "PV-QL",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "parking"
-            },
-            "timeSpans": [
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "07:00",
-                    "to": "09:00"
-                  }
-                ]
-              },
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "15:00",
-                    "to": "18:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 14308,
-        "DESCRIPTION_RPA": "PANONCEAU 20 AOÛT AU 30 JUIN",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-AX",
-        "RULES": [
-          {
-            "timeSpans": [
-              {
-                "effectiveDates": [
-                  {
-                    "from": "08-20",
-                    "to": "06-30"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": [
-      {
-        "priorityCategory": "3",
-        "rule": {
-          "activity": "parking"
-        },
-        "timeSpans": [
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "07:00",
-                "to": "09:00"
-              }
-            ]
-          },
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "15:00",
-                "to": "18:00"
-              }
-            ]
-          }
-        ]
       }
     ]
   },
@@ -66326,6 +66937,63 @@
       }
     ]
   },
+  "1512_1514_2413": {
+    "agregateID_RPA": "1512_1514_2413",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 2413,
+        "DESCRIPTION_RPA": "\\P EN TOUT TEMPS",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SD-TT",
+        "RULES": [
+          {
+            "priorityCategory": "5",
+            "rule": {
+              "activity": "parking"
+            },
+            "timeSpans": []
+          },
+          {
+            "priorityCategory": "4",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": []
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1514,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PH"
+      },
+      {
+        "PANNEAU_ID_RPA": 1512,
+        "DESCRIPTION_RPA": "PANONCEAU DEBAR. SEULEMENT",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PD"
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": 6,
+        "rule": {
+          "activity": "parking"
+        },
+        "timeSpans": []
+      },
+      {
+        "priorityCategory": 5,
+        "rule": {
+          "activity": "loading"
+        },
+        "timeSpans": []
+      }
+    ]
+  },
   "14061_1519": {
     "agregateID_RPA": "14061_1519",
     "unmmanaged": [
@@ -67216,61 +67884,6 @@
       }
     ]
   },
-  "1460_14623": {
-    "agregateID_RPA": "1460_14623",
-    "unmmanaged": [
-      {
-        "PANNEAU_ID_RPA": 1460,
-        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE AUTOBUS SCOLAIRE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-AE"
-      }
-    ],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 14623,
-        "DESCRIPTION_RPA": "\\A 07h30-18h JOURS D'ECOLE",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "AE-JH",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no standing"
-            },
-            "timeSpans": [
-              {
-                "timesOfDay": [
-                  {
-                    "from": "07:30",
-                    "to": "18:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": [
-      {
-        "priorityCategory": "3",
-        "rule": {
-          "activity": "no standing"
-        },
-        "timeSpans": [
-          {
-            "timesOfDay": [
-              {
-                "from": "07:30",
-                "to": "18:00"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "1486_1686": {
     "agregateID_RPA": "1486_1686",
     "unmmanaged": [],
@@ -68048,6 +68661,27 @@
       }
     ]
   },
+  "14881_1514": {
+    "agregateID_RPA": "14881_1514",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 14881,
+        "DESCRIPTION_RPA": "RÉSERVÉ INCENDIE",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SLR-ST-150",
+        "RULES": []
+      },
+      {
+        "PANNEAU_ID_RPA": 1514,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PH"
+      }
+    ],
+    "tempRules": null,
+    "regulations": []
+  },
   "1482_24": {
     "agregateID_RPA": "1482_24",
     "unmmanaged": [],
@@ -68618,79 +69252,6 @@
               {
                 "from": "09:00",
                 "to": "21:30"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "1413_1514": {
-    "agregateID_RPA": "1413_1514",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 1413,
-        "DESCRIPTION_RPA": "P 15 min 09h30-17h LUN. AU VEN.",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "PV-DD",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "parking"
-            },
-            "timeSpans": [
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "09:30",
-                    "to": "17:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1514,
-        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PH"
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": 4,
-        "rule": {
-          "activity": "parking"
-        },
-        "timeSpans": [
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "09:30",
-                "to": "17:00"
               }
             ]
           }
@@ -69660,6 +70221,61 @@
       }
     ]
   },
+  "1514_1760": {
+    "agregateID_RPA": "1514_1760",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1760,
+        "DESCRIPTION_RPA": "\\P RESERVE HANDICAPES DE 09h00 A 21h00",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "RD-JD",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "timesOfDay": [
+                  {
+                    "from": "09:00",
+                    "to": "21:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1514,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PH"
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": 4,
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "timesOfDay": [
+              {
+                "from": "09:00",
+                "to": "21:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "1279_1492": {
     "agregateID_RPA": "1279_1492",
     "unmmanaged": [],
@@ -69791,6 +70407,83 @@
           "activity": "no standing"
         },
         "timeSpans": []
+      }
+    ]
+  },
+  "14050_1514": {
+    "agregateID_RPA": "14050_1514",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 14050,
+        "DESCRIPTION_RPA": "\\P 08h30-09h30 LUN. 1 AVRIL AU 1 DEC.",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SU-LB-A",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "04-01",
+                    "to": "12-01"
+                  }
+                ],
+                "daysOfWeek": {
+                  "days": [
+                    "mo"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "08:30",
+                    "to": "09:30"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1514,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PH"
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": 4,
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "effectiveDates": [
+              {
+                "from": "04-01",
+                "to": "12-01"
+              }
+            ],
+            "daysOfWeek": {
+              "days": [
+                "mo"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "08:30",
+                "to": "09:30"
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -70440,83 +71133,6 @@
           "activity": "no parking"
         },
         "timeSpans": []
-      }
-    ]
-  },
-  "14318_1514": {
-    "agregateID_RPA": "14318_1514",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 14318,
-        "DESCRIPTION_RPA": "\\P 08h30-11h30 MARDI 1 AVRIL AU 1 DEC.",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SU-AC-A",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": [
-              {
-                "effectiveDates": [
-                  {
-                    "from": "04-01",
-                    "to": "12-01"
-                  }
-                ],
-                "daysOfWeek": {
-                  "days": [
-                    "tu"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "08:30",
-                    "to": "11:30"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1514,
-        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PH"
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": 4,
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": [
-          {
-            "effectiveDates": [
-              {
-                "from": "04-01",
-                "to": "12-01"
-              }
-            ],
-            "daysOfWeek": {
-              "days": [
-                "tu"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "08:30",
-                "to": "11:30"
-              }
-            ]
-          }
-        ]
       }
     ]
   },
@@ -71630,84 +72246,6 @@
       }
     ]
   },
-  "1482_2733": {
-    "agregateID_RPA": "1482_2733",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 2733,
-        "DESCRIPTION_RPA": "\\P 13h-16h LUN. AU VEN.",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SV-PB",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": [
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "13:00",
-                    "to": "16:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1482,
-        "DESCRIPTION_RPA": "PANONCEAU DEBARCADERE RESERVE HANDICAPE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-HD"
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": "3",
-        "rule": {
-          "activity": "loading"
-        },
-        "timeSpans": [
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "13:00",
-                "to": "16:00"
-              }
-            ]
-          }
-        ],
-        "UserClasses": {
-          "classe": [
-            "handicap"
-          ]
-        }
-      }
-    ]
-  },
   "1514_1516_2470": {
     "agregateID_RPA": "1514_1516_2470",
     "unmmanaged": [],
@@ -71856,7 +72394,7 @@
     "managed": [
       {
         "PANNEAU_ID_RPA": 1567,
-        "DESCRIPTION_RPA": "\\P RESERVE CORPS DIPLOMATIQUE",
+        "DESCRIPTION_RPA": "\\P EXCEPTÉ CORPS DIPLOMATIQUES",
         "DESCRIPTION_CAT": "STATIONNEMENT",
         "CODE_RPA": "R-CD",
         "RULES": [
@@ -72003,6 +72541,83 @@
       }
     ]
   },
+  "14109_1519": {
+    "agregateID_RPA": "14109_1519",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 1519,
+        "DESCRIPTION_RPA": "PANONCEAU LORSQUE STATIONNEMENT PERMIS-PETITES VOITURES",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PV"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 14109,
+        "DESCRIPTION_RPA": "\\P 07h-08h MER. 1 AVRIL AU 1 DEC.",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SU-NS-A",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "04-01",
+                    "to": "12-01"
+                  }
+                ],
+                "daysOfWeek": {
+                  "days": [
+                    "we"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "07:00",
+                    "to": "08:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "effectiveDates": [
+              {
+                "from": "04-01",
+                "to": "12-01"
+              }
+            ],
+            "daysOfWeek": {
+              "days": [
+                "we"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "07:00",
+                "to": "08:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "1511_1518_2766": {
     "agregateID_RPA": "1511_1518_2766",
     "unmmanaged": [
@@ -72066,6 +72681,93 @@
             "timesOfDay": [
               {
                 "from": "09:00",
+                "to": "17:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "1410_15776": {
+    "agregateID_RPA": "1410_15776",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1410,
+        "DESCRIPTION_RPA": "P 15 min 08h-17h LUN. AU VEN.",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "PV-DA",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "parking"
+            },
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "08:00",
+                    "to": "17:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 15776,
+        "DESCRIPTION_RPA": "PANONCEAU 15 MAI AU 15 SEPT.",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-BB",
+        "RULES": [
+          {
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "05-15",
+                    "to": "09-15"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "parking"
+        },
+        "timeSpans": [
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "08:00",
                 "to": "17:00"
               }
             ]
@@ -73327,83 +74029,6 @@
       }
     ]
   },
-  "14038_1519": {
-    "agregateID_RPA": "14038_1519",
-    "unmmanaged": [
-      {
-        "PANNEAU_ID_RPA": 1519,
-        "DESCRIPTION_RPA": "PANONCEAU LORSQUE STATIONNEMENT PERMIS-PETITES VOITURES",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PV"
-      }
-    ],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 14038,
-        "DESCRIPTION_RPA": "\\P 13h-14h JEU. 1 AVRIL AU 1 DEC.",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SU-JL-A",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": [
-              {
-                "effectiveDates": [
-                  {
-                    "from": "04-01",
-                    "to": "12-01"
-                  }
-                ],
-                "daysOfWeek": {
-                  "days": [
-                    "th"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "13:00",
-                    "to": "14:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": [
-      {
-        "priorityCategory": "3",
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": [
-          {
-            "effectiveDates": [
-              {
-                "from": "04-01",
-                "to": "12-01"
-              }
-            ],
-            "daysOfWeek": {
-              "days": [
-                "th"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "13:00",
-                "to": "14:00"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "1480_2430": {
     "agregateID_RPA": "1480_2430",
     "unmmanaged": [
@@ -73723,66 +74348,6 @@
       }
     ]
   },
-  "1492_1696": {
-    "agregateID_RPA": "1492_1696",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 1696,
-        "DESCRIPTION_RPA": "\\P RESERVE VEHICULES DE LA VILLE",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "R-VA",
-        "RULES": [
-          {
-            "priorityCategory": "4",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": []
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1492,
-        "DESCRIPTION_RPA": "PANONCEAU 08h-16h LUN A VEN",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-JJ",
-        "RULES": [
-          {
-            "timeSpans": [
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "08:00",
-                    "to": "16:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": "4",
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": []
-      }
-    ]
-  },
   "1493_1503_1686": {
     "agregateID_RPA": "1493_1503_1686",
     "unmmanaged": [],
@@ -74092,8 +74657,8 @@
       }
     ]
   },
-  "14038_1524": {
-    "agregateID_RPA": "14038_1524",
+  "14094_1524": {
+    "agregateID_RPA": "14094_1524",
     "unmmanaged": [
       {
         "PANNEAU_ID_RPA": 1524,
@@ -74104,10 +74669,10 @@
     ],
     "managed": [
       {
-        "PANNEAU_ID_RPA": 14038,
-        "DESCRIPTION_RPA": "\\P 13h-14h JEU. 1 AVRIL AU 1 DEC.",
+        "PANNEAU_ID_RPA": 14094,
+        "DESCRIPTION_RPA": "\\P 09h-10h MER. 1 AVRIL AU 1 DEC.",
         "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SU-JL-A",
+        "CODE_RPA": "SU-NC-A",
         "RULES": [
           {
             "priorityCategory": "3",
@@ -74124,13 +74689,13 @@
                 ],
                 "daysOfWeek": {
                   "days": [
-                    "th"
+                    "we"
                   ]
                 },
                 "timesOfDay": [
                   {
-                    "from": "13:00",
-                    "to": "14:00"
+                    "from": "09:00",
+                    "to": "10:00"
                   }
                 ]
               }
@@ -74155,13 +74720,13 @@
             ],
             "daysOfWeek": {
               "days": [
-                "th"
+                "we"
               ]
             },
             "timesOfDay": [
               {
-                "from": "13:00",
-                "to": "14:00"
+                "from": "09:00",
+                "to": "10:00"
               }
             ]
           }
@@ -74606,93 +75171,6 @@
               {
                 "from": "07:00",
                 "to": "18:00"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "14653_9428": {
-    "agregateID_RPA": "14653_9428",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 9428,
-        "DESCRIPTION_RPA": "\\P EXCEPTE S3R 9h-23h LUN A VEN",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "R-RY",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": [
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "09:00",
-                    "to": "23:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 14653,
-        "DESCRIPTION_RPA": "PANONCEAU 15 NOV. AU 1 AVRIL",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-AZ",
-        "RULES": [
-          {
-            "timeSpans": [
-              {
-                "effectiveDates": [
-                  {
-                    "from": "11-15",
-                    "to": "04-01"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": "3",
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": [
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "09:00",
-                "to": "23:00"
               }
             ]
           }
@@ -75220,57 +75698,6 @@
     ],
     "tempRules": []
   },
-  "1281_15574": {
-    "agregateID_RPA": "1281_15574",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 1281,
-        "DESCRIPTION_RPA": "P 60 min",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "PD-TT",
-        "RULES": [
-          {
-            "priorityCategory": "4",
-            "rule": {
-              "activity": "parking"
-            },
-            "timeSpans": []
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 15574,
-        "DESCRIPTION_RPA": "PANONCEAU 07h-22h30",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-JM",
-        "RULES": [
-          {
-            "timeSpans": [
-              {
-                "timesOfDay": [
-                  {
-                    "from": "07:00",
-                    "to": "22:30"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": "4",
-        "rule": {
-          "activity": "parking"
-        },
-        "timeSpans": []
-      }
-    ]
-  },
   "14073_1460": {
     "agregateID_RPA": "14073_1460",
     "unmmanaged": [
@@ -75538,79 +75965,6 @@
       }
     ]
   },
-  "1514_2728": {
-    "agregateID_RPA": "1514_2728",
-    "unmmanaged": [],
-    "managed": [
-      {
-        "PANNEAU_ID_RPA": 2728,
-        "DESCRIPTION_RPA": "\\P 07h-18h LUN. AU VEN.",
-        "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "SV-OC",
-        "RULES": [
-          {
-            "priorityCategory": "3",
-            "rule": {
-              "activity": "no parking"
-            },
-            "timeSpans": [
-              {
-                "daysOfWeek": {
-                  "days": [
-                    "mo",
-                    "tu",
-                    "we",
-                    "th",
-                    "fr"
-                  ]
-                },
-                "timesOfDay": [
-                  {
-                    "from": "07:00",
-                    "to": "18:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 1514,
-        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-PH"
-      }
-    ],
-    "tempRules": null,
-    "regulations": [
-      {
-        "priorityCategory": 4,
-        "rule": {
-          "activity": "no parking"
-        },
-        "timeSpans": [
-          {
-            "daysOfWeek": {
-              "days": [
-                "mo",
-                "tu",
-                "we",
-                "th",
-                "fr"
-              ]
-            },
-            "timesOfDay": [
-              {
-                "from": "07:00",
-                "to": "18:00"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "1277_1514": {
     "agregateID_RPA": "1277_1514",
     "unmmanaged": [],
@@ -75645,6 +75999,75 @@
           "activity": "parking"
         },
         "timeSpans": []
+      }
+    ]
+  },
+  "14653_2386": {
+    "agregateID_RPA": "14653_2386",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 2386,
+        "DESCRIPTION_RPA": "\\P 23h-07h",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SD-NK",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "timesOfDay": [
+                  {
+                    "from": "23:00",
+                    "to": "07:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 14653,
+        "DESCRIPTION_RPA": "PANONCEAU 15 NOV. AU 1 AVRIL",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-AZ",
+        "RULES": [
+          {
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "11-15",
+                    "to": "04-01"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "timesOfDay": [
+              {
+                "from": "23:00",
+                "to": "07:00"
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -76256,6 +76679,133 @@
       }
     ]
   },
+  "14308_1481_15851": {
+    "agregateID_RPA": "14308_1481_15851",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 1481,
+        "DESCRIPTION_RPA": "PANONCEAU RESERVE HANDICAPE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-HC"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 15851,
+        "DESCRIPTION_RPA": "P 15 MIN 07h-09h ET 15h-18h LUN A VEN",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "PV-QL",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "parking"
+            },
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "07:00",
+                    "to": "09:00"
+                  }
+                ]
+              },
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "15:00",
+                    "to": "18:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 14308,
+        "DESCRIPTION_RPA": "PANONCEAU 20 AOÛT AU 30 JUIN",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-AX",
+        "RULES": [
+          {
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "08-20",
+                    "to": "06-30"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "parking"
+        },
+        "timeSpans": [
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "07:00",
+                "to": "09:00"
+              }
+            ]
+          },
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "15:00",
+                "to": "18:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "1501_2395": {
     "agregateID_RPA": "1501_2395",
     "unmmanaged": [],
@@ -76797,15 +77347,22 @@
       }
     ]
   },
-  "1410_15776": {
-    "agregateID_RPA": "1410_15776",
-    "unmmanaged": [],
+  "1421_9488": {
+    "agregateID_RPA": "1421_9488",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 9488,
+        "DESCRIPTION_RPA": "PANONCEAU - EXCEPTE VEHICULES MUNIS D'UN PERMIS",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PR"
+      }
+    ],
     "managed": [
       {
-        "PANNEAU_ID_RPA": 1410,
-        "DESCRIPTION_RPA": "P 15 min 08h-17h LUN. AU VEN.",
+        "PANNEAU_ID_RPA": 1421,
+        "DESCRIPTION_RPA": "P 60 min 09h-15h LUN. AU VEN.",
         "DESCRIPTION_CAT": "STATIONNEMENT",
-        "CODE_RPA": "PV-DA",
+        "CODE_RPA": "PV-JA",
         "RULES": [
           {
             "priorityCategory": "3",
@@ -76825,28 +77382,8 @@
                 },
                 "timesOfDay": [
                   {
-                    "from": "08:00",
-                    "to": "17:00"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "PANNEAU_ID_RPA": 15776,
-        "DESCRIPTION_RPA": "PANONCEAU 15 MAI AU 15 SEPT.",
-        "DESCRIPTION_CAT": "STAT-PANNONC.",
-        "CODE_RPA": "PX-BB",
-        "RULES": [
-          {
-            "timeSpans": [
-              {
-                "effectiveDates": [
-                  {
-                    "from": "05-15",
-                    "to": "09-15"
+                    "from": "09:00",
+                    "to": "15:00"
                   }
                 ]
               }
@@ -76855,8 +77392,7 @@
         ]
       }
     ],
-    "tempRules": null,
-    "regulations": [
+    "tempRules": [
       {
         "priorityCategory": "3",
         "rule": {
@@ -76875,8 +77411,8 @@
             },
             "timesOfDay": [
               {
-                "from": "08:00",
-                "to": "17:00"
+                "from": "09:00",
+                "to": "15:00"
               }
             ]
           }
@@ -77355,6 +77891,298 @@
           "activity": "no parking"
         },
         "timeSpans": []
+      }
+    ]
+  },
+  "1491_24": {
+    "agregateID_RPA": "1491_24",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 24,
+        "DESCRIPTION_RPA": "\\A RESERVE AUTOBUS",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "AR-TT",
+        "RULES": [
+          {
+            "priorityCategory": "4",
+            "rule": {
+              "activity": "no standing"
+            },
+            "timeSpans": []
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1491,
+        "DESCRIPTION_RPA": "PANONCEAU 06h-09h LUN A VEN",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-JI",
+        "RULES": [
+          {
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "06:00",
+                    "to": "09:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": "4",
+        "rule": {
+          "activity": "no standing"
+        },
+        "timeSpans": []
+      }
+    ]
+  },
+  "1274_1514_15730_9488": {
+    "agregateID_RPA": "1274_1514_15730_9488",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 9488,
+        "DESCRIPTION_RPA": "PANONCEAU - EXCEPTE VEHICULES MUNIS D'UN PERMIS",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PR"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1274,
+        "DESCRIPTION_RPA": "P 02h",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "PD-TB",
+        "RULES": [
+          {
+            "priorityCategory": "4",
+            "rule": {
+              "activity": "parking"
+            },
+            "timeSpans": []
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1514,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PH"
+      },
+      {
+        "PANNEAU_ID_RPA": 15730,
+        "DESCRIPTION_RPA": "PANONCEAU 09h-16h LUN A VEN",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-JN",
+        "RULES": [
+          {
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "09:00",
+                    "to": "16:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": 5,
+        "rule": {
+          "activity": "parking"
+        },
+        "timeSpans": []
+      }
+    ]
+  },
+  "14199_9488": {
+    "agregateID_RPA": "14199_9488",
+    "unmmanaged": [
+      {
+        "PANNEAU_ID_RPA": 9488,
+        "DESCRIPTION_RPA": "PANONCEAU - EXCEPTE VEHICULES MUNIS D'UN PERMIS",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PR"
+      }
+    ],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 14199,
+        "DESCRIPTION_RPA": "\\P 07h-09h LUN. AU VEN. 1 AVRIL AU 1 DEC.",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "SV-VA-A",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "effectiveDates": [
+                  {
+                    "from": "04-01",
+                    "to": "12-01"
+                  }
+                ],
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "07:00",
+                    "to": "09:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tempRules": [
+      {
+        "priorityCategory": "3",
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "effectiveDates": [
+              {
+                "from": "04-01",
+                "to": "12-01"
+              }
+            ],
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "07:00",
+                "to": "09:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "1514_1757": {
+    "agregateID_RPA": "1514_1757",
+    "unmmanaged": [],
+    "managed": [
+      {
+        "PANNEAU_ID_RPA": 1757,
+        "DESCRIPTION_RPA": "\\P RESERVE HANDICAPES DE 08h00 A 18h00, LUNDI AU SAMEDI",
+        "DESCRIPTION_CAT": "STATIONNEMENT",
+        "CODE_RPA": "RD-JA",
+        "RULES": [
+          {
+            "priorityCategory": "3",
+            "rule": {
+              "activity": "no parking"
+            },
+            "timeSpans": [
+              {
+                "daysOfWeek": {
+                  "days": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr",
+                    "sa"
+                  ]
+                },
+                "timesOfDay": [
+                  {
+                    "from": "08:00",
+                    "to": "18:00"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "PANNEAU_ID_RPA": 1514,
+        "DESCRIPTION_RPA": "PANONCEAU EXCEPTE PERIODE INTERDITE",
+        "DESCRIPTION_CAT": "STAT-PANNONC.",
+        "CODE_RPA": "PX-PH"
+      }
+    ],
+    "tempRules": null,
+    "regulations": [
+      {
+        "priorityCategory": 4,
+        "rule": {
+          "activity": "no parking"
+        },
+        "timeSpans": [
+          {
+            "daysOfWeek": {
+              "days": [
+                "mo",
+                "tu",
+                "we",
+                "th",
+                "fr",
+                "sa"
+              ]
+            },
+            "timesOfDay": [
+              {
+                "from": "08:00",
+                "to": "18:00"
+              }
+            ]
+          }
+        ]
       }
     ]
   }

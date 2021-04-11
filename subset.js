@@ -9,6 +9,12 @@ const input = JSON.parse(inputGeojson);
 var geojson = {"crs":input.crs};
 geojson['type'] = 'FeatureCollection';
 
+//filtrer avec un arrondissement recu en ligne de commande
+process.argv.shift();
+process.argv.shift();
+const arrond_from_cmd = process.argv.join(" ");
+// console.log('myArgs: ', arrond_from_cmd);
+
 function zoneFilter (feature, lon,lat){
   return Math.min(...lon)<feature.geometry.coordinates[0] 
       && Math.max(...lon)>feature.geometry.coordinates[0] 
@@ -17,41 +23,47 @@ function zoneFilter (feature, lon,lat){
 }
 
 // aucun filtre
-//geojson['features'] = input.features;
-// proche de SFL
-//geojson['features'] = input.features.filter(feature=>zoneFilter(feature,[-73.635009,-73.610089],[45.526366,45.538541]));
-// clark sfl
-//geojson['features'] = input.features.filter(feature=>zoneFilter(feature,[-73.62041,-73.61931],[45.53486,45.53416]));
-// carré jean-talon/st-laurent
-//geojson['features'] = input.features.filter(feature=>zoneFilter(feature,[-73.61848,-73.61600],[45.53518,45.53400]));
+// geojson['features'] = input.features;
+
+// // proche de SFL
+// geojson['features'] = input.features.filter(feature=>zoneFilter(feature,[-73.635009,-73.610089],[45.526366,45.538541]));
+// // clark sfl
+// geojson['features'] = input.features.filter(feature=>zoneFilter(feature,[-73.62041,-73.61931],[45.53486,45.53416]));
+// // carré jean-talon/st-laurent
+// geojson['features'] = input.features.filter(feature=>zoneFilter(feature,[-73.61848,-73.61600],[45.53518,45.53400]));
 // rosemont / papineau  beaucoup de pannonceau et vignette
-//geojson['features'] = input.features.filter(feature=>zoneFilter(feature,[-73.6045,-73.5738],[45.5485,45.5355]));
+// geojson['features'] = input.features.filter(feature=>zoneFilter(feature,[-73.6045,-73.5738],[45.5485,45.5355]));
 
-arrond = [
-    'Mercier - Hochelaga-Maisonneuve',
-    'Rosemont - La Petite-Patrie',
-    'Villeray - Saint-Michel - Parc-Extension',
-    'Ville-Marie',
-    'Plateau-Mont-Royal',
-    'Ahuntsic - Cartierville',
-    'Outremont',
-//err    'Côte-des-Neiges - Notre-Dame-de-Grâce',
-    'Rivière-des-Prairies - Pointe-aux-Trembles',
-    'Saint-Laurent',           //partiel  4318 panneau non gérer
-    'Sud-Ouest',
-//err    'Saint-Léonard',
-    'LaSalle',                 //partiel data missing?
-    'Verdun',                  //partiel data missing?
-    'Montréal-Nord',           //partiel data missing?
-    'Anjou',                   //partiel data missing?
-    'Lachine',
-    'Pierrefonds - Roxboro'      //partiel data missing?
-]
 
+// {filtersArray:[{spatialFilter:[{"rings" : [ [ [-97.7325, 30.259],[97.7180,30.259 ], [-97.7180, 30.2687],[-97.7325, 30.2687],[-97.7325, 30.259] ]],"spatialReference" : {"wkid" : 4326}}]}]}
+
+// arrond = [
+//     'Mercier - Hochelaga-Maisonneuve',
+//     'Rosemont - La Petite-Patrie',
+//     'Villeray - Saint-Michel - Parc-Extension',
+//     'Ville-Marie',
+//     'Plateau-Mont-Royal',
+//     'Ahuntsic - Cartierville',
+//     'Outremont',
+// // err
+//     'Côte-des-Neiges - Notre-Dame-de-Grâce',
+//     'Rivière-des-Prairies - Pointe-aux-Trembles',
+//     'Saint-Laurent',           //partiel  4318 panneau non gérer
+//     'Sud-Ouest',
+// //err    'Saint-Léonard',
+//     'LaSalle',                 //partiel data missing?
+//     'Verdun',                  //partiel data missing?
+//     'Montréal-Nord',           //partiel data missing?
+//     'Anjou',                   //partiel data missing?
+//     'Lachine',
+//     'Pierrefonds - Roxboro'      //partiel data missing?
+// ]
+// console.log("XXXXXXXXXXXXXXXXXXXXXXXXX =>>>>>>>>", arrond_from_cmd);
+arrond = [arrond_from_cmd]
 geojson['features'] = input.features.filter(feature=>arrond.indexOf(feature.properties.NOM_ARROND)>=0);
 
 
-geojson['features'] = geojson.features.filter(feature=>feature.properties.DESCRIPTION_REP!="Enlevé");
+// geojson['features'] = geojson.features.filter(feature=>feature.properties.DESCRIPTION_REP!="Enlevé");
 
 geojson['features'] = geojson.features.map(feature=>{
     feature.properties.title = feature.properties.PANNEAU_ID_PAN;

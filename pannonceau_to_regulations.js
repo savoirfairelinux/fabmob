@@ -14,8 +14,9 @@ function debug(...param){
 }
 
 const fs = require('fs');
-
-const mtlData = fs.readFileSync('data/signalisation_stationnement.geojson');
+// const file = "data/mtl-places-Oasis-bellechasse--plaza.filtred.geojson"
+const file = "data/signalisation_stationnement.geojson"
+const mtlData = fs.readFileSync(file);
 const mtlDataJson = JSON.parse(mtlData);
 const mtlFeatur = mtlDataJson.features;
 
