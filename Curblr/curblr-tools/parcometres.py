@@ -4,6 +4,7 @@ import requests
 import csv
 import json
 import math
+import os
 #from varname import name
 from geojson import Feature, FeatureCollection, Point
 
@@ -49,12 +50,16 @@ urls_name = [
 
 #places
 PATH = "data/"
+try:
+    os.mkdir(PATH)
+except OSError:
+    print ("Creation of the directory %s failed" % PATH)
 
 def get_files():
     for i, url in enumerate(urls):
         r = requests.get(url, stream = True)
-        file_name = PATH + urls_name[i] + ".csv"
-        with open(file_name, "wb") as f:
+        file_name = urls_name[i] + ".csv"
+        with open(PATH + file_name, "wb") as f:
             for chunk in r.iter_content(chunk_size = 1024):
                 if chunk:
                     f.write(chunk)
@@ -64,9 +69,9 @@ def get_files():
 '''
 def emplacement_reglementations_to_dic(url_name):
     # file_name = PATH + urls_name[2] + ".csv"
-    file_name = PATH + url_name + ".csv"
+    file_name = url_name + ".csv"
     dic = {}
-    with open(file_name, newline='', encoding="ISO-8859-1") as csvfile:
+    with open(PATH + file_name, newline='', encoding="ISO-8859-1") as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         # sNoEmplacement,sCodeAutocollant
         l_tuple = []
@@ -84,9 +89,9 @@ def emplacement_reglementations_to_dic(url_name):
 
 def reglementations_to_dic(url_name):
     # file_name = PATH + urls_name[1] + ".csv"
-    file_name = PATH + url_name + ".csv"
+    file_name = url_name + ".csv"
     dic = {}
-    with open(file_name, newline='', encoding="ISO-8859-1") as csvfile:
+    with open(PATH + file_name, newline='', encoding="ISO-8859-1") as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         # Name,Type,DateDebut,DateFin,maxHeures
         l_tuple = []
@@ -100,9 +105,9 @@ def reglementations_to_dic(url_name):
 
 def reglementations_periode_to_dic(url_name):
     # file_name = PATH + urls_name[3] + ".csv"
-    file_name = PATH + url_name + ".csv"
+    file_name = url_name + ".csv"
     dic = {}
-    with open(file_name, newline='', encoding="ISO-8859-1") as csvfile:
+    with open(PATH + file_name, newline='', encoding="ISO-8859-1") as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         # sCode,noPeriode,sDescription
         l_tuple = []
@@ -120,9 +125,9 @@ def reglementations_periode_to_dic(url_name):
 
 def periodes_to_dic(url_name):
     # file_name = PATH + urls_name[4] + ".csv"
-    file_name = PATH + url_name + ".csv"
+    file_name = url_name + ".csv"
     dic = {}
-    with open(file_name, newline='', encoding="ISO-8859-1") as csvfile:
+    with open(PATH + file_name, newline='', encoding="ISO-8859-1") as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         # nID,dtHeureDebut,dtHeureFin,bLun,bMar,bMer,bJeu,bVen,bSam,bDim
 
@@ -155,8 +160,8 @@ def periodes_to_dic(url_name):
 '''
 def convert_places():
     features = []
-    file_name = PATH + urls_name[0] + ".csv"
-    with open(file_name, newline='', encoding="ISO-8859-1") as csvfile:
+    file_name = urls_name[0] + ".csv"
+    with open(PATH + file_name, newline='', encoding="ISO-8859-1") as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         # sNoPlace, nLongitude, nLatitude, nPositionCentreLongitude, nPositionCentreLatitude,
         # sStatut, sGenre, sType, sAutreTete, sNomRue, nSupVelo, sTypeExploitation, nTarifHoraire, sLocalisation, nTarifMax
@@ -203,14 +208,14 @@ def convert_places():
 
     collection = add_reglementations(collection)
     r = "_with_reglementations"
-    file_name = PATH + urls_name[0] + r +".geojson"
-    with open(file_name, "w") as f:
+    file_name = urls_name[0] + r +".geojson"
+    with open(PATH + file_name, "w") as f:
         f.write('%s' % collection)
 
 def convert_bornes_sur_rue():
     features = []
-    file_name = PATH + urls_name[5] + ".csv"
-    with open(file_name, newline='', encoding="ISO-8859-1") as csvfile:
+    file_name = urls_name[5] + ".csv"
+    with open(PATH + file_name, newline='', encoding="ISO-8859-1") as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         # nNoBorne,sStatut,sNomRue,sZoneGroupeCode,nLongitude,nLatitude,sTypeExploitation
         
@@ -234,14 +239,14 @@ def convert_bornes_sur_rue():
             except ValueError: 
                 pass
     collection = FeatureCollection(features)
-    file_name = PATH + urls_name[5] + ".geojson"
-    with open(file_name, "w") as f:
+    file_name = urls_name[5] + ".geojson"
+    with open(PATH + file_name, "w") as f:
         f.write('%s' % collection)
 
 def convert_bornes_hors_rue():
     features = []
-    file_name = PATH + urls_name[6] + ".csv"
-    with open(file_name, newline='', encoding="ISO-8859-1") as csvfile:
+    file_name = urls_name[6] + ".csv"
+    with open(PATH + file_name, newline='', encoding="ISO-8859-1") as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         # nNoBorne,sTerrain,sNomRuePrincipale,sStatut,nLongitude,nLatitude,Lun,Mar,Mer,Jeu,Ven,Sam,Dim,dtHeureDebutAP,dtHeureFinAP,nTarifHoraire,nMax
         for colonnes in reader:
@@ -274,8 +279,8 @@ def convert_bornes_hors_rue():
             except ValueError:
                 pass
     collection = FeatureCollection(features)
-    file_name = PATH + urls_name[6] + ".geojson"
-    with open(file_name, "w") as f:
+    file_name = urls_name[6] + ".geojson"
+    with open(PATH + file_name, "w") as f:
         f.write('%s' % collection)
 
 def add_reglementations(collection):
@@ -309,7 +314,7 @@ def add_reglementations(collection):
 '''
 
 def turn_regl_to_regu(buffered_file):
-    with open(buffered_file) as f:
+    with open(PATH + buffered_file) as f:
         data = json.load(f)
         geojson = {}
         geojson['manifest']= {
@@ -399,8 +404,8 @@ def turn_regl_to_regu(buffered_file):
                         ],
                     }
                     a = feature["properties"]["pp_snoplace_snoemplacement"]
-                    if a == "RB133":
-                        print(p, " ", a," - " ,n, " ", autocollant,  ": ", timeSpan)
+                    # if a == "RB133":#TODO: DEBUG PARCO
+                        # print(p, " ", a," - " ,n, " ", autocollant,  ": ", timeSpan) 
                     regulation["timeSpans"].append(timeSpan)
                     regulation["payment"] = {#https://github.com/curblr/curblr-spec/blob/master/Payment.md
                                     "rates": [
@@ -469,7 +474,7 @@ def turn_regl_to_regu(buffered_file):
     # outfile = "last_converted.curblr.json"
     # outfile = "last_converted_all.curblr.json"
     # print(1,outfile)
-    with open(outfile, mode="w") as f:
+    with open(PATH + outfile, mode="w") as f:
         # print(2,outfile)
         json.dump(geojson, f)
         # print(3,outfile)

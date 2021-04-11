@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Calque sans titre",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Oasis bellechasse+ plaza", "description": null }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -73.5984806, 45.5310597 ], [ -73.5949293, 45.5349227 ], [ -73.6120458, 45.5426407 ], [ -73.6128612, 45.5411679 ], [ -73.6137624, 45.5391239 ], [ -73.6143632, 45.5384025 ], [ -73.5984806, 45.5310597 ] ] ] } }
+]
+}

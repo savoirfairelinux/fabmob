@@ -80,6 +80,9 @@ filtrage terminé
 '''
     Pour filtrer tous les arrondissements en même temps
 '''
+
+PATH = "data/"
+
 def filter_mtl(arronds=["Rosemont-La Petite-Patrie"]):
     l_out_file = []
     for i in arronds:
@@ -93,7 +96,7 @@ def filter_mtl(arronds=["Rosemont-La Petite-Patrie"]):
         
         # PLAZA
         if arrondissement_montreal == "plaza":
-            file_to_open = "plaza_rosemont.geojson"
+            file_to_open = PATH + "plaza_rosemont.geojson"
             with open(file_to_open) as f:
                 data = json.load(f)
                 for i in (data["features"]):
@@ -101,7 +104,7 @@ def filter_mtl(arronds=["Rosemont-La Petite-Patrie"]):
                         polygone = i["geometry"]["coordinates"]
                         break
         else:
-            file_to_open = "limadmin.geojson.json"
+            file_to_open = PATH + "limadmin.geojson.json"
             with open(file_to_open) as f:
                 data = json.load(f)
                 for i in (data["features"]):
@@ -113,7 +116,7 @@ def filter_mtl(arronds=["Rosemont-La Petite-Patrie"]):
         data = ""
         m=0
         # file_to_open = "signalisation_stationnement.geojson"
-        file_to_open = "data/places_with_reglementations.geojson"
+        file_to_open = PATH + "places_with_reglementations.geojson"
         with open(file_to_open) as f:
             data = json.load(f)
             n=0
@@ -140,7 +143,7 @@ def filter_mtl(arronds=["Rosemont-La Petite-Patrie"]):
         else:
             outfile = "mtl-parco-" + arrondissement_montreal.replace(" ","-").replace("+","-") + ".filtred.geojson"
         
-        with open(outfile, mode="w") as f:
+        with open(PATH + outfile, mode="w") as f:
             json.dump(data, f)
         print("filtrage terminé")
 

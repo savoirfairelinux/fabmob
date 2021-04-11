@@ -4,6 +4,11 @@ from filter_mtl import *
 import os
 if __name__ == "__main__":
 
+    '''
+        arrondissements: liste de tous les arrondissements de la ville de Montrel
+        arronds: liste des arrondissements pour lesquels les donnees de parcometres sont presents
+    '''
+
     arrondissements = [
         "plaza",
         "Outremont",#0
@@ -85,18 +90,16 @@ if __name__ == "__main__":
     print("1b - fin téléchargements")
     
     #conversion
-
     print("\n2a - début conversions")
     convert_bornes_hors_rue()
     convert_bornes_sur_rue()
     convert_places()
     print("2b - fin conversions")
 
-
+    #filtrage
     print("\n3a - début filtrage")
-
     # files = filter_mtl([arronds[0]])#[:4]
-    files = filter_mtl(arronds)#[:4]
+    files = filter_mtl(arronds)#[:2])
     print("3b - fin filtrage")
     '''
     NB:
@@ -108,7 +111,7 @@ if __name__ == "__main__":
 
     print("\n4a - début match shst")
     for file_i in files:
-        c = "shst match " + file_i + " --join-points \
+        c = "shst match " + PATH + file_i + " --join-points \
              --join-points-match-fields=PANNEAU_ID_RPA,CODE_RPA \
                  --search-radius=15 \
                       --snap-intersections \
@@ -146,8 +149,8 @@ if __name__ == "__main__":
 
     print("déplacement vers curb map")
     for file_i in files_to_mv:
-        c = "mv " + file_i + " ../../CurbLr/conversion-mt-qc-et-map/erwin_fork/curb-map/src/assets/data/"
+        c = "mv " + PATH + file_i + " ../curb-map/src/assets/data/"
         os.system(c)
     # f = "mtl-places-Rosemont-La-Petite-Patrie.filtred.buffered.geojson"  
     # turn_regl_to_regu(f)    
-    # (cd ../../CurbLr/conversion-mt-qc-et-map/erwin_fork/curb-map/; yarn start)
+    # (cd ../curb-map/; yarn start)
