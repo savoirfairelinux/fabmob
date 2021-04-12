@@ -113,7 +113,7 @@ def update(arronds):
         
         os.system("node segment_to_curblr.js " + f_subset_joined_in + " > data/" + f_subset_curblr_out)             
         
-        assets_curb_map = os.path.join("..", "erwin_fork", "curb-map", "src", "assets", "data")
+        assets_curb_map = os.path.join("..", "..", "curb-map", "src", "assets", "data")
         print(assets_curb_map)
         os.system("mv data/" + f_subset_curblr_out + " " + assets_curb_map)
         

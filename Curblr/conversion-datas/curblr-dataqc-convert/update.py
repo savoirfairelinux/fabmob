@@ -110,7 +110,7 @@ for file in files:
 
     os.system('echo -n "generate curblr... "')
     f_t_w = "data/" + file.replace(".geojson",".curblr.json")
-    fd_t_m = "../erwin_fork/curb-map/src/assets/data/" 
+    fd_t_m = "../../curb-map/src/assets/data/" 
     
     os.system('node segment_to_curblr.js > '+f_t_w)
     os.system('mv ' + f_t_w + " " + fd_t_m)
