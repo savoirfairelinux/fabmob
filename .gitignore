@@ -249,3 +249,6 @@ last_converted_all.curblr.json
 *.csv
 !limadmin.geojson.json
 !plaza_rosemont.geojson
+
+#data convert
+**/data/*
