@@ -252,3 +252,5 @@ last_converted_all.curblr.json
 
 #data convert
 **/data/*
+# !agregate-pannonceau-rpa.json
+# !signalisation-codification-rpa.json
