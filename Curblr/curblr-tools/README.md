@@ -1,7 +1,7 @@
 # curblr-tools
 
-creation de donnees de parcometres au format Curblr
-filtrage selon les arrondissements/quartiers pour les villes de quebec et montreal
+- Création des données de parcometres au format Curblr.
+- Filtrage selon les arrondissements/quartiers pour les villes de Québec et Montréal.
 
 ```sh
 python3 -m venv env
