@@ -254,3 +254,5 @@ last_converted_all.curblr.json
 **/data/*
 # !agregate-pannonceau-rpa.json
 # !signalisation-codification-rpa.json
+!vdq-quartier.geojson.json
+

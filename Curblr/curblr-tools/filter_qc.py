@@ -1,40 +1,41 @@
 import json
+import os
 import requests
 from turfpy.measurement import boolean_point_in_polygon
 from geojson import Point, Polygon, Feature
 
 quartiers = [
-    # "Saint-Jean-Baptiste",
-    # "Cap-Rouge",
-    # "Cité-Universitaire",
-    # "Vieux-Québec—Cap-Blanc—Colline parlementaire",
-    # "Des Châtels",
-    # "Duberger—Les Saules",
-    # "L'Aéroport",
+    "Saint-Jean-Baptiste",
+    "Cap-Rouge",
+    "Cité-Universitaire",
+    "Vieux-Québec—Cap-Blanc—Colline parlementaire",
+    "Des Châtels",
+    "Duberger—Les Saules",
+    "L'Aéroport",
 
-    # "Saint-Sauveur",
+    "Saint-Sauveur",
 
-    # "Lac-Saint-Charles",
-    # "Lairet",
-    # "Vieux-Limoilou",
-    # "Loretteville",
-    # "Maizerets",
-    # "Montcalm",
-    # "Neufchatel Est—Lebourgneuf",
-    # "Notre-Dame-des-Laurentides",
-    # "Plateau",
-    # "Saint-Louis",
-    # "Pointe-de-Sainte-Foy",
-    # "Quartier 4-2",
-    # "Quartier 4-3",
-    # "Jésuites",
-    # "Quartier 4-5",
-    # "Quartier 4-6",
-    # "Quartier 5-1",
-    # "Quartier 5-2",
-    # "Chutes-Montmorency",
-    # "Quartier 5-4",
-    # "Saint-Émile",//bug
+    "Lac-Saint-Charles",
+    "Lairet",
+    "Vieux-Limoilou",
+    "Loretteville",
+    "Maizerets",
+    "Montcalm",
+    "Neufchatel Est—Lebourgneuf",
+    "Notre-Dame-des-Laurentides",
+    "Plateau",
+    "Saint-Louis",
+    "Pointe-de-Sainte-Foy",
+    "Quartier 4-2",
+    "Quartier 4-3",
+    "Jésuites",
+    "Quartier 4-5",
+    "Quartier 4-6",
+    "Quartier 5-1",
+    "Quartier 5-2",
+    "Chutes-Montmorency",
+    "Quartier 5-4",
+    "Saint-Émile", #//bug
     "Saint-Sacrement",
     "Saint-Roch",
     
@@ -99,5 +100,5 @@ def filter_qc(quartiers = ["Saint-Sauveur"]):
 get_files()
 print("fin du téléchargement, début du filtrage")
 filter_qc(quartiers=quartiers)
-
+os.system("mv data/vdq-panneauxstationnement-filtred* ../conversion-datas/curblr-dataqc-convert/data/")
 

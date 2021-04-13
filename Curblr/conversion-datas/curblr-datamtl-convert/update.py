@@ -51,7 +51,6 @@ def check_avaialble_arronds():
     agregate_sign_file = 'data/agregate-signalisation.json'
     with open(agregate_sign_file) as f:
         data = json.load(f)
-        n = 0
         for i in (data["features"]):
             a = i["properties"]["NOM_ARROND"]
             arrondissements_from_json.add(a)
@@ -122,5 +121,5 @@ def update(arronds):
             # f.write('{ path: "' + f_subset_curblr_out + '", label: "mtl - ' + arrond + '" },\n')
 
     os.system("date")
-
+os.system("nvm use 12.7.0")
 update(arronds)
