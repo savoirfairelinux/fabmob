@@ -294,12 +294,14 @@ class Map extends React.Component<PageProps, {}> {
       latitude: 45.5322288090008, 
       longitude: -73.63143205202765,
       zoom: 13
-    }
+    },
+    showHideCard: true
   };
 
   constructor(props: any) {
     super(props);
 
+    this.hideComponent = this.hideComponent.bind(this);
     this._mapRef = React.createRef();
   }
 
@@ -424,10 +426,21 @@ class Map extends React.Component<PageProps, {}> {
       this.state.mode
     );
     this._setMapData(data);
+  };
+  
+  hideComponent(name) {
+    switch (name) {
+      case "showHideCard":
+        this.setState({ showHideCard: !this.state.showHideCard });
+        break;
+      default:
+        null;
+    }
   }
 
+
   render() {
-    const { viewport, mapStyle, day, time, mode } = this.state;
+    const { viewport, mapStyle, day, time, mode, showHideCard } = this.state;
 
   // shows everything. would be great if this could intersect the feature collection with the viewport bounding box. i can't figure it out. for kevin?
     const features = renderCurblrData(
@@ -588,6 +601,10 @@ class Map extends React.Component<PageProps, {}> {
     // time query below adds one minute to selected time, to reconcile conflicting regulations that begin and end at the hour mark
     return (
       <Layout>
+        <button onClick={() => this.hideComponent("showHideCard")}>
+                Hide Menu
+              </button>
+
         <Content>
           <MapGL
             ref={this._mapRef}
@@ -597,8 +614,8 @@ class Map extends React.Component<PageProps, {}> {
             onViewportChange={viewport => this.setState({ viewport })}
           />
         </Content>
-
-        <Card
+        {showHideCard && (
+          <Card
           size="small"
           title="Stationnements Montréal et Québec, QC"
           bordered={true}
@@ -775,6 +792,7 @@ class Map extends React.Component<PageProps, {}> {
             <a href= "https://www.donneesquebec.ca/recherche/fr/dataset/vque_7"> de Québec </a>
           </p>
         </Card>
+        )}
         <Button
           size="small"
           type="primary" 
