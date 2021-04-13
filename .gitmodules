@@ -1,3 +1,6 @@
 [submodule "Curblr/curb-map"]
 	path = Curblr/curb-map
 	url = https://github.com/ervinanoh/curb-map
+[submodule "Herdr/herdr-geojson-converter"]
+	path = Herdr/herdr-geojson-converter
+	url = https://git.heroku.com/herdr-geojson-converter.git
