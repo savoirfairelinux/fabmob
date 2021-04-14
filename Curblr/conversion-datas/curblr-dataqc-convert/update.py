@@ -71,7 +71,7 @@ files = [
 "vdq-panneauxstationnement-filtred-vieux-moulin.geojson",
 "vdq-panneauxstationnement-filtred-vieux-québec—cap-blanc—colline-parlementaire.geojson"
 ]
-
+os.system("nvm use 12.7.0")
 os.system('echo -n "Retrieve online data... "')
 os.system('wget -N -P data https://www.donneesquebec.ca/recherche/fr/dataset/9c11aab8-419c-4a7e-8bdc-95b5395a9f32/resource/27480cd1-ab19-47fe-a93b-9d526a0eb1e3/download/vdq-panneauxstationnement.geojson')
 os.system('cp rpa/signalisation-codification-rpa.json data')
