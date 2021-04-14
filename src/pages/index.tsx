@@ -623,7 +623,10 @@ class Map extends React.Component<PageProps, {}> {
             position: "fixed",
             top: "40px",
             left: "40px",
-            width: "310px"
+            width: "310px",
+            height: "auto",
+            maxHeight: "100vh",
+            overflow: "auto"
           }}
         >
           <br />
