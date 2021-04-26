@@ -1,3 +1,4 @@
+'''
 import os
 l = [
     "vdq-panneauxstationnement-filtred-cap-rouge.geojson",
@@ -104,4 +105,74 @@ l = [
 ]    
 for quartier in l:
     print('{ path: "'+ quartier +'", label: "' +'qc - ' + quartier[len("vdq-panneauxstationnement-filtred-"):-12] +'"},')
-# os.system("mv data/vdq* ../../CurbLr/conversion-mt-qc-et-map/curblr-dataqc-convert/data/")
+os.system("mv data/vdq* ../../CurbLr/conversion-mt-qc-et-map/curblr-dataqc-convert/data/")
+arrondissements = [
+    "plaza",
+    "Outremont",#0
+    "LaSalle",
+    "Mont-Royal", #absent dans curbconvert
+    "Ville-Marie",
+    "Le Plateau-Mont-Royal", #4 #Plateau-Mont-Royal
+    "Hampstead", #absent dans curbconvert
+    "Le Sud-Ouest", #"Sud-Ouest"
+    "Rivière-des-Prairies-Pointe-aux-Trembles", #"Rivière-des-Prairies - Pointe-aux-Trembles"
+    "Lachine", #8
+    "Dorval", #absent
+    "Montréal-Nord", 
+    "L'Île-Bizard-Sainte-Geneviève", #un script pour extraire tous les noms arrond? #"L'Île-Bizard - Sainte-Geneviève"
+    "Kirkland", #12 #Absent
+    "Dollard-des-Ormeaux",
+    "Senneville",
+    "Ahuntsic-Cartierville",
+    "Côte-Saint-Luc", #16
+    "Saint-Léonard",
+    "Montréal-Ouest",
+    "Pointe-Claire",
+    "L'Île-Dorval", #20
+    "Mercier-Hochelaga-Maisonneuve",
+    "Côte-des-Neiges-Notre-Dame-de-Grâce",
+    "Rosemont-La Petite-Patrie",
+    "Saint-Laurent", #24
+    "Beaconsfield",
+    "Villeray-Saint-Michel-Parc-Extension",
+    "Westmount",
+    "Montréal-Est", #28
+    "Anjou",
+    "Pierrefonds-Roxboro",
+    "Sainte-Anne-de-Bellevue",
+    "Verdun", #32
+    "Baie-d'Urfé"
+]
+for arrondissement in arrondissements:
+    print('{ label: "'+ arrondissement +'", value: "' + arrondissement +'"},')
+'''
+
+import requests
+import json
+
+#en deploimement
+# uri = "https://alivisiond4.herokuapp.com"
+#en local
+# uri = "http://127.0.0.1:8081/items"
+
+# payload = {
+# #   "true_date": "2021-04-18T09:31:44.601Z",
+# #   "true_date_dayow": "2021-04-18",
+#   "true_date_dayom": "yoi",
+#   "true_date_month": "may",
+# #   "true_date_time": "09:31:44",
+#   "arrond_quartier": "Rosemont",
+#   "price": 3,
+#   "maxStay": 32
+# }
+# payload = dict(true_date_dayom="yoi",
+#   true_date_month= "may")
+# r = requests.post(uri, data=payload)
+# print(r.status_code, r.text)
+
+import requests
+import json
+
+uri = "https://drive.google.com/uc?export=download&id=13L3dqI_DJvPL_O4PcrARZr6GsFZrS9ev"
+response = json.loads(requests.get(uri).text)
+print(response)

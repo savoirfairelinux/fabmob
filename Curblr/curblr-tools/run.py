@@ -2,88 +2,88 @@ from parcometres import *
 from filter_mtl import *
 # from filter_qc import *
 import os
-if __name__ == "__main__":
 
-    '''
-        arrondissements: liste de tous les arrondissements de la ville de Montrel
-        arronds: liste des arrondissements pour lesquels les donnees de parcometres sont presents
-    '''
+# if __name__ == "__main__":
+'''
+    arrondissements: liste de tous les arrondissements de la ville de Montrel
+    arronds: liste des arrondissements pour lesquels les donnees de parcometres sont presents
+'''
 
-    arrondissements = [
-        "plaza",
-        "Outremont",#0
-        "LaSalle",
-        "Mont-Royal", #absent dans curbconvert
-        "Ville-Marie",
-        "Le Plateau-Mont-Royal", #4 #Plateau-Mont-Royal
-        "Hampstead", #absent dans curbconvert
-        "Le Sud-Ouest", #"Sud-Ouest"
-        "Rivière-des-Prairies-Pointe-aux-Trembles", #"Rivière-des-Prairies - Pointe-aux-Trembles"
-        "Lachine", #8
-        "Dorval", #absent
-        "Montréal-Nord", 
-        "L'Île-Bizard-Sainte-Geneviève", #un script pour extraire tous les noms arrond? #"L'Île-Bizard - Sainte-Geneviève"
-        "Kirkland", #12 #Absent
-        "Dollard-des-Ormeaux",
-        "Senneville",
-        "Ahuntsic-Cartierville",
-        "Côte-Saint-Luc", #16
-        "Saint-Léonard",
-        "Montréal-Ouest",
-        "Pointe-Claire",
-        "L'Île-Dorval", #20
-        "Mercier-Hochelaga-Maisonneuve",
-        "Côte-des-Neiges-Notre-Dame-de-Grâce",
-        "Rosemont-La Petite-Patrie",
-        "Saint-Laurent", #24
-        "Beaconsfield",
-        "Villeray-Saint-Michel-Parc-Extension",
-        "Westmount",
-        "Montréal-Est", #28
-        "Anjou",
-        "Pierrefonds-Roxboro",
-        "Sainte-Anne-de-Bellevue",
-        "Verdun", #32
-        "Baie-d'Urfé"
-    ]
-    arronds = [
-        "plaza", 
-        "Outremont",#0
-        # "LaSalle",
-        # "Mont-Royal", #absent dans curbconvert
-        "Ville-Marie",
-        "Le Plateau-Mont-Royal", #4 #Plateau-Mont-Royal
-        # "Hampstead", #absent dans curbconvert
-        "Le Sud-Ouest", #"Sud-Ouest"
-        # "Rivière-des-Prairies-Pointe-aux-Trembles", #"Rivière-des-Prairies - Pointe-aux-Trembles"
-        "Lachine", #8
-        # "Dorval", #absent
-        # "Montréal-Nord", 
-        # "L'Île-Bizard-Sainte-Geneviève", #un script pour extraire tous les noms arrond? #"L'Île-Bizard - Sainte-Geneviève"
-        # "Kirkland", #12 #Absent
-        # "Dollard-des-Ormeaux",
-        # "Senneville",
-        "Ahuntsic-Cartierville",
-        # "Côte-Saint-Luc", #16
-        # "Saint-Léonard",
-        # "Montréal-Ouest",
-        # "Pointe-Claire",
-        # "L'Île-Dorval", #20
-        "Mercier-Hochelaga-Maisonneuve",
-        "Côte-des-Neiges-Notre-Dame-de-Grâce",
-        "Rosemont-La Petite-Patrie",
-        # "Saint-Laurent", #24
-        # "Beaconsfield",
-        "Villeray-Saint-Michel-Parc-Extension",
-        # "Westmount",
-        # "Montréal-Est", #28
-        # "Anjou",
-        # "Pierrefonds-Roxboro",
-        # "Sainte-Anne-de-Bellevue",
-        "Verdun", #32
-        # "Baie-d'Urfé"
-    ]
-    # arronds = arrondissements
+arrondissements = [
+    "plaza",
+    "Outremont",#0
+    "LaSalle",
+    "Mont-Royal", #absent dans curbconvert
+    "Ville-Marie",
+    "Le Plateau-Mont-Royal", #4 #Plateau-Mont-Royal
+    "Hampstead", #absent dans curbconvert
+    "Le Sud-Ouest", #"Sud-Ouest"
+    "Rivière-des-Prairies-Pointe-aux-Trembles", #"Rivière-des-Prairies - Pointe-aux-Trembles"
+    "Lachine", #8
+    "Dorval", #absent
+    "Montréal-Nord", 
+    "L'Île-Bizard-Sainte-Geneviève", #un script pour extraire tous les noms arrond? #"L'Île-Bizard - Sainte-Geneviève"
+    "Kirkland", #12 #Absent
+    "Dollard-des-Ormeaux",
+    "Senneville",
+    "Ahuntsic-Cartierville",
+    "Côte-Saint-Luc", #16
+    "Saint-Léonard",
+    "Montréal-Ouest",
+    "Pointe-Claire",
+    "L'Île-Dorval", #20
+    "Mercier-Hochelaga-Maisonneuve",
+    "Côte-des-Neiges-Notre-Dame-de-Grâce",
+    "Rosemont-La Petite-Patrie",
+    "Saint-Laurent", #24
+    "Beaconsfield",
+    "Villeray-Saint-Michel-Parc-Extension",
+    "Westmount",
+    "Montréal-Est", #28
+    "Anjou",
+    "Pierrefonds-Roxboro",
+    "Sainte-Anne-de-Bellevue",
+    "Verdun", #32
+    "Baie-d'Urfé"
+]
+arronds = [
+    "plaza", 
+    "Outremont",#0
+    # "LaSalle",
+    # "Mont-Royal", #absent dans curbconvert
+    "Ville-Marie",
+    "Le Plateau-Mont-Royal", #4 #Plateau-Mont-Royal
+    # "Hampstead", #absent dans curbconvert
+    "Le Sud-Ouest", #"Sud-Ouest"
+    # "Rivière-des-Prairies-Pointe-aux-Trembles", #"Rivière-des-Prairies - Pointe-aux-Trembles"
+    "Lachine", #8
+    # "Dorval", #absent
+    # "Montréal-Nord", 
+    # "L'Île-Bizard-Sainte-Geneviève", #un script pour extraire tous les noms arrond? #"L'Île-Bizard - Sainte-Geneviève"
+    # "Kirkland", #12 #Absent
+    # "Dollard-des-Ormeaux",
+    # "Senneville",
+    "Ahuntsic-Cartierville",
+    # "Côte-Saint-Luc", #16
+    # "Saint-Léonard",
+    # "Montréal-Ouest",
+    # "Pointe-Claire",
+    # "L'Île-Dorval", #20
+    "Mercier-Hochelaga-Maisonneuve",
+    "Côte-des-Neiges-Notre-Dame-de-Grâce",
+    "Rosemont-La Petite-Patrie",
+    # "Saint-Laurent", #24
+    # "Beaconsfield",
+    "Villeray-Saint-Michel-Parc-Extension",
+    # "Westmount",
+    # "Montréal-Est", #28
+    # "Anjou",
+    # "Pierrefonds-Roxboro",
+    # "Sainte-Anne-de-Bellevue",
+    "Verdun", #32
+    # "Baie-d'Urfé"
+]
+def run(arronds, dateTime_reservation, price, minStay):
     #Telechargement
     print("1a - début téléchargements")
     get_files()
@@ -93,7 +93,7 @@ if __name__ == "__main__":
     print("\n2a - début conversions")
     convert_bornes_hors_rue()
     convert_bornes_sur_rue()
-    convert_places()
+    convert_places(dateTime_reservation, price, minStay)
     print("2b - fin conversions")
 
     #filtrage
@@ -130,12 +130,13 @@ if __name__ == "__main__":
     
     print("\n5a - début curblr")
     files_to_mv = []
+    geojson = {}
     for file_i in files:
         try:
             # f = "mtl-places-Rosemont-La-Petite-Patrie.filtred.buffered.geojson"
             # f = "data/places_with_reglementations.buffered.geojson"
             f = file_i.replace(".filtred.geojson", ".filtred.buffered.geojson")
-            out = turn_regl_to_regu(f)    
+            out, geojson = turn_regl_to_regu(f)
             files_to_mv.append(out)
             print("\n5b - fin curblr pour " + f)
         except FileNotFoundError:
@@ -149,8 +150,13 @@ if __name__ == "__main__":
 
     print("déplacement vers curb map")
     for file_i in files_to_mv:
-        c = "mv " + PATH + file_i + " ../curb-map/src/assets/data/"
+        c = "mv " + PATH + file_i + " ../../../old/Curblr/erwin_fork_deployed_curb_map/curb-map/src/assets/data/"
+        # c = "mv " + PATH + file_i + " ../curb-map/src/assets/data/"
         os.system(c)
-    # f = "mtl-places-Rosemont-La-Petite-Patrie.filtred.buffered.geojson"  
-    # turn_regl_to_regu(f)    
-    # (cd ../curb-map/; yarn start)
+
+    return geojson
+
+# f = "mtl-places-Rosemont-La-Petite-Patrie.filtred.buffered.geojson"  
+# turn_regl_to_regu(f)    
+# (cd ../curb-map/; yarn start)
+# run(["plaza"])
