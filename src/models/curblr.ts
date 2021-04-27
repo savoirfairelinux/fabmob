@@ -110,7 +110,7 @@ async function loadAsset(path : string){
     //https://raw.githubusercontent.com/ervinanoh/curb-map/master/src/assets/data/
     //or with google drive https://drive.google.com/uc?export=download&id=
     
-    response = await fetch(`https://raw.githubusercontent.com/ervinanoh/curb-map/master/src/assets/data/${path}`);
+    const response = await fetch(`https://raw.githubusercontent.com/ervinanoh/curb-map/master/src/assets/data/${path}`);
     const data = await response.json();
     console.log(data);
     return data;

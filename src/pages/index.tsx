@@ -428,7 +428,10 @@ class Map extends React.Component<PageProps, {}> {
 //TODO
   changeGeoData = async (value) => {
     await this.props.dispatch(curblrActions.fetchGeoData(value));
+    console.log('day changeGeoData', this.state.day)
     console.log('time changeGeoData', this.state.time)
+    console.log('mode changeGeoData', this.state.mode)
+
     var data = renderCurblrData(
       this.props.curblr.data,
       this.state.day,
@@ -439,15 +442,13 @@ class Map extends React.Component<PageProps, {}> {
   };
 
   changeGeoDataFromPost = async (data_awaited) => {
-    const data_fetched_njson = await data_awaited
+    const data_fetched_njson = await data_awaited;
     var data = renderCurblrData(
       data_fetched_njson,
       this.state.day,
       this.state.time,
       this.state.mode
     );
-    
-    console.log("4 - Not Supposed to change - data: ", data);
     this._setMapData(data);
   };
   //-----------------------------------
@@ -498,34 +499,6 @@ class Map extends React.Component<PageProps, {}> {
       console.log(this.state.set_dateTimeRef)
       // Prints the new value.
     });
-  };
-  //gdrive api
-    /**
-   *  Initializes the API client library and sets up sign-in state
-   *  listeners.
-   */
-     const initClient = () => {
-      // setIsLoadingGoogleDriveApi(true);
-      gapi.client
-        .init({
-          apiKey: API_KEY,
-          clientId: CLIENT_ID,
-          discoveryDocs: DISCOVERY_DOCS,
-          scope: SCOPES,
-        })
-        .then(
-          function () {
-            // Listen for sign-in state changes.
-            gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-  
-            // Handle the initial sign-in state.
-            updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-          },
-          function (error) {}
-        );
-    };
-  const handleClientLoad = () => {
-    gapi.load('client:auth2', this.initClient);
   };
 
   render() {
@@ -972,10 +945,6 @@ class Map extends React.Component<PageProps, {}> {
             <Button type="primary" icon="search" onClick={this.sendRequest}>
               Filtrer
             </Button>
-            {/* &nbsp; &nbsp; 
-            <Button type="primary" icon="submit" onClick={() => this.handleClientLoad()}>
-              Connect gdrive api
-            </Button>  */}
           </div>
         </Card>
         )}
