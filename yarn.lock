@@ -1701,6 +1701,94 @@
     prettier "^1.14.3"
     svgo "^1.1.1"
 
+"@syncfusion/ej2-base@~19.1.54", "@syncfusion/ej2-base@~19.1.56":
+  version "19.1.56"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-base/-/ej2-base-19.1.56.tgz#76b6a15a18715dccc0785717e431918c04ef5f48"
+  integrity sha512-qWJgSCbjc40WqKr0iwssvnFEiqz9qh3MpiJ3wcJsZzjmhKBwFKyw2aIEU4DObKzwQ55XiP9LTzPXQPoT/HCJFA==
+  dependencies:
+    "@syncfusion/ej2-icons" "~19.1.54"
+
+"@syncfusion/ej2-buttons@~19.1.54":
+  version "19.1.54"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-buttons/-/ej2-buttons-19.1.54.tgz#49b9e806f43301c7d5b0a2c50d9fd0a5e4964b15"
+  integrity sha512-jMweKcNkjKSZGrwh03SG/JQ8c7vVpUygPxfjMAv/pJcWj4GvvNXMzd0TQuwFSCjLFlole39/l3LpUWnCoZstrA==
+  dependencies:
+    "@syncfusion/ej2-base" "~19.1.54"
+
+"@syncfusion/ej2-calendars@19.1.56":
+  version "19.1.56"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-calendars/-/ej2-calendars-19.1.56.tgz#d67cfcf3844c40bfe011dd0a29e0d973eda387a1"
+  integrity sha512-2JpYnU7cl1oscW57toJieI0IDY1yI4hfCBITSMup0UN9aJJrO/P07BLV7k05k0Lswyj64vFAQ4XVyDb97gcfLQ==
+  dependencies:
+    "@syncfusion/ej2-base" "~19.1.56"
+    "@syncfusion/ej2-buttons" "~19.1.54"
+    "@syncfusion/ej2-inputs" "~19.1.54"
+    "@syncfusion/ej2-lists" "~19.1.56"
+    "@syncfusion/ej2-popups" "~19.1.56"
+
+"@syncfusion/ej2-data@~19.1.56":
+  version "19.1.56"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-data/-/ej2-data-19.1.56.tgz#8bda395cdbb794167cbe25f73c530c776ad0f803"
+  integrity sha512-KQ3mEIjnl6AnEf52FGQAgm0zwtbY2jQdnLtz8NIobUVdIPyPf2Qb4fuPrKHW8gdW4itJOoRSqyeEk2qvgygXPw==
+  dependencies:
+    "@syncfusion/ej2-base" "~19.1.56"
+
+"@syncfusion/ej2-icons@~19.1.54":
+  version "19.1.54"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-icons/-/ej2-icons-19.1.54.tgz#aa36f2c41e7a0b06b499668b487df98c61daeb8a"
+  integrity sha512-QFIU7AOrIvgEjcOxj46fU9P3gQqjt7jKZpVc/GoDTvSDroUsLtbOiEZqphC9TQ7ZzLS9bfA/xNYNEGiln/NlTA==
+
+"@syncfusion/ej2-inputs@~19.1.54":
+  version "19.1.54"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-inputs/-/ej2-inputs-19.1.54.tgz#7e7687a579b97bcd67ab8ffaec62b67e38e6c2b0"
+  integrity sha512-j3vH8fcKJBFY1NMtnqZ77M2bwhOi+G1pmUKJIZxMIJCD8XEMUHDpGvfLthH8dYiB5GUDy0ZiqpuCsWkXc7dT+g==
+  dependencies:
+    "@syncfusion/ej2-base" "~19.1.54"
+    "@syncfusion/ej2-buttons" "~19.1.54"
+    "@syncfusion/ej2-popups" "~19.1.54"
+    "@syncfusion/ej2-splitbuttons" "~19.1.54"
+
+"@syncfusion/ej2-lists@~19.1.56":
+  version "19.1.56"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-lists/-/ej2-lists-19.1.56.tgz#7002d42cacd4dbedf3d67bb052523614353289ec"
+  integrity sha512-qnkXlbuwsz6s9jgDXzzXn6+pwC1QvLk+DNMIa/mvULxJ5wfIzJX3+TNaI3OHt/QCw9s9MGxwVAs+p7fsG+hJVQ==
+  dependencies:
+    "@syncfusion/ej2-base" "~19.1.56"
+    "@syncfusion/ej2-buttons" "~19.1.54"
+    "@syncfusion/ej2-data" "~19.1.56"
+
+"@syncfusion/ej2-popups@~19.1.54", "@syncfusion/ej2-popups@~19.1.56":
+  version "19.1.56"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-popups/-/ej2-popups-19.1.56.tgz#e558daac516a74350cda2b8c5fdac95f760af79d"
+  integrity sha512-Fz+mQkAaNX351fOIK1mtGx8msqVFs1uu7X9ESBkxkjqOMlW6ExJXKgWeWppxBT0LtobTUE8M8BjTEsqvYc3+Zw==
+  dependencies:
+    "@syncfusion/ej2-base" "~19.1.56"
+    "@syncfusion/ej2-buttons" "~19.1.54"
+
+"@syncfusion/ej2-react-base@~19.1.54":
+  version "19.1.54"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-base/-/ej2-react-base-19.1.54.tgz#3b72ceb3b205c124047a8712347ea65f99ce303a"
+  integrity sha512-YBSXn3MehH2ocRozRXjMvTlhHJlsilQaoU7LUuWhVQ9+Qoq6esflpB+x/Fa1U/sUTz7s3iQcb45rAy+nZbmhyw==
+  dependencies:
+    "@syncfusion/ej2-base" "~19.1.54"
+
+"@syncfusion/ej2-react-calendars@^19.1.56":
+  version "19.1.56"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-calendars/-/ej2-react-calendars-19.1.56.tgz#28de52c06fe13cd4e36c2a935de649ea6c37e296"
+  integrity sha512-x+VqlMWTe+jHuXLy76UkACleaDdgTEz9/a+X4rFHX69+1w1H1/ylE4ZSl2pMgQauy7Y/3qdkgX9ydHhZa0xsSA==
+  dependencies:
+    "@syncfusion/ej2-base" "~19.1.56"
+    "@syncfusion/ej2-calendars" "19.1.56"
+    "@syncfusion/ej2-react-base" "~19.1.54"
+
+"@syncfusion/ej2-splitbuttons@~19.1.54":
+  version "19.1.54"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-splitbuttons/-/ej2-splitbuttons-19.1.54.tgz#f4510ebaa31052f79677ca8c9de7ff0d556ed4e3"
+  integrity sha512-cwT/HbzLrWHMlc4cBP5B1peZMNjF1uS0ULzl+TfripwoxjyigbAzlstyk/O6aqeOhuVEh48tScJD1RKngKha3A==
+  dependencies:
+    "@syncfusion/ej2-base" "~19.1.54"
+    "@syncfusion/ej2-popups" "~19.1.54"
+
 "@szmarczak/http-timer@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@szmarczak/http-timer/-/http-timer-1.1.2.tgz#b1665e2c461a2cd92f4c1bbf50d5454de0d4b421"
@@ -1887,6 +1975,11 @@
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
   integrity sha512-1HcDas8SEj4z1Wc696tH56G8OlRaH/sqZOynNNB+HF0WOeXPaxTtbYzJY2oEfiUxjSKjhCKr+MvR7dCHcEelug==
+
+"@types/react-calendar@^3.0.0":
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/@types/react-calendar/-/react-calendar-3.1.4.tgz#7d6cb69eab5abfc93a870a025866bc67bf46c8c7"
+  integrity sha512-7yDdyPnNaKqOIp97NmPhDxaXb7pBSag+pYWBtt+vBJyyqqiMMtXzv5bdEWjVN7AWmfWdmzGsP8kg+TzvGvwwQg==
 
 "@types/react-dom@^16.0.11":
   version "16.9.10"
@@ -2323,6 +2416,11 @@
     "@webassemblyjs/ast" "1.8.5"
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
+
+"@wojtekmaj/date-utils@^1.0.0", "@wojtekmaj/date-utils@^1.0.2", "@wojtekmaj/date-utils@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@wojtekmaj/date-utils/-/date-utils-1.0.3.tgz#2dcfd92881425c5923e429c2aec86fb3609032a1"
+  integrity sha512-1VPkkTBk07gMR1fjpBtse4G+oJqpmE+0gUFB0dg3VIL7qJmUVaBoD/vlzMm/jNeOPfvlmerl1lpnsZyBUFIRuw==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -3133,6 +3231,13 @@ axios@^0.18.0:
   dependencies:
     follow-redirects "1.5.10"
     is-buffer "^2.0.2"
+
+axios@^0.21.1:
+  version "0.21.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
+  integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
+  dependencies:
+    follow-redirects "^1.10.0"
 
 axobject-query@^0.1.0:
   version "0.1.0"
@@ -5522,6 +5627,11 @@ detect-conflict@^1.0.0:
   resolved "https://registry.yarnpkg.com/detect-conflict/-/detect-conflict-1.0.1.tgz#088657a66a961c05019db7c4230883b1c6b4176e"
   integrity sha1-CIZXpmqWHAUBnbfEIwiDsca0F24=
 
+detect-element-overflow@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/detect-element-overflow/-/detect-element-overflow-1.2.0.tgz#86e504292ffedc3aef813395fbdf0261aaf6afa9"
+  integrity sha512-Jtr9ivYPhpd9OJux+hjL0QjUKiS1Ghgy8tvIufUjFslQgIWvgGr4mn57H190APbKkiOmXnmtMI6ytaKzMusecg==
+
 detect-indent@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-6.0.0.tgz#0abd0f549f69fc6659a254fe96786186b6f528fd"
@@ -7356,6 +7466,11 @@ follow-redirects@^1.0.0:
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.1.tgz#5f69b813376cee4fd0474a3aba835df04ab763b7"
   integrity sha512-SSG5xmZh1mkPGyKzjZP8zLjltIfpW32Y5QpdNJyjcfGxK3qo3NDDkZOZSFiGn1A6SclQxY9GzEwAHQ3dmYRWpg==
 
+follow-redirects@^1.10.0:
+  version "1.13.3"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.3.tgz#e5598ad50174c1bc4e872301e82ac2cd97f90267"
+  integrity sha512-DUgl6+HDzB0iEptNQEXLx/KhTmDb8tZUHSeLqpnjpknR70H0nC2t9N73BK6fN4hOvJ84pKlIQVQ4k5FFlBedKA==
+
 for-each@^0.3.3, for-each@~0.3.3:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/for-each/-/for-each-0.3.3.tgz#69b447e88a0a5d32c3e7084f3f1710034b21376e"
@@ -7550,6 +7665,11 @@ functions-have-names@^1.2.1:
   resolved "https://registry.yarnpkg.com/functions-have-names/-/functions-have-names-1.2.2.tgz#98d93991c39da9361f8e50b337c4f6e41f120e21"
   integrity sha512-bLgc3asbWdwPbx2mNk2S49kmJCuQeu0nfmaOgbs8WIyzzkw3r4htszdIi9Q9EMezDPTYuJx2wvjZ/EwgAthpnA==
 
+gapi-script@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/gapi-script/-/gapi-script-1.2.0.tgz#8106ad0abb36661ce4fab62ef6efada288d7169e"
+  integrity sha512-NKTVKiIwFdkO1j1EzcrWu/Pz7gsl1GmBmgh+qhuV2Ytls04W/Eg5aiBL91SCiBM9lU0PMu7p1hTVxhh1rPT5Lw==
+
 gensync@^1.0.0-beta.1:
   version "1.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.2.tgz#32a6ee76c3d7f52d46b2b1ae5d93fea8580a25e0"
@@ -7612,6 +7732,13 @@ get-stream@^5.0.0, get-stream@^5.1.0:
   integrity sha512-nBF+F1rAZVCu/p7rjzgA+Yb4lfYXrpl7a6VmJrU8wF9I1CKvP/QwPNZHnOlwbTkY6dvtFIzFMSyQXbLoTQPRpA==
   dependencies:
     pump "^3.0.0"
+
+get-user-locale@^1.2.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/get-user-locale/-/get-user-locale-1.4.0.tgz#a2c4b5da46feec9f03c9b07d197b1620490a5370"
+  integrity sha512-gQo03lP1OArHLKlnoglqrGGl7b04u2EP9Xutmp72cMdtrrSD7ZgIsCsUKZynYWLDkVJW33Cj3pliP7uP0UonHQ==
+  dependencies:
+    lodash.once "^4.1.1"
 
 get-value@^2.0.3, get-value@^2.0.6:
   version "2.0.6"
@@ -10443,6 +10570,11 @@ lodash.memoize@4.1.2, lodash.memoize@^4.1.2:
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
   integrity sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
 
+lodash.once@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lodash.once/-/lodash.once-4.1.1.tgz#0dd3971213c7c56df880977d504c88fb471a97ac"
+  integrity sha1-DdOXEhPHxW34gJd9UEyI+0cal6w=
+
 lodash.sortby@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
@@ -10616,6 +10748,11 @@ make-dir@^3.0.0:
   integrity sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==
   dependencies:
     semver "^6.0.0"
+
+make-event-props@^1.1.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/make-event-props/-/make-event-props-1.2.0.tgz#96b87d88919533b8f8934b58b4c3d5679459a0cf"
+  integrity sha512-BmWFkm/jZzVH9A0tEBdkjAARUz/eha+5IRyfOndeSMKRadkgR5DawoBHoRwLxkYmjJOI5bHkXKpaZocxj+dKgg==
 
 makeerror@1.0.x:
   version "1.0.11"
@@ -10903,6 +11040,11 @@ merge-anything@^2.2.4:
   integrity sha512-l5XlriUDJKQT12bH+rVhAHjwIuXWdAIecGwsYjv2LJo+dA1AeRTmeQS+3QBpO6lEthBMDi2IUMpLC1yyRvGlwQ==
   dependencies:
     is-what "^3.3.1"
+
+merge-class-names@^1.1.1:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/merge-class-names/-/merge-class-names-1.4.0.tgz#02edcdd5ff677fbb03b47ecd4586df89d697b81b"
+  integrity sha512-xNdBM7s+6uD+vNZJEymqrFbMBCDGzoA8clZTcj2F1XIy1QQKF+wjFVv7iDZFfdCBnViTdt54A4Ye2lmBsXrBjQ==
 
 merge-deep@^3.0.2:
   version "3.0.3"
@@ -13829,6 +13971,56 @@ rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-calendar@^3.3.1:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/react-calendar/-/react-calendar-3.4.0.tgz#25396ca0992b3b2042abca334515f6ff4d9878bc"
+  integrity sha512-ykbvXASArQQ8KZlCEXEdE+w+KFGSj7kDpdTRzbLVJeN26oUIu+EFavFDAqg4G//zTO0tSq5SMfqAa6fjrdGQjQ==
+  dependencies:
+    "@wojtekmaj/date-utils" "^1.0.2"
+    get-user-locale "^1.2.0"
+    merge-class-names "^1.1.1"
+    prop-types "^15.6.0"
+
+react-clock@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-clock/-/react-clock-3.0.0.tgz#0d29f8e682ef516574061d1d24b1a286cb2da89b"
+  integrity sha512-D3K82D3YGcDtzxZCfiACLcDTL8cJXSgpdrzTY9ff3H5vflxlLzTSLF8apZRo6JZzOFrZQvw5mrS7TkQzj9nG0A==
+  dependencies:
+    "@wojtekmaj/date-utils" "^1.0.0"
+    merge-class-names "^1.1.1"
+    prop-types "^15.6.0"
+
+react-date-picker@^8.1.0:
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/react-date-picker/-/react-date-picker-8.1.1.tgz#1959608cd042c9bfcf2faa6d63a56e9ef6b17e2b"
+  integrity sha512-kFhn+uSJML+EuROvR6qLYU5G3wsxrdB2K1ugh1t6HjJCjphE6ot85jb8THWebqWEcQi07pLseU7ZFpzKDD3A6A==
+  dependencies:
+    "@types/react-calendar" "^3.0.0"
+    "@wojtekmaj/date-utils" "^1.0.3"
+    get-user-locale "^1.2.0"
+    make-event-props "^1.1.0"
+    merge-class-names "^1.1.1"
+    prop-types "^15.6.0"
+    react-calendar "^3.3.1"
+    react-fit "^1.0.3"
+    update-input-width "^1.1.1"
+
+react-datetime-picker@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-datetime-picker/-/react-datetime-picker-3.2.0.tgz#eec4e8cda5c4f5621cbb1f6d0d4486f62da45913"
+  integrity sha512-zmjm4olduGsgOXStePYAsqFD+Xy4dLMClBl87IVqh6ymFSLuOPgZzjmeLyqLsdb3lnXA8gdtpNXi0LNQkEX3ZQ==
+  dependencies:
+    "@wojtekmaj/date-utils" "^1.0.3"
+    get-user-locale "^1.2.0"
+    make-event-props "^1.1.0"
+    merge-class-names "^1.1.1"
+    prop-types "^15.6.0"
+    react-calendar "^3.3.1"
+    react-clock "^3.0.0"
+    react-date-picker "^8.1.0"
+    react-fit "^1.0.3"
+    react-time-picker "^4.2.0"
+
 react-dev-utils@9.0.1:
   version "9.0.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-9.0.1.tgz#5c03d85a0b2537d0c46af7165c24a7dfb274bef2"
@@ -13874,6 +14066,14 @@ react-error-overlay@5.1.6, react-error-overlay@^5.1.6:
   version "5.1.6"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.6.tgz#0cd73407c5d141f9638ae1e0c63e7b2bf7e9929d"
   integrity sha512-X1Y+0jR47ImDVr54Ab6V9eGk0Hnu7fVWGeHQSOXHf/C2pF9c6uy3gef8QUeuUiWlNb0i08InPSE5a/KJzNzw1Q==
+
+react-fit@^1.0.3:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/react-fit/-/react-fit-1.3.1.tgz#850cb5d554fdfa4b27891f62a9d290d3e7eda57b"
+  integrity sha512-MmVk/SXyVbxiz9peAeD7fWxFdGLoy/sCxte01M3w74regPIVkLqc2yT0wUAGRd1MNP1fQ40MqYKNBLpbK/aI1w==
+  dependencies:
+    detect-element-overflow "^1.2.0"
+    prop-types "^15.6.0"
 
 react-fittext@^1.0.0:
   version "1.0.0"
@@ -14038,6 +14238,20 @@ react-test-renderer@^16.0.0-0, react-test-renderer@^16.7.0:
     prop-types "^15.6.2"
     react-is "^16.8.6"
     scheduler "^0.19.1"
+
+react-time-picker@^4.2.0:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/react-time-picker/-/react-time-picker-4.2.1.tgz#b27f0bbc2e58534f20dbf10b14d0b8f3334fcb07"
+  integrity sha512-T0aEabJ3bz54l8LV3pdpB5lOZuO3pRIbry5STcUV58UndlrWLcHpdpvS1IC8JLNXhbLxzGs1MmpASb5k1ddlsg==
+  dependencies:
+    "@wojtekmaj/date-utils" "^1.0.0"
+    get-user-locale "^1.2.0"
+    make-event-props "^1.1.0"
+    merge-class-names "^1.1.1"
+    prop-types "^15.6.0"
+    react-clock "^3.0.0"
+    react-fit "^1.0.3"
+    update-input-width "^1.1.1"
 
 react-tween-state@^0.1.5:
   version "0.1.5"
@@ -17547,6 +17761,11 @@ upath@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/upath/-/upath-1.2.0.tgz#8f66dbcd55a883acdae4408af8b035a5044c1894"
   integrity sha512-aZwGpamFO61g3OlfT7OQCHqhGnW43ieH9WZeP7QxN/G/jS4jfqUkZxoryvJgVPEcrl5NL/ggHsSmLMHuH64Lhg==
+
+update-input-width@^1.1.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/update-input-width/-/update-input-width-1.2.1.tgz#769d6182413590c3b50b52ffa9c65d79e2c17f95"
+  integrity sha512-zygDshqDb2C2/kgfoD423n5htv/3OBF7aTaz2u2zZy998EJki8njOHOeZjKEd8XSYeDziIX1JXfMsKaIRJeJ/Q==
 
 update-notifier@3.0.0:
   version "3.0.0"

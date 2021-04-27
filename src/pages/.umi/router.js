@@ -8,7 +8,7 @@ import {
 import dynamic from 'umi/dynamic';
 import renderRoutes from 'umi/lib/renderRoutes';
 import history from '@@/history';
-import RendererWrapper0 from '/home/eanoh/Bureau/Fabmob/Curblr/curbmap_fork/curb-map/src/pages/.umi/LocaleWrapper.jsx';
+import RendererWrapper0 from '/home/eanoh/Bureau/Fabmob/old/Curblr/erwin_fork_deployed_curb_map/curb-map/src/pages/.umi/LocaleWrapper.jsx';
 import { routerRedux } from 'dva';
 
 const Router = routerRedux.ConnectedRouter;
@@ -35,7 +35,7 @@ const routes = [
       {
         component: () =>
           React.createElement(
-            require('/home/eanoh/Bureau/Fabmob/Curblr/curbmap_fork/curb-map/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
+            require('/home/eanoh/Bureau/Fabmob/old/Curblr/erwin_fork_deployed_curb_map/curb-map/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
               .default,
             { pagesPath: 'src/pages', hasRoutesInConfig: false },
           ),
@@ -49,7 +49,7 @@ const routes = [
   {
     component: () =>
       React.createElement(
-        require('/home/eanoh/Bureau/Fabmob/Curblr/curbmap_fork/curb-map/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
+        require('/home/eanoh/Bureau/Fabmob/old/Curblr/erwin_fork_deployed_curb_map/curb-map/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
           .default,
         { pagesPath: 'src/pages', hasRoutesInConfig: false },
       ),

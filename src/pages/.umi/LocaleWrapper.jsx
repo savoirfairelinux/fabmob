@@ -32,7 +32,7 @@ defaultAntd = defaultAntd.default || defaultAntd;
 const localeInfo = {
   'en-US': {
     messages: {
-      ...((locale) => locale.__esModule ? locale.default : locale)(require('/home/eanoh/Bureau/Fabmob/Curblr/curbmap_fork/curb-map/src/locales/en-US.ts')),
+      ...((locale) => locale.__esModule ? locale.default : locale)(require('/home/eanoh/Bureau/Fabmob/old/Curblr/erwin_fork_deployed_curb_map/curb-map/src/locales/en-US.ts')),
     },
     locale: 'en-US',
     antd: require('antd/es/locale-provider/en_US'),

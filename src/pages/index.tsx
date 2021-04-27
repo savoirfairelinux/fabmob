@@ -1,5 +1,9 @@
 import React from "react";
 import styles from "./index.css";
+import './index.css';
+import axios from 'axios';
+import { DateTimePickerComponent } from '@syncfusion/ej2-react-calendars';
+import { gapi } from 'gapi-script';
 
 import { Layout, Menu, Icon, Card, Radio, Select, Badge, Button } from "antd";
 import { Pie } from "ant-design-pro/lib/Charts";
@@ -30,6 +34,7 @@ import {
 } from "@turf/helpers";
 
 import { actions as curblrActions, geoDataFiles } from "../models/curblr";
+import { TouchPitchHandler } from "mapbox-gl";
 
 var mapboxAccessToken =
   "pk.eyJ1Ijoic2FhZGlxbSIsImEiOiJjamJpMXcxa3AyMG9zMzNyNmdxNDlneGRvIn0.wjlI8r1S_-xxtq2d-W5qPA";
@@ -295,13 +300,17 @@ class Map extends React.Component<PageProps, {}> {
       longitude: -73.63143205202765,
       zoom: 13
     },
-    showHideCard: true
+    showHideCard: true,
+    sl_arrondRef: "plaza",
+    set_dateTimeRef: new Date(),
+    data_to_replace: new CurbFeatureCollection()
   };
 
   constructor(props: any) {
     super(props);
-
     this.hideComponent = this.hideComponent.bind(this);
+    this.setArrond =  this.setArrond.bind(this);
+    this.setDateTime = this.setDateTime.bind(this);
     this._mapRef = React.createRef();
   }
 
@@ -416,9 +425,10 @@ class Map extends React.Component<PageProps, {}> {
     );
     this._setMapData(data);
   };
-
+//TODO
   changeGeoData = async (value) => {
     await this.props.dispatch(curblrActions.fetchGeoData(value));
+    console.log('time changeGeoData', this.state.time)
     var data = renderCurblrData(
       this.props.curblr.data,
       this.state.day,
@@ -427,6 +437,20 @@ class Map extends React.Component<PageProps, {}> {
     );
     this._setMapData(data);
   };
+
+  changeGeoDataFromPost = async (data_awaited) => {
+    const data_fetched_njson = await data_awaited
+    var data = renderCurblrData(
+      data_fetched_njson,
+      this.state.day,
+      this.state.time,
+      this.state.mode
+    );
+    
+    console.log("4 - Not Supposed to change - data: ", data);
+    this._setMapData(data);
+  };
+  //-----------------------------------
   
   hideComponent(name) {
     switch (name) {
@@ -438,9 +462,74 @@ class Map extends React.Component<PageProps, {}> {
     }
   }
 
+  setDateTime = (sl_arrondRef) => {
+    this.setState({ sl_arrondRef });
+    console.log(`Option selected:`, sl_arrondRef.value);
+  }
+  setArrond = (set_dateTimeRef) => {
+    this.setState({ set_dateTimeRef });
+    console.log(`Option selected:`, set_dateTimeRef.value);
+  }
+  sendRequest= () =>{
+    let uri = "http://127.0.0.1:8081/items"
+
+    const payload = {
+      "true_date_time": this.state.set_dateTimeRef,
+      "arrond_quartier": this.state.sl_arrondRef,
+      "price": 3,
+      "minStay": 32
+    }
+      axios.post(uri, payload)
+      .then((response) => {
+        console.log(response);
+        // this.state.data_to_replace = response.data;
+        console.log(response.data);
+      this.changeGeoDataFromPost(response.data);
+      }, (error) => {
+        console.log(error);
+      });
+  };
+  handleChange = (name, event) => {
+    const target = event.target; // Do we need this?(unused in the function scope)!
+    this.setState({
+      [name]: event.target.value
+    }, () => {
+      console.log(this.state.sl_arrondRef);
+      console.log(this.state.set_dateTimeRef)
+      // Prints the new value.
+    });
+  };
+  //gdrive api
+    /**
+   *  Initializes the API client library and sets up sign-in state
+   *  listeners.
+   */
+     const initClient = () => {
+      // setIsLoadingGoogleDriveApi(true);
+      gapi.client
+        .init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES,
+        })
+        .then(
+          function () {
+            // Listen for sign-in state changes.
+            gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+  
+            // Handle the initial sign-in state.
+            updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+          },
+          function (error) {}
+        );
+    };
+  const handleClientLoad = () => {
+    gapi.load('client:auth2', this.initClient);
+  };
 
   render() {
-    const { viewport, mapStyle, day, time, mode, showHideCard } = this.state;
+    const { viewport, mapStyle, day, time, mode, showHideCard, sl_arrondRef, set_dateTimeRef} = this.state;
 
   // shows everything. would be great if this could intersect the feature collection with the viewport bounding box. i can't figure it out. for kevin?
     const features = renderCurblrData(
@@ -597,8 +686,46 @@ class Map extends React.Component<PageProps, {}> {
         y: MAXSTAY_LENGTH_CALC["240"]
       }
     ];
+   
+    const arrondissements_montreal = [
+      { label: "plaza", value: "plaza"},
+      { label: "Outremont", value: "Outremont"},
+      { label: "LaSalle", value: "LaSalle"},
+      { label: "Mont-Royal", value: "Mont-Royal"},
+      { label: "Ville-Marie", value: "Ville-Marie"},
+      { label: "Le Plateau-Mont-Royal", value: "Le Plateau-Mont-Royal"},
+      { label: "Hampstead", value: "Hampstead"},
+      { label: "Le Sud-Ouest", value: "Le Sud-Ouest"},
+      { label: "Rivière-des-Prairies-Pointe-aux-Trembles", value: "Rivière-des-Prairies-Pointe-aux-Trembles"},
+      { label: "Lachine", value: "Lachine"},
+      { label: "Dorval", value: "Dorval"},
+      { label: "Montréal-Nord", value: "Montréal-Nord"},
+      { label: "L'Île-Bizard-Sainte-Geneviève", value: "L'Île-Bizard-Sainte-Geneviève"},
+      { label: "Kirkland", value: "Kirkland"},
+      { label: "Dollard-des-Ormeaux", value: "Dollard-des-Ormeaux"},
+      { label: "Senneville", value: "Senneville"},
+      { label: "Ahuntsic-Cartierville", value: "Ahuntsic-Cartierville"},
+      { label: "Côte-Saint-Luc", value: "Côte-Saint-Luc"},
+      { label: "Saint-Léonard", value: "Saint-Léonard"},
+      { label: "Montréal-Ouest", value: "Montréal-Ouest"},
+      { label: "Pointe-Claire", value: "Pointe-Claire"},
+      { label: "L'Île-Dorval", value: "L'Île-Dorval"},
+      { label: "Mercier-Hochelaga-Maisonneuve", value: "Mercier-Hochelaga-Maisonneuve"},
+      { label: "Côte-des-Neiges-Notre-Dame-de-Grâce", value: "Côte-des-Neiges-Notre-Dame-de-Grâce"},
+      { label: "Rosemont-La Petite-Patrie", value: "Rosemont-La Petite-Patrie"},
+      { label: "Saint-Laurent", value: "Saint-Laurent"},
+      { label: "Beaconsfield", value: "Beaconsfield"},
+      { label: "Villeray-Saint-Michel-Parc-Extension", value: "Villeray-Saint-Michel-Parc-Extension"},
+      { label: "Westmount", value: "Westmount"},
+      { label: "Montréal-Est", value: "Montréal-Est"},
+      { label: "Anjou", value: "Anjou"},
+      { label: "Pierrefonds-Roxboro", value: "Pierrefonds-Roxboro"},
+      { label: "Sainte-Anne-de-Bellevue", value: "Sainte-Anne-de-Bellevue"},
+      { label: "Verdun", value: "Verdun"},
+      { label: "Baie-d'Urfé", value: "Baie-d'Urfé"},
+    ];
 
-    // time query below adds one minute to selected time, to reconcile conflicting regulations that begin and end at the hour mark
+
     return (
       <Layout>
         <button onClick={() => this.hideComponent("showHideCard")}>
@@ -796,6 +923,63 @@ class Map extends React.Component<PageProps, {}> {
           </p>
         </Card>
         )}
+        {showHideCard && (
+          <Card
+          size="small"
+          title="Filter"
+          bordered={true}
+          style={{
+            position: "fixed",
+            top: "40px",
+            right: "40px",
+            width: "auto",
+            height: "auto",
+            maxHeight: "100vh",
+            overflow: "auto"
+          }}
+          >
+          
+          <div>
+          <label for="sl_arrondissement">Arrondissement: </label>
+            <select id ="sl_arrondissement"
+
+            // onChange={this.setArrond}
+            onChange={(event) => this.handleChange("sl_arrondRef", event)}
+            >
+            {arrondissements_montreal.map((option) => (
+              <option value={option.value}>{option.label}</option>
+            ))}
+          </select>
+          </div>
+          <div>
+          <label for="dt_picker"
+          style={{
+            textAlign: "justify",
+          }}>
+          Date et heure: </label>
+            <DateTimePickerComponent placeholder="Choose a date and time"
+              value={set_dateTimeRef}
+              // min={minDate}
+              // max={maxDate}
+              id = "dt_picker"
+              format="dd-MMM-yy HH:mm"
+              step={15}
+              onChange={(event) => this.handleChange("set_dateTimeRef", event)}>
+
+              </DateTimePickerComponent>
+          </div>
+          <div>
+            <Button type="primary" icon="search" onClick={this.sendRequest}>
+              Filtrer
+            </Button>
+            {/* &nbsp; &nbsp; 
+            <Button type="primary" icon="submit" onClick={() => this.handleClientLoad()}>
+              Connect gdrive api
+            </Button>  */}
+          </div>
+        </Card>
+        )}
+
         <Button
           size="small"
           type="primary" 

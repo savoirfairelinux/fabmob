@@ -7,6 +7,8 @@ import { CurbFeature, CurbFeatureCollection, filterTimeAndDay } from '@/common/c
 import { FeatureCollection, featureCollection, feature, LineString } from '@turf/helpers';
 import {fromJS} from 'immutable';
 import mapStyle from '../assets/style.json';
+import { gapi } from 'gapi-script';
+
 
 // fix to avoid useless warnings about action type namespace
 const errorLog = console.error;
@@ -25,9 +27,9 @@ const geoDataFiles = [
     // { path: "mtl-subset-segment_all.curblr.json", label: "MTL - Test" }, //last from data convertÉ
     // { path: "mtl-subset-segment.curblr.json", label: "mtl" }, //trop lourd pour etre affiche
 
-    { path: "mtl-subset-places-oasis-bellechasse-plaza.curblr.json", label: "1 mtl - Oasis bellechasse + plaza"},
-    { path: "mtl-parco-places-oasis-bellechasse-plaza.filtred.curblr.json", label: "2 mtl-parco - Oasis bellechasse + plaza"},
-    { path: "mtl-fusion-places-oasis-bellechasse-plaza.curblr.json", label: "3 fusion - Oasis bellechasse + plaza"},
+    { path: "mtl-subset-places-oasis-bellechasse-plaza.curblr.json", label: "1 - mtl - Oasis bellechasse + plaza"},
+    { path: "mtl-parco-places-oasis-bellechasse-plaza.filtred.curblr.json", label: "2 - mtl-parco - Oasis bellechasse + plaza"},
+    { path: "mtl-fusion-places-oasis-bellechasse-plaza.curblr.json", label: "3 - fusion - Oasis bellechasse + plaza"},
 
     { path: "mtl-parco-Outremont.filtred.curblr.json", label: "mtl-parco - Outremont"},
     // { path: "mtl-parco-Ville-Marie.filtred.curblr.json", label: "mtl-parco - Ville-Marie (lent)"}, //> 10 mo (26mo)
@@ -104,8 +106,16 @@ const initState:GlobalState = {
 
 async function loadAsset(path : string){
     //../assets/data/
+    // little hack, reading the file from github
     //https://raw.githubusercontent.com/ervinanoh/curb-map/master/src/assets/data/
-    return await import(`../assets/data/${path}`)
+    //or with google drive https://drive.google.com/uc?export=download&id=
+    
+    response = await fetch(`https://raw.githubusercontent.com/ervinanoh/curb-map/master/src/assets/data/${path}`);
+    const data = await response.json();
+    console.log(data);
+    return data;
+    // this.setState({ totalReactPackages: data.total })
+    // return await import(`../assets/data/${path}`)
 }
 
 const builder = new DvaModelBuilder(initState, "curblr")
