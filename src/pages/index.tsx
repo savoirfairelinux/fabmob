@@ -303,7 +303,8 @@ class Map extends React.Component<PageProps, {}> {
     showHideCard: true,
     sl_arrondRef: "plaza",
     set_dateTimeRef: new Date(),
-    data_to_replace: new CurbFeatureCollection()
+    data_to_replace: new CurbFeatureCollection(),
+    old_VS_new_selector: false
   };
 
   constructor(props: any) {
@@ -427,6 +428,8 @@ class Map extends React.Component<PageProps, {}> {
   };
 //TODO
   changeGeoData = async (value) => {
+
+    this.state.old_VS_new_selector = false;
     await this.props.dispatch(curblrActions.fetchGeoData(value));
     console.log('day changeGeoData', this.state.day)
     console.log('time changeGeoData', this.state.time)
@@ -442,6 +445,8 @@ class Map extends React.Component<PageProps, {}> {
   };
 
   changeGeoDataFromPost = async (data_awaited) => {
+  
+    this.state.old_VS_new_selector = true;
     const data_fetched_njson = await data_awaited;
     var data = renderCurblrData(
       data_fetched_njson,
@@ -472,7 +477,9 @@ class Map extends React.Component<PageProps, {}> {
     console.log(`Option selected:`, set_dateTimeRef.value);
   }
   sendRequest= () =>{
-    let uri = "http://127.0.0.1:8081/items"
+    this.state.old_VS_new_selector = true;
+
+    let uri = "http://127.0.0.1:8081/items";
 
     const payload = {
       "true_date_time": this.state.set_dateTimeRef,
@@ -485,6 +492,9 @@ class Map extends React.Component<PageProps, {}> {
         console.log(response);
         // this.state.data_to_replace = response.data;
         console.log(response.data);
+        
+      // this.props.curblr.data = response.data;
+      this.state.data_to_replace = response.data;
       this.changeGeoDataFromPost(response.data);
       }, (error) => {
         console.log(error);
@@ -502,11 +512,12 @@ class Map extends React.Component<PageProps, {}> {
   };
 
   render() {
-    const { viewport, mapStyle, day, time, mode, showHideCard, sl_arrondRef, set_dateTimeRef} = this.state;
+    const { viewport, mapStyle, day, time, mode, showHideCard, sl_arrondRef, set_dateTimeRef, data_to_replace, old_VS_new_selector} = this.state;
 
   // shows everything. would be great if this could intersect the feature collection with the viewport bounding box. i can't figure it out. for kevin?
-    const features = renderCurblrData(
-      this.props.curblr.data,
+  const dt_to_set = (old_VS_new_selector? data_to_replace : this.props.curblr.data);
+  const features = renderCurblrData(
+      dt_to_set,
       this.state.day,
       this.state.time,
       this.state.mode
@@ -663,39 +674,39 @@ class Map extends React.Component<PageProps, {}> {
     const arrondissements_montreal = [
       { label: "plaza", value: "plaza"},
       { label: "Outremont", value: "Outremont"},
-      { label: "LaSalle", value: "LaSalle"},
-      { label: "Mont-Royal", value: "Mont-Royal"},
+      // { label: "LaSalle", value: "LaSalle"},
+      // { label: "Mont-Royal", value: "Mont-Royal"},
       { label: "Ville-Marie", value: "Ville-Marie"},
       { label: "Le Plateau-Mont-Royal", value: "Le Plateau-Mont-Royal"},
-      { label: "Hampstead", value: "Hampstead"},
+      // { label: "Hampstead", value: "Hampstead"},
       { label: "Le Sud-Ouest", value: "Le Sud-Ouest"},
-      { label: "Rivière-des-Prairies-Pointe-aux-Trembles", value: "Rivière-des-Prairies-Pointe-aux-Trembles"},
+      // { label: "Rivière-des-Prairies-Pointe-aux-Trembles", value: "Rivière-des-Prairies-Pointe-aux-Trembles"},
       { label: "Lachine", value: "Lachine"},
-      { label: "Dorval", value: "Dorval"},
-      { label: "Montréal-Nord", value: "Montréal-Nord"},
-      { label: "L'Île-Bizard-Sainte-Geneviève", value: "L'Île-Bizard-Sainte-Geneviève"},
-      { label: "Kirkland", value: "Kirkland"},
-      { label: "Dollard-des-Ormeaux", value: "Dollard-des-Ormeaux"},
-      { label: "Senneville", value: "Senneville"},
+      // { label: "Dorval", value: "Dorval"},
+      // { label: "Montréal-Nord", value: "Montréal-Nord"},
+      // { label: "L'Île-Bizard-Sainte-Geneviève", value: "L'Île-Bizard-Sainte-Geneviève"},
+      // { label: "Kirkland", value: "Kirkland"},
+      // { label: "Dollard-des-Ormeaux", value: "Dollard-des-Ormeaux"},
+      // { label: "Senneville", value: "Senneville"},
       { label: "Ahuntsic-Cartierville", value: "Ahuntsic-Cartierville"},
-      { label: "Côte-Saint-Luc", value: "Côte-Saint-Luc"},
-      { label: "Saint-Léonard", value: "Saint-Léonard"},
-      { label: "Montréal-Ouest", value: "Montréal-Ouest"},
-      { label: "Pointe-Claire", value: "Pointe-Claire"},
-      { label: "L'Île-Dorval", value: "L'Île-Dorval"},
+      // { label: "Côte-Saint-Luc", value: "Côte-Saint-Luc"},
+      // { label: "Saint-Léonard", value: "Saint-Léonard"},
+      // { label: "Montréal-Ouest", value: "Montréal-Ouest"},
+      // { label: "Pointe-Claire", value: "Pointe-Claire"},
+      // { label: "L'Île-Dorval", value: "L'Île-Dorval"},
       { label: "Mercier-Hochelaga-Maisonneuve", value: "Mercier-Hochelaga-Maisonneuve"},
       { label: "Côte-des-Neiges-Notre-Dame-de-Grâce", value: "Côte-des-Neiges-Notre-Dame-de-Grâce"},
       { label: "Rosemont-La Petite-Patrie", value: "Rosemont-La Petite-Patrie"},
       { label: "Saint-Laurent", value: "Saint-Laurent"},
-      { label: "Beaconsfield", value: "Beaconsfield"},
+      // { label: "Beaconsfield", value: "Beaconsfield"},
       { label: "Villeray-Saint-Michel-Parc-Extension", value: "Villeray-Saint-Michel-Parc-Extension"},
-      { label: "Westmount", value: "Westmount"},
-      { label: "Montréal-Est", value: "Montréal-Est"},
-      { label: "Anjou", value: "Anjou"},
-      { label: "Pierrefonds-Roxboro", value: "Pierrefonds-Roxboro"},
-      { label: "Sainte-Anne-de-Bellevue", value: "Sainte-Anne-de-Bellevue"},
+      // { label: "Westmount", value: "Westmount"},
+      // { label: "Montréal-Est", value: "Montréal-Est"},
+      // { label: "Anjou", value: "Anjou"},
+      // { label: "Pierrefonds-Roxboro", value: "Pierrefonds-Roxboro"},
+      // { label: "Sainte-Anne-de-Bellevue", value: "Sainte-Anne-de-Bellevue"},
       { label: "Verdun", value: "Verdun"},
-      { label: "Baie-d'Urfé", value: "Baie-d'Urfé"},
+      // { label: "Baie-d'Urfé", value: "Baie-d'Urfé"},
     ];
 
 
@@ -723,7 +734,7 @@ class Map extends React.Component<PageProps, {}> {
             position: "fixed",
             top: "40px",
             left: "40px",
-            width: "310px",
+            width: "350px",
             height: "auto",
             maxHeight: "100vh",
             overflow: "auto"
@@ -756,7 +767,7 @@ class Map extends React.Component<PageProps, {}> {
             <Select.Option value="sa">Saturday</Select.Option>
             <Select.Option value="su">Sunday</Select.Option>
           </Select>
-          &nbsp; &nbsp; Time:{" "}
+          &nbsp; &nbsp;Time:{" "}
           <Select defaultValue={time} onChange={this.changeTime}
           style={{
             // position: "fixed",
@@ -791,7 +802,7 @@ class Map extends React.Component<PageProps, {}> {
           </Select>
           <br />
           <br />
-          View by:{" "}
+          &nbsp; &nbsp;View by:{" "}
           <Radio.Group
             defaultValue={mode}
             buttonStyle="solid"

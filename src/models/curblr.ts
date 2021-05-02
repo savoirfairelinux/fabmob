@@ -34,9 +34,9 @@ const geoDataFiles = [
     { path: "mtl-parco-Outremont.filtred.curblr.json", label: "mtl-parco - Outremont"},
     // { path: "mtl-parco-Ville-Marie.filtred.curblr.json", label: "mtl-parco - Ville-Marie (lent)"}, //> 10 mo (26mo)
     { path: "mtl-parco-Ahuntsic-Cartierville.filtred.curblr.json", label: "mtl-parco - Ahuntsic-Cartierville"},                  
+    // { path: "mtl-parco-Le-Plateau-Mont-Royal.filtred.curblr.json", label: "mtl-parco - Le Plateau-Mont-Royal"},                  
     { path: "mtl-parco-Côte-des-Neiges-Notre-Dame-de-Grâce.filtred.curblr.json", label: "mtl-parco - Côte-des-Neiges-Notre-Dame-de-Grâce"},       
     { path: "mtl-parco-Lachine.filtred.curblr.json", label: "mtl-parco - Lachine"},                                
-    // { path: "mtl-parco-Le-Plateau-Mont-Royal.filtred.curblr.json", label: "mtl-parco - Le-Plateau-Mont-Royal (un peu lent)"}, // > 10 mo                 
     { path: "mtl-parco-Le-Sud-Ouest.filtred.curblr.json", label: "mtl-parco - Le-Sud-Ouest"}, 
     { path: "mtl-parco-Mercier-Hochelaga-Maisonneuve.filtred.curblr.json", label: "mtl-parco - Mercier-Hochelaga-Maisonneuve"},          
     { path: "mtl-parco-Rosemont-La-Petite-Patrie.filtred.curblr.json", label: "mtl-parco - Rosemont-La-Petite-Patrie"},
@@ -112,10 +112,9 @@ async function loadAsset(path : string){
     
     const response = await fetch(`https://raw.githubusercontent.com/ervinanoh/curb-map/master/src/assets/data/${path}`);
     const data = await response.json();
-    console.log(data);
-    return data;
     // this.setState({ totalReactPackages: data.total })
-    // return await import(`../assets/data/${path}`)
+    // return data;
+    return await import(`../assets/data/${path}`)
 }
 
 const builder = new DvaModelBuilder(initState, "curblr")
