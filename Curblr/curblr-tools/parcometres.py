@@ -89,7 +89,7 @@ def emplacement_reglementations_to_dic(url_name):
             dic[tp[0]]["sCodeAutocollant_Name"].append(tp[1])
     return dic
 
-def reglementations_to_dic(url_name, dateTime_reservation:datetime, minStay):
+def reglementations_to_dic(url_name, dateTime_reservation:Optional[datetime]=None, minStay=None):#TODO minStay - pas forcement utile, l'interface le fait deja
     # file_name = PATH + urls_name[1] + ".csv"
     file_name = url_name + ".csv"
     dic = {}
@@ -99,34 +99,38 @@ def reglementations_to_dic(url_name, dateTime_reservation:datetime, minStay):
         l_tuple = []
         first_ligne = False
         for ligne in reader:
-            if first_ligne == False:
-                first_ligne = True
-                continue
-            #TODO dateTime and minStay
-            day_begin = int(ligne[2][:2])
-            month_begin = int(ligne[2][2:])
-
-            date_begin = date(dateTime_reservation.year, month_begin, day_begin)
-            day_end = int(ligne[3][:2])
-            month_end = int(ligne[3][2:])
-            date_end = date(dateTime_reservation.year, month_end, day_end)
             maxHeures = ligne[4]
-            day_reservation = dateTime_reservation.day
-            month_reservation = dateTime_reservation.month
-            weekday_reservation = dateTime_reservation.weekday()
+            if dateTime_reservation is not None:
+                if first_ligne == False:
+                    first_ligne = True
+                    continue
+                #TODO dateTime and minStay
+                day_begin = int(ligne[2][:2])
+                month_begin = int(ligne[2][2:])
 
-            dateTime_reservation = date(dateTime_reservation.year, dateTime_reservation.month, dateTime_reservation.day)
-            print("FILTERING",
-             day_begin,
-              month_begin,
-               day_end,
-                month_end,
-                 maxHeures,
-                  day_reservation,
-                   month_reservation,
-                    weekday_reservation)
-            if (dateTime_reservation<=date_end and dateTime_reservation>=date_begin):#todoMaxHeures
+                date_begin = date(dateTime_reservation.year, month_begin, day_begin)
+                day_end = int(ligne[3][:2])
+                month_end = int(ligne[3][2:])
+                date_end = date(dateTime_reservation.year, month_end, day_end)
+                day_reservation = dateTime_reservation.day
+                month_reservation = dateTime_reservation.month
+                weekday_reservation = dateTime_reservation.weekday()
+
+                dateTime_reservation = date(dateTime_reservation.year, dateTime_reservation.month, dateTime_reservation.day)
+                print("FILTERING",
+                day_begin,
+                month_begin,
+                day_end,
+                    month_end,
+                    maxHeures,
+                    day_reservation,
+                    month_reservation,
+                        weekday_reservation)
+                if (dateTime_reservation<=date_end and dateTime_reservation>=date_begin):#todoMaxHeures
+                    dic[ligne[0]] = {"Name":ligne[0], "Type":ligne[1], "DateDebut":ligne[2], "DateFin":ligne[3], "maxHeures": maxHeures}
+            else:
                 dic[ligne[0]] = {"Name":ligne[0], "Type":ligne[1], "DateDebut":ligne[2], "DateFin":ligne[3], "maxHeures": maxHeures}
+
     return dic
 
 def reglementations_periode_to_dic(url_name):
@@ -149,7 +153,7 @@ def reglementations_periode_to_dic(url_name):
             dic[tp[0]]["sub_prop"].append({"noPeriode": tp[1], "sDescription":tp[2]})
     return dic
 
-def periodes_to_dic(url_name, dateTime_reservation:datetime):
+def periodes_to_dic(url_name, dateTime_reservation:Optional[datetime]=None):
     # file_name = PATH + urls_name[4] + ".csv"
     file_name = url_name + ".csv"
     dic = {}
@@ -159,7 +163,9 @@ def periodes_to_dic(url_name, dateTime_reservation:datetime):
 
         l_tuple = []
         first_ligne = False
-        weekday = dateTime_reservation.weekday() #TODO weekday
+        if dateTime_reservation is not None:
+            weekday = dateTime_reservation.weekday() #TODO weekday - pas forcement utile, l'interface le fait deja
+            # print("weekday", weekday)
         for ligne in reader:
             if first_ligne == False:
                 first_ligne = True
@@ -185,7 +191,7 @@ def periodes_to_dic(url_name, dateTime_reservation:datetime):
     https://www.agencemobilitedurable.ca/fr/informations/donnees-ouvertes/description-des-donnees-disponibles.html
 
 '''
-def convert_places(dateTime_reservation, price, minStay):#TODO Parameters for polygon filter
+def convert_places(dateTime_reservation:Optional[datetime]=None, price=None, minStay=None):#TODO Parameters for polygon filter, price - pas forcement necessaire
     features = []
     file_name = urls_name[0] + ".csv"
     with open(PATH + file_name, newline='', encoding="ISO-8859-1") as csvfile:
@@ -310,11 +316,11 @@ def convert_bornes_hors_rue():
     with open(PATH + file_name, "w") as f:
         f.write('%s' % collection)
 
-def add_reglementations(collection, dateTime_reservation, price, minStay):#TODO Parameters for polygon filter and tarif(max)vation, price, minStay):
+def add_reglementations(collection, dateTime_reservation=None, price=None, minStay=None):#TODO Parameters for polygon filter and tarif(max)vation, price, minStay):
     a = emplacement_reglementations_to_dic(urls_name[2]) 
-    b = reglementations_to_dic(urls_name[1], dateTime_reservation, minStay)
+    b = reglementations_to_dic(urls_name[1], dateTime_reservation, minStay)#TODO minStay - pas forcement utile, l'interface le fait deja
     c = reglementations_periode_to_dic(urls_name[3])
-    d = periodes_to_dic(urls_name[4], dateTime_reservation)#TODO tarif(max)
+    d = periodes_to_dic(urls_name[4], dateTime_reservation)#TODO weekday - pas forcement utile, l'interface le fait deja
     
     for feature in collection["features"]:
         feature_properties = feature["properties"]
@@ -335,7 +341,8 @@ def add_reglementations(collection, dateTime_reservation, price, minStay):#TODO 
                     nId = j["noPeriode"]
                     j["periodes"] = d[nId]
             except KeyError as e: #du au filtre selon le jour et le mois, certains autocollants disparaissent
-                print(e)
+                # print(e)
+                pass
     return collection
 
 

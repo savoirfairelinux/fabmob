@@ -72,7 +72,7 @@ arronds = [
     "Mercier-Hochelaga-Maisonneuve",
     "Côte-des-Neiges-Notre-Dame-de-Grâce",
     "Rosemont-La Petite-Patrie",
-    # "Saint-Laurent", #24
+    "Saint-Laurent", #24
     # "Beaconsfield",
     "Villeray-Saint-Michel-Parc-Extension",
     # "Westmount",
@@ -83,7 +83,7 @@ arronds = [
     "Verdun", #32
     # "Baie-d'Urfé"
 ]
-def run(arronds, dateTime_reservation, price, minStay):
+def run(arronds, dateTime_reservation:Optional[datetime]=None, price=None, minStay=None):
     #Telechargement
     print("1a - début téléchargements")
     get_files()
@@ -159,4 +159,4 @@ def run(arronds, dateTime_reservation, price, minStay):
 # f = "mtl-places-Rosemont-La-Petite-Patrie.filtred.buffered.geojson"  
 # turn_regl_to_regu(f)    
 # (cd ../curb-map/; yarn start)
-# run(["plaza"])
+# run(arrondissements)
