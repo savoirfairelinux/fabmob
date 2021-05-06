@@ -74,8 +74,6 @@ def convert_places(data, dateTime_reservation:Optional[datetime]=None,
         )
         except ValueError: #petit hack pour sauter la premiere ligne du fichier csv
             pass
-    # for val in features:
-    #     val[]
     collection = FeatureCollection(features)
     return collection
 
@@ -91,21 +89,21 @@ def add_reglementations(data_geo_empl_reglementations,
     for feature in collection["features"]:
         feature_properties = feature["properties"]
         sNoplace =  feature_properties["sNoplace_sNoEmplacement"]
-        # print(sNoplace)
-        sNoplace_from_dic = a[sNoplace]
-        sCodeAutocollant_from_dic = a[sNoplace]["sCodeAutocollant_Name"]
-        # print(sCodeAutocollant_from_dic)
+        # try:
+        sNoplace_from_dic = data_geo_empl_reglementations[sNoplace]
+        # except Exception:
+        #     continue
+        sCodeAutocollant_from_dic = data_geo_empl_reglementations[sNoplace]["sCodeAutocollant_Name"]
         feature_properties["sCodeAutocollant_Name"] = {}
         feature_properties["liste_sCodeAutocollant_Name"] = sCodeAutocollant_from_dic
+        
         for i in sCodeAutocollant_from_dic:
-            # feature_properties["liste_sCodeAutocollant_Name"].append(i)
             try:
-                feature_properties["sCodeAutocollant_Name"][i] = b[i]
-                # print(feature_properties["sCodeAutocollant_Name"][i])
-                feature_properties["sCodeAutocollant_Name"][i]["sub_prob"] = c[i]["sub_prop"]
+                feature_properties["sCodeAutocollant_Name"][i] = data_geo_reglementations[i]
+                feature_properties["sCodeAutocollant_Name"][i]["sub_prob"] = data_geo_regl_periods[i]["sub_prop"]
                 for j in feature_properties["sCodeAutocollant_Name"][i]["sub_prob"]:
                     nId = j["noPeriode"]
-                    j["periodes"] = d[nId]
+                    j["periodes"] = data_geo_periods[nId]
             except KeyError as e: #du au filtre selon le jour et le mois, certains autocollants disparaissent
                 # print(e)
                 pass
@@ -119,12 +117,13 @@ def emplacement_reglementations_to_dic(data):
     dic = {}
     l_tuple = []
     first_ligne = False
+    data = data["data"]  
     for ligne in data:
         if first_ligne == False:
             first_ligne = True
             continue
-        dic[ligne[0]] = {"sCodeAutocollant_Name":[]}
-        l_tuple.append((ligne[0], ligne[1]) )
+        dic[ligne["SNO_EMPLACEMENT"]] = {"sCodeAutocollant_Name":[]}
+        l_tuple.append((ligne["SNO_EMPLACEMENT"], ligne["SCODE_AUTOCOLLANT"]) )
     for tp in l_tuple:
         dic[tp[0]]["sNoEmplacement"] = tp[0]
         dic[tp[0]]["sCodeAutocollant_Name"].append(tp[1])
@@ -136,19 +135,20 @@ def reglementations_to_dic(data, dateTime_reservation:Optional[datetime]=None, m
     dic = {}
     l_tuple = []
     first_ligne = False
+    data = data["data"]  
     for ligne in data:
-        maxHeures = ligne[4]
+        maxHeures = ligne["MAXHEURES"]
         if dateTime_reservation is not None:
             if first_ligne == False:
                 first_ligne = True
                 continue
             #TODO dateTime and minStay
-            day_begin = int(ligne[2][:2])
-            month_begin = int(ligne[2][2:])
+            day_begin = int(ligne["DATEDEBUT"][:2])
+            month_begin = int(ligne["DATEDEBUT"][2:])
 
             date_begin = date(dateTime_reservation.year, month_begin, day_begin)
-            day_end = int(ligne[3][:2])
-            month_end = int(ligne[3][2:])
+            day_end = int(ligne["DATEFIN"][:2])
+            month_end = int(ligne["DATEFIN"][2:])
             date_end = date(dateTime_reservation.year, month_end, day_end)
             day_reservation = dateTime_reservation.day
             month_reservation = dateTime_reservation.month
@@ -165,9 +165,9 @@ def reglementations_to_dic(data, dateTime_reservation:Optional[datetime]=None, m
                 month_reservation,
                     weekday_reservation)
             if (dateTime_reservation<=date_end and dateTime_reservation>=date_begin):#todoMaxHeures
-                dic[ligne[0]] = {"Name":ligne[0], "Type":ligne[1], "DateDebut":ligne[2], "DateFin":ligne[3], "maxHeures": maxHeures}
+                dic[ligne["NAME"]] = {"Name":ligne["NAME"], "Type":ligne["TYPE"], "DateDebut":ligne["DATEDEBUT"], "DateFin":ligne["DATEFIN"], "maxHeures": maxHeures}
         else:
-            dic[ligne[0]] = {"Name":ligne[0], "Type":ligne[1], "DateDebut":ligne[2], "DateFin":ligne[3], "maxHeures": maxHeures}
+            dic[ligne["NAME"]] = {"Name":ligne["NAME"], "Type":ligne["TYPE"], "DateDebut":ligne["DATEDEBUT"], "DateFin":ligne["DATEFIN"], "maxHeures": maxHeures}
 
     return dic
 
@@ -176,12 +176,13 @@ def reglementations_periods_to_dic(data):
     dic = {}
     l_tuple = []
     first_ligne = False
+    data = data["data"]  
     for ligne in data:
         if first_ligne == False:
             first_ligne = True
             continue
-        dic[ligne[0]] = {"sub_prop":[]}
-        l_tuple.append( (ligne[0], ligne[1], ligne[2]) )
+        dic[ligne["SCODE"]] = {"sub_prop":[]}
+        l_tuple.append( (ligne["SCODE"], ligne["NOPERIODE"], ligne["SDESCRIPTION"]) )
     
     for tp in l_tuple:
         dic[tp[0]]["sCode"] = tp[0]
@@ -197,21 +198,22 @@ def periods_to_dic(data, dateTime_reservation:Optional[datetime]=None):
     if dateTime_reservation is not None:
         weekday = dateTime_reservation.weekday() #TODO weekday - pas forcement utile, l'interface le fait deja
         # print("weekday", weekday)
+    data = data["data"]  
     for ligne in data:
         if first_ligne == False:
             first_ligne = True
             continue
-        dic[ligne[0]] = {
-            "nID":ligne[0],
-                "dtHeureDebut":ligne[1],
-                "dtHeureFin":ligne[2],
-                "bLun":ligne[3],
-                "bMar":ligne[4],
-                "bMer":ligne[5],
-                "bJeu":ligne[6],
-                "bVen":ligne[7],
-                "bSam":ligne[8],
-                "bDim":ligne[9]
+        dic[ligne["NID"]] = {
+            "nID":ligne["NID"],
+                "dtHeureDebut":ligne["DTHEUREDEBUT"],
+                "dtHeureFin":ligne["DTHEUREFIN"],
+                "bLun":ligne["BLUN"],
+                "bMar":ligne["BMAR"],
+                "bMer":ligne["BMER"],
+                "bJeu":ligne["BJEU"],
+                "bVen":ligne["BVEN"],
+                "bSam":ligne["BSAM"],
+                "bDim":ligne["BDIM"]
                 }
     return dic
 
