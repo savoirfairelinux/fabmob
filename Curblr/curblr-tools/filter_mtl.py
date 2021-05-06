@@ -121,14 +121,9 @@ PATH = "data/"
 def filter_mtl(arronds=["Rosemont-La Petite-Patrie"]):
     l_out_file = []
     for i in arronds:
-        # if arrond == "all":
-        #     arrondissement_montreal = i
-        # else:
-        #     arrondissement_montreal = "Rosemont-La Petite-Patrie"
         arrondissement_montreal = i
         polygone = []
 
-        
         # PLAZA
         if arrondissement_montreal == "plaza":
             file_to_open = PATH + "plaza_rosemont.geojson"
@@ -170,8 +165,6 @@ def filter_mtl(arronds=["Rosemont-La Petite-Patrie"]):
                 else:
                     n += 1
             data["features"] = l
-        # print(polygone)
-        # print(l)
         print(arrondissement_montreal, "-- in: ", p, ", out: ", n, ", total: ", m)
         if arrondissement_montreal == "plaza":
             outfile = "mtl-parco-" + "places-oasis-bellechasse-plaza".replace(" ","-").replace("+","-") + ".filtred.geojson"
@@ -183,8 +176,6 @@ def filter_mtl(arronds=["Rosemont-La Petite-Patrie"]):
         print("filtrage terminé")
 
         l_out_file.append(outfile)
-        
-        # if arrond != "all"
-        #     break          
+            
     return l_out_file
     

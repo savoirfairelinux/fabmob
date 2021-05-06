@@ -1,12 +1,14 @@
 from parcometres import *
 from filter_mtl import *
-# from filter_qc import *
 import os
 
-# if __name__ == "__main__":
 '''
-    arrondissements: liste de tous les arrondissements de la ville de Montrel
+    arrondissements: liste de tous les arrondissements de la ville de Montreal
     arronds: liste des arrondissements pour lesquels les donnees de parcometres sont presents
+    Les arrondissements en commentaire sont ceux pour lesquels les donnees sont soit absentes soit corrompues
+    Étant donné le temps de conversion assez long pour l'intégralité des arrondissements, je conseille de procéder avec deux ou trois arrondissements pour les tests
+
+    Ce script est le code de conversion principal basé sur les fichiers téléchargés 
 '''
 
 arrondissements = [
@@ -159,4 +161,6 @@ def run(arronds, dateTime_reservation:Optional[datetime]=None, price=None, minSt
 # f = "mtl-places-Rosemont-La-Petite-Patrie.filtred.buffered.geojson"  
 # turn_regl_to_regu(f)    
 # (cd ../curb-map/; yarn start)
-# run(arrondissements)
+
+
+run(arronds)

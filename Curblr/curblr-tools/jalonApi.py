@@ -322,6 +322,15 @@ def run():
     # with open(PATH + file_name, "w") as f:
     #     f.write('%s' % places_collection_wr)
 
+    '''
+        TODO: explorer sharestreets api for python
+        https://github.com/sharedstreets/sharedstreets-python
+
+        TODO: lier filtermtl et éviter la création de fichiers
+        TODO: lier le script à fast api
+
+        TODO: deploy
+    '''
 
 
 run()
