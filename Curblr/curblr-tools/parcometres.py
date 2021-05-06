@@ -37,7 +37,7 @@ urls = [
 
 urls_name = [
     "places",
-     "reglementations",
+     "reglementatbions",
       "emplacement_reglementations",
        "reglementation_periode",
         "periodes",
