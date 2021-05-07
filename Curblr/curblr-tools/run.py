@@ -163,4 +163,4 @@ def run(arronds, dateTime_reservation:Optional[datetime]=None, price=None, minSt
 # (cd ../curb-map/; yarn start)
 
 
-run(arronds)
+run(arronds[:3])

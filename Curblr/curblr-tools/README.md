@@ -11,6 +11,8 @@ python3 -m venv env
 source env/bin/activate
 pip3 install -r requirements.txt
 ```
+Il faut aussi rajouter les fichiers d'authentification 'credits.json' pour l'API jalon et 'clients_secrets.json' pour google drive Api.
+Veuillez contacter le développeur pour les obtenir.
 
 ## Lancer le code de conversion et observer le resultat dans Curb-Map
 ```sh
