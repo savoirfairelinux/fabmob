@@ -54,7 +54,7 @@ arrondissements = [
 
 PATH = "data/"
 
-def filter_mtl(arronds=["plaza"]):
+def filter_mtl(places_collection_wr, arronds=["plaza"]):
     l_out_file = []
     dic = {}
     for i in arronds:
@@ -83,25 +83,23 @@ def filter_mtl(arronds=["plaza"]):
         data = ""
         m=0
         # file_to_open = "signalisation_stationnement.geojson"
-        file_to_open = PATH + "places_with_reglementations.geojson"
-        with open(file_to_open) as f:
-            data = json.load(f)
-            n=0
-            p =0
-            l = []
-            for i in (data["features"]):
-                m+=1
-                point_a_tester = i["geometry"]["coordinates"]
-                # print(i["properties"]["nPositionCentreLongitude"])
-                # print(point_a_tester)
-                point_format_turfpy = Feature(geometry=Point(point_a_tester))
-                polygone_format_turfpy = Polygon(polygone)
-                if(boolean_point_in_polygon(point_format_turfpy, polygone_format_turfpy)) == True:
-                    l.append(i)
-                    p += 1
-                else:
-                    n += 1
-            data["features"] = l
+        data = places_collection_wr
+        n=0
+        p =0
+        l = []
+        for i in (data["features"]):
+            m+=1
+            point_a_tester = i["geometry"]["coordinates"]
+            # print(i["properties"]["nPositionCentreLongitude"])
+            # print(point_a_tester)
+            point_format_turfpy = Feature(geometry=Point(point_a_tester))
+            polygone_format_turfpy = Polygon(polygone)
+            if(boolean_point_in_polygon(point_format_turfpy, polygone_format_turfpy)) == True:
+                l.append(i)
+                p += 1
+            else:
+                n += 1
+        data["features"] = l
         print(arrondissement_montreal, "-- in: ", p, ", out: ", n, ", total: ", m)
         if arrondissement_montreal == "plaza":
             outfile = "mtl-parco-" + "places-oasis-bellechasse-plaza".replace(" ","-").replace("+","-") + ".filtred.geojson"
@@ -349,7 +347,6 @@ def requests_iter(url):
     return data
 
 def turn_regl_to_regu(buffered_file):
-    print(buffered_file)
     with open(buffered_file, "r") as f:
         data = json.load(f)
         geojson = {}
@@ -630,7 +627,7 @@ def run(arronds=[arrondissements[0]], dateTime_reservation:Optional[datetime]=No
 
     # stream = os.popen(f'{python_exe} {main_file} -i="{src}" -it=1 -o="{dest}" twin -d=0 -pd=1')
     # stream.read()
-    data_filtred = filter_mtl(arronds)
+    data_filtred = filter_mtl(places_collection_wr, arronds)
 
     '''
         Match des data avec SharedStreets
