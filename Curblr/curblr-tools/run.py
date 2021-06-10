@@ -141,19 +141,14 @@ def run(arronds, dateTime_reservation:Optional[datetime]=None, price=None, minSt
             out, geojson = turn_regl_to_regu(f)
             files_to_mv.append(out)
             print("\n5b - fin curblr pour " + f)
-        except FileNotFoundError:
+        except FileNotFoundError as e:
             print("Pas de match pour,", file_i, ". Fichier buffered manquant")
-        except KeyError:
-            print("Pas de match pour,", file_i, ". Fichier buffered probablement vide")
-        except TypeError as e: 
-            print("Il n'y aura pas de match pour", file_i, "car la propriété 'geometry' du fichier manque probablement")
-            print("Type error", e)
     print("\n5c - fin curblr")
 
     print("déplacement vers curb map")
     for file_i in files_to_mv:
-        c = "mv " + PATH + file_i + " ../../../old/Curblr/erwin_fork_deployed_curb_map/curb-map/src/assets/data/"
-        # c = "mv " + PATH + file_i + " ../curb-map/src/assets/data/"
+        # c = "mv " + PATH + file_i + " ../../../old/Curblr/erwin_fork_deployed_curb_map/curb-map/src/assets/data/"
+        c = "mv " + PATH + file_i + " ../curb-map/src/assets/data/"
         os.system(c)
 
     return geojson
@@ -162,5 +157,6 @@ def run(arronds, dateTime_reservation:Optional[datetime]=None, price=None, minSt
 # turn_regl_to_regu(f)    
 # (cd ../curb-map/; yarn start)
 
-
-run(arronds[:3])
+if __name__ == "__main__":
+    run([arronds[0]])
+    # run(arronds[:3])
