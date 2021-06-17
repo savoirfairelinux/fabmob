@@ -47,7 +47,6 @@ class Filter(BaseModel):
 @app.post("/items")
 async def read_item(filter_params:Filter):
     print(filter_params.arrond_quartier)
-    
     #geojson = run([filter_params.arrond_quartier], filter_params.true_date_time, filter_params.price, filter_params.minStay)
     geojson = run([filter_params.arrond_quartier], filter_params.true_date_time, filter_params.price, filter_params.minStay)
     

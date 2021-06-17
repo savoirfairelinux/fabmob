@@ -849,7 +849,7 @@ def run(arronds=[arrondissements[0]], dateTime_reservation:Optional[datetime]=No
                                                     --two-way-value=two \
                                                         --one-way-against-direction-value=against \
                                                             --one-way-with-direction-value=one"
-        print(c)
+        # print(c)
         # with open("command.txt", "w") as f:
         #     f.write(c)
         os.system(c)
@@ -872,8 +872,6 @@ def run(arronds=[arrondissements[0]], dateTime_reservation:Optional[datetime]=No
                 - creer un dictionnaire des conversions par arrondissements, et eventuellement enregistrer dans une bd
 
         TODO: lier a sharedstreets node js
-        TODO: lier le script à fast api
-
         TODO: deploy
     '''
 
