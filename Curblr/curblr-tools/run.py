@@ -85,7 +85,7 @@ arronds = [
     "Verdun", #32
     # "Baie-d'Urfé"
 ]
-def run(arronds, dateTime_reservation:Optional[datetime]=None, price=None, minStay=None):
+def run(arronds, dateTime_reservation:Optional[datetime]=None, price=None, minStay=None, specific_arrond=""):
     #Telechargement
     print("1a - début téléchargements")
     get_files()
@@ -101,7 +101,7 @@ def run(arronds, dateTime_reservation:Optional[datetime]=None, price=None, minSt
     #filtrage
     print("\n3a - début filtrage")
     # files = filter_mtl([arronds[0]])#[:4]
-    files = filter_mtl(arronds)#[:2])
+    files = filter_mtl(arronds=arronds, specific_arrond=specific_arrond)#[:2])
     print("3b - fin filtrage")
     '''
     NB:
@@ -158,5 +158,13 @@ def run(arronds, dateTime_reservation:Optional[datetime]=None, price=None, minSt
 # (cd ../curb-map/; yarn start)
 
 if __name__ == "__main__":
-    run([arronds[0]])
-    # run(arronds[:3])
+    # run([arronds[0]])
+    ville_marie_quartiers = [
+        "DOWNTOWN",
+        "QUARTIER DES SPECTACLES",
+        "GAY VILLAGE",
+        "OLD MONTREAL",
+        "JEAN-DRAPEAU",
+    ]
+    # run(arronds=ville_marie_quartiers, specific_arrond="Ville-Marie")
+    run(arronds[:3])

@@ -116,9 +116,9 @@ filtrage terminé
     Pour filtrer tous les arrondissements en même temps
 '''
 
-PATH = "data/"
+DATA_PATH = "data/"
 
-def filter_mtl(arronds=["Rosemont-La Petite-Patrie"]):
+def filter_mtl(arronds=["Rosemont-La Petite-Patrie"], specific_arrond=""):
     l_out_file = []
     for i in arronds:
         arrondissement_montreal = i
@@ -126,7 +126,7 @@ def filter_mtl(arronds=["Rosemont-La Petite-Patrie"]):
 
         # PLAZA
         if arrondissement_montreal == "plaza":
-            file_to_open = PATH + "plaza_rosemont.geojson"
+            file_to_open = DATA_PATH + "plaza_rosemont.geojson"
             with open(file_to_open) as f:
                 data = json.load(f)
                 for i in (data["features"]):
@@ -134,19 +134,19 @@ def filter_mtl(arronds=["Rosemont-La Petite-Patrie"]):
                         polygone = i["geometry"]["coordinates"]
                         break
         else:
-            file_to_open = PATH + "limadmin.geojson.json"
+            file_to_open = DATA_PATH + "quartiers_arrodissement_villemarie.geojson" if specific_arrond == "Ville-Marie" else DATA_PATH + "limadmin.geojson.json"
             with open(file_to_open) as f:
                 data = json.load(f)
                 for i in (data["features"]):
                     if i["properties"]["NOM"] == arrondissement_montreal:
-                        polygone = i["geometry"]["coordinates"][0]
+                        polygone = i["geometry"]["coordinates"][0] if specific_arrond != "Ville-Marie" else i["geometry"]["coordinates"]
                         break
 
         point_a_tester = []
         data = ""
         m=0
         # file_to_open = "signalisation_stationnement.geojson"
-        file_to_open = PATH + "places_with_reglementations.geojson"
+        file_to_open = DATA_PATH + "places_with_reglementations.geojson"
         with open(file_to_open) as f:
             data = json.load(f)
             n=0
@@ -171,7 +171,7 @@ def filter_mtl(arronds=["Rosemont-La Petite-Patrie"]):
         else:
             outfile = "mtl-parco-" + arrondissement_montreal.replace(" ","-").replace("+","-") + ".filtred.geojson"
         
-        with open(PATH + outfile, mode="w") as f:
+        with open(DATA_PATH + outfile, mode="w") as f:
             json.dump(data, f)
         print("filtrage terminé")
 
