@@ -92,9 +92,9 @@ def filter(arronds=["Rosemont-La Petite-Patrie"], data_to_cut="", specific_arron
             data["features"] = l
         print(arrondissement_montreal, "-- in: ", p, ", out: ", n, ", total: ", m)
         if arrondissement_montreal == "plaza":
-            outfile = "mtl-parco-" + "places-oasis-bellechasse-plaza".replace(" ","-").replace("+","-") + ".filtred.geojson"
+            outfile = "mtl-signalec-" + "places-oasis-bellechasse-plaza".replace(" ","-").replace("+","-") + ".filtred.geojson"
         else:
-            outfile = "mtl-parco-" + arrondissement_montreal.replace(" ","-").replace("+","-") + ".filtred.geojson"
+            outfile = "mtl-signalec-" + arrondissement_montreal.replace(" ","-").replace("+","-") + ".filtred.geojson"
         with open(PATH + outfile, mode="w") as f:
             json.dump(data, f)
         print("filtrage terminé")
@@ -151,8 +151,7 @@ def update(arronds, noms_sous_quartiers=[], specific_arrond="", data_sub_arronds
         else:
             f_subset_subarronds = [f_subset]
         
-        for f_subset in f_subset_subarronds:   
-            print("XXXXXXXXXXXXXXXXXXX", f_subset)
+        for f_subset in f_subset_subarronds:
             os.system("shst match " + f_subset + " \
                 --search-radius=15 \
                     --offset-line=10 \
@@ -174,16 +173,21 @@ def update(arronds, noms_sous_quartiers=[], specific_arrond="", data_sub_arronds
                 ")
 
             f_subset_joined_in = f_subset.replace(".geojson", "-segment.joined.geojson")
-            f_subset_curblr_out = "mtl-subset-segment_all.curblr.json".replace("_all", "-" + arrond)
+            if specific_arrond =="":
+                f_subset_curblr_out = "mtl-subset-segment_all.curblr.json".replace("_all", "-" + arrond)
+            else:
+                f_subset_curblr_out = f_subset.replace("signalec", "subset-segment")
+                f_subset_curblr_out = f_subset_curblr_out.replace(".filtred.geojson", ".curblr.json")
             f_subset_curblr_out = f_subset_curblr_out.replace(" ", "").lower()
             
-            os.system("node segment_to_curblr.js " + f_subset_joined_in + " > data/" + f_subset_curblr_out)             
+            os.system("node segment_to_curblr.js " + f_subset_joined_in + " > " + f_subset_curblr_out)             
             
             assets_curb_map = os.path.join("..", "..", "curb-map", "src", "assets", "data")
             print(assets_curb_map)
-            os.system("mv data/" + f_subset_curblr_out + " " + assets_curb_map)
+            print(f_subset_curblr_out)
+            os.system("mv " + f_subset_curblr_out + " " + assets_curb_map)
             
-            os.system("echo 'done'")
+            os.system("echo transfert to curb-map done")
             #os.system("node stats.js > data/mtl-subset-unmanaged.geojson")
                 # f.write('{ path: "' + f_subset_curblr_out + '", label: "mtl - ' + arrond + '" },\n')
 
