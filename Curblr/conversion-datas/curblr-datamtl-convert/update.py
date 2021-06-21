@@ -1,9 +1,11 @@
 import os
 import json 
+from turfpy.measurement import boolean_point_in_polygon
+from geojson import Point, Polygon, Feature
 
 arronds = [
     # "LaSalle",
-    # "Ville-Marie",
+    "Ville-Marie",
     "Côte-des-Neiges - Notre-Dame-de-Grâce",#null
     # # "None",
     # "Montréal-Nord",
@@ -46,6 +48,61 @@ arronds = [
     "Saint-Laurent"
     ]
 
+PATH = "data/"
+
+def filter(arronds=["Rosemont-La Petite-Patrie"], data_to_cut="", specific_arrond="Ville-Marie", data_sub_arronds="quartiers_arrodissement_villemarie.geojson"):
+    l_out_file = []
+    for i in arronds:
+        arrondissement_montreal = i
+        polygone = []
+
+        file_to_open = data_sub_arronds if specific_arrond == "Ville-Marie" else "limadmin.geojson.json"
+        with open(file_to_open) as f:
+            data = json.load(f)
+            for i in (data["features"]):
+                if i["properties"]["NOM"] == arrondissement_montreal:
+                    polygone = i["geometry"]["coordinates"][0] if specific_arrond != "Ville-Marie" else i["geometry"]["coordinates"]
+                    break
+
+        point_a_tester = []
+        data = ""
+        m=0
+        file_to_open = ""
+        if data_to_cut !="":
+            file_to_open = data_to_cut
+        else:
+            return
+        with open(file_to_open) as f:
+            data = json.load(f)
+            n=0
+            p =0
+            l = []
+            for i in (data["features"]):
+                m+=1
+                point_a_tester = i["geometry"]["coordinates"]
+                # print(i["properties"]["nPositionCentreLongitude"])
+                # print(point_a_tester)
+                point_format_turfpy = Feature(geometry=Point(point_a_tester))
+                polygone_format_turfpy = Polygon(polygone)
+                if(boolean_point_in_polygon(point_format_turfpy, polygone_format_turfpy)) == True:
+                    l.append(i)
+                    p += 1
+                else:
+                    n += 1
+            data["features"] = l
+        print(arrondissement_montreal, "-- in: ", p, ", out: ", n, ", total: ", m)
+        if arrondissement_montreal == "plaza":
+            outfile = "mtl-parco-" + "places-oasis-bellechasse-plaza".replace(" ","-").replace("+","-") + ".filtred.geojson"
+        else:
+            outfile = "mtl-parco-" + arrondissement_montreal.replace(" ","-").replace("+","-") + ".filtred.geojson"
+        with open(PATH + outfile, mode="w") as f:
+            json.dump(data, f)
+        print("filtrage terminé")
+
+        l_out_file.append(PATH + outfile)
+            
+    return l_out_file
+
 def check_avaialble_arronds():
     arrondissements_from_json = set([])
     agregate_sign_file = 'data/agregate-signalisation.json'
@@ -57,11 +114,8 @@ def check_avaialble_arronds():
         for i in arrondissements_from_json:
             print(i)    
 
-def update(arronds):
+def update(arronds, noms_sous_quartiers=[], specific_arrond="", data_sub_arronds=""):
     os.system("echo -n 'Retrieve online data... '")
-    # montreal datas 
-    #       old - os.system("wget -N -P data http://donnees.ville.montreal.qc.ca/dataset/8ac6dd33-b0d3-4eab-a334-5a6283eb7940/resource/52cecff0-2644-4258-a2d1-0c4b3b116117/download/signalisation_stationnement.geojson
-    #       old - os.system("wget -N -P data http://donnees.ville.montreal.qc.ca/dataset/c5bf5e9c-528b-4c28-b52f-218215992e35/resource/0795f422-b53b-41ca-89be-abc1069a88c9/download/signalisation-codification-rpa.json")
     os.system("wget -N -P data https://storage.googleapis.com/dx-montreal/resources/52cecff0-2644-4258-a2d1-0c4b3b116117/signalisation_stationnement.geojson")
     os.system("wget -N -P data https://storage.googleapis.com/dx-montreal/resources/0795f422-b53b-41ca-89be-abc1069a88c9/signalisation-codification-rpa.json")
     os.system("echo 'done'")
@@ -86,40 +140,64 @@ def update(arronds):
         f_subset = f_subset.replace(" ", "")
         os.system("node subset.js " + arrond + " > " + f_subset)
         os.system("echo 'done'")
-        os.system("shst match " + f_subset + " \
-            --search-radius=15 \
-                --offset-line=10 \
-                    --snap-side-of-street \
-                            --buffer-points")
-
-        os.system("echo -n 'transform to segment... '")
-        f_subset_in = f_subset.replace(".geojson", ".buffered.geojson")
-        f_subset_segment_out = f_subset.replace(".geojson", "-segment.geojson")
-        os.system("node mtl_to_segment.js " + f_subset_in + " > " + f_subset_segment_out)
-        os.system("echo 'done'")
-
-        os.system("shst match " + f_subset_segment_out + " --join-points --join-points-match-fields=PANNEAU_ID_RPA,CODE_RPA \
-            --search-radius=15 --snap-intersections --snap-intersections-radius=10 \
-            --trim-intersections-radius=5 --buffer-merge-group-fields=POTEAU_ID_POT,PANNEAU_ID_PAN \
-            --buffer-points \
-            # --direction-field=direction --two-way-value=two --one-way-against-direction-value=against --one-way-with-direction-value=one \
-            ")
-        os.system("echo -n 'generate curblr... '")
-
-        f_subset_joined_in = f_subset.replace(".geojson", "-segment.joined.geojson")
-        f_subset_curblr_out = "mtl-subset-segment_all.curblr.json".replace("_all", "-" + arrond)
-        f_subset_curblr_out = f_subset_curblr_out.replace(" ", "").lower()
         
-        os.system("node segment_to_curblr.js " + f_subset_joined_in + " > data/" + f_subset_curblr_out)             
+        f_subset_subarronds = []
+        if len(noms_sous_quartiers)>0 and specific_arrond !="" and data_sub_arronds !="" and arrond==specific_arrond:
+            f_subset_subarronds = filter(
+                                                arronds=noms_sous_quartiers,
+                                                data_to_cut=f_subset,
+                                                specific_arrond=specific_arrond,
+                                                data_sub_arronds=data_sub_arronds)
+        else:
+            f_subset_subarronds = [f_subset]
         
-        assets_curb_map = os.path.join("..", "..", "curb-map", "src", "assets", "data")
-        print(assets_curb_map)
-        os.system("mv data/" + f_subset_curblr_out + " " + assets_curb_map)
-        
-        os.system("echo 'done'")
-        #os.system("node stats.js > data/mtl-subset-unmanaged.geojson")
-            # f.write('{ path: "' + f_subset_curblr_out + '", label: "mtl - ' + arrond + '" },\n')
+        for f_subset in f_subset_subarronds:   
+            print("XXXXXXXXXXXXXXXXXXX", f_subset)
+            os.system("shst match " + f_subset + " \
+                --search-radius=15 \
+                    --offset-line=10 \
+                        --snap-side-of-street \
+                                --buffer-points")
+
+            os.system("echo -n 'transform to segment... '")
+            f_subset_in = f_subset.replace(".geojson", ".buffered.geojson")
+            f_subset_segment_out = f_subset.replace(".geojson", "-segment.geojson")
+            os.system("node mtl_to_segment.js " + f_subset_in + " > " + f_subset_segment_out)
+            os.system("echo 'done'")
+
+            os.system("echo -n 'generate curblr... '") 
+            os.system("shst match " + f_subset_segment_out + " --join-points --join-points-match-fields=PANNEAU_ID_RPA,CODE_RPA \
+                --search-radius=15 --snap-intersections --snap-intersections-radius=10 \
+                --trim-intersections-radius=5 --buffer-merge-group-fields=POTEAU_ID_POT,PANNEAU_ID_PAN \
+                --buffer-points \
+                # --direction-field=direction --two-way-value=two --one-way-against-direction-value=against --one-way-with-direction-value=one \
+                ")
+
+            f_subset_joined_in = f_subset.replace(".geojson", "-segment.joined.geojson")
+            f_subset_curblr_out = "mtl-subset-segment_all.curblr.json".replace("_all", "-" + arrond)
+            f_subset_curblr_out = f_subset_curblr_out.replace(" ", "").lower()
+            
+            os.system("node segment_to_curblr.js " + f_subset_joined_in + " > data/" + f_subset_curblr_out)             
+            
+            assets_curb_map = os.path.join("..", "..", "curb-map", "src", "assets", "data")
+            print(assets_curb_map)
+            os.system("mv data/" + f_subset_curblr_out + " " + assets_curb_map)
+            
+            os.system("echo 'done'")
+            #os.system("node stats.js > data/mtl-subset-unmanaged.geojson")
+                # f.write('{ path: "' + f_subset_curblr_out + '", label: "mtl - ' + arrond + '" },\n')
 
     os.system("date")
-os.system("nvm use 12.7.0")
-update(arronds)
+if __name__ == "__main__":
+    os.system("nvm use 12.7.0")
+    ville_marie_quartiers = [
+            "DOWNTOWN",
+            "QUARTIER DES SPECTACLES",
+            "GAY VILLAGE",
+            "OLD MONTREAL",
+            "JEAN-DRAPEAU",
+        ]
+    specific_arrond="Ville-Marie"
+    data_sub_arronds="quartiers_arrodissement_villemarie.geojson"
+    update(["LaSalle", "Ville-Marie"], ville_marie_quartiers, specific_arrond, data_sub_arronds)
+    # update(arronds)
