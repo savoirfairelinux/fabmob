@@ -27,5 +27,14 @@ Commentez d'abord l'appel à la fonction run() dans run.py
 
 Pour démarrer le serveur:
 ```sh
-uvicorn main:app --reload --port 8081
+uvicorn server_fastApi:app --reload
+```
+
+Sur la machine virtuelle(digital océan ubuntu)
+```sh
+uvicorn server_fastApi:app --host 0.0.0.0 --reload
+```
+en ssl
+```sh
+uvicorn server_fastAPI:app --host 0.0.0.0 --reload --port 443 --ssl-keyfile=/etc/ssl/private/apache-selfsigned.key --ssl-certfile=/etc/ssl/certs/apache-selfsigned.crt
 ```
