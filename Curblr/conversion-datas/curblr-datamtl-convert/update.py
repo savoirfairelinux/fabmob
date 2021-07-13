@@ -26,6 +26,7 @@ arronds = [
     # "Saint-Laurent"
     ]
 arronds = [
+    "plaza",
     "LaSalle",
     "Ville-Marie",
     "Côte-des-Neiges - Notre-Dame-de-Grâce",#null
@@ -103,6 +104,57 @@ def filter(arronds=["Rosemont-La Petite-Patrie"], data_to_cut="", specific_arron
             
     return l_out_file
 
+
+
+def filter_min(data_to_cut, arrondissement_montreal, data_sub_arronds):
+    l_out_file = []
+    polygone = []
+    file_to_open = data_sub_arronds
+    with open(file_to_open) as f:
+        data = json.load(f)
+        polygone = data["features"][0]["geometry"]["coordinates"]
+
+    point_a_tester = []
+    data = ""
+    m=0
+    file_to_open = ""
+    if data_to_cut !="":
+        file_to_open = data_to_cut
+    else:
+        return
+    
+    with open(file_to_open) as f:
+        data = json.load(f)
+        n=0
+        p =0
+        l = []
+        for i in (data["features"]):
+            m+=1
+            point_a_tester = i["geometry"]["coordinates"]
+            # print(i["properties"]["nPositionCentreLongitude"])
+            # print(point_a_tester)
+            point_format_turfpy = Feature(geometry=Point(point_a_tester))
+            polygone_format_turfpy = Polygon(polygone)
+            if(boolean_point_in_polygon(point_format_turfpy, polygone_format_turfpy)) == True:
+                l.append(i)
+                p += 1
+            else:
+                n += 1
+        data["features"] = l
+    print(arrondissement_montreal, "-- in: ", p, ", out: ", n, ", total: ", m)
+    if arrondissement_montreal == "plaza":
+        # outfile = "mtl-signalec-" + "places-oasis-bellechasse-plaza".replace(" ","-").replace("+","-") + ".filtred.geojson"
+        outfile = "mtl-subset-" + arrondissement_montreal + ".geojson"        
+    else:
+        outfile = "mtl-signalec-" + arrondissement_montreal.replace(" ","-").replace("+","-") + ".filtred.geojson"
+    with open(PATH + outfile, mode="w") as f:
+        json.dump(data, f)
+    print("filtrage terminé")
+
+    l_out_file.append(PATH + outfile)
+        
+    return l_out_file
+
 def check_avaialble_arronds():
     arrondissements_from_json = set([])
     agregate_sign_file = 'data/agregate-signalisation.json'
@@ -132,13 +184,15 @@ def update(arronds, noms_sous_quartiers=[], specific_arrond="", data_sub_arronds
 
     os.system("rm data/mtl-subset*")
     os.system("echo -n 'create subset... '")
-    
     # with open("s.txt", "w", encoding="utf-8") as f:
     for arrond in arronds:
 
         f_subset = "data/mtl-subset-" + arrond + ".geojson"
         f_subset = f_subset.replace(" ", "")
         os.system("node subset.js " + arrond + " > " + f_subset)
+        
+        filter_min(f_subset, arrond, "plaza-saint-hubert.geojson")
+    
         os.system("echo 'done'")
         
         f_subset_subarronds = []
@@ -152,6 +206,7 @@ def update(arronds, noms_sous_quartiers=[], specific_arrond="", data_sub_arronds
             f_subset_subarronds = [f_subset]
         
         for f_subset in f_subset_subarronds:
+            print("XXXXXX", f_subset)
             os.system("shst match " + f_subset + " \
                 --search-radius=15 \
                     --offset-line=10 \
@@ -165,12 +220,18 @@ def update(arronds, noms_sous_quartiers=[], specific_arrond="", data_sub_arronds
             os.system("echo 'done'")
 
             os.system("echo -n 'generate curblr... '") 
-            os.system("shst match " + f_subset_segment_out + " --join-points --join-points-match-fields=PANNEAU_ID_RPA,CODE_RPA \
-                --search-radius=15 --snap-intersections --snap-intersections-radius=10 \
-                --trim-intersections-radius=5 --buffer-merge-group-fields=POTEAU_ID_POT,PANNEAU_ID_PAN \
+            
+            cmd = f"shst match {f_subset_segment_out} --join-points \
+             --join-points-match-fields=PANNEAU_ID_RPA,CODE_RPA \
+                --search-radius=15 \
+                 --snap-intersections \
+                  --snap-intersections-radius=10 \
+                --trim-intersections-radius=5 \
+                 --buffer-merge-group-fields=POTEAU_ID_POT,PANNEAU_ID_PAN \
                 --buffer-points \
                 # --direction-field=direction --two-way-value=two --one-way-against-direction-value=against --one-way-with-direction-value=one \
-                ")
+                "
+            os.system(cmd)
 
             f_subset_joined_in = f_subset.replace(".geojson", "-segment.joined.geojson")
             if specific_arrond =="":
@@ -203,5 +264,5 @@ if __name__ == "__main__":
         ]
     specific_arrond="Ville-Marie"
     data_sub_arronds="quartiers_arrodissement_villemarie.geojson"
-    update(["LaSalle", "Ville-Marie"], ville_marie_quartiers, specific_arrond, data_sub_arronds)
-    # update(arronds)
+    # update(["LaSalle", "Ville-Marie"], ville_marie_quartiers, specific_arrond, data_sub_arronds)
+    update([arronds[0]])

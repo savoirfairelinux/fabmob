@@ -61,7 +61,7 @@ function zoneFilter (feature, lon,lat){
 // console.log("XXXXXXXXXXXXXXXXXXXXXXXXX =>>>>>>>>", arrond_from_cmd);
 arrond = [arrond_from_cmd]
 geojson['features'] = input.features.filter(feature=>arrond.indexOf(feature.properties.NOM_ARROND)>=0);
-
+geojson['features'] = input.features
 
 // geojson['features'] = geojson.features.filter(feature=>feature.properties.DESCRIPTION_REP!="Enlevé");
 
