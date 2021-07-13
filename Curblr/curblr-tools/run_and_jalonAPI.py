@@ -11,7 +11,19 @@ from geojson import Feature, FeatureCollection, Point, Polygon
 from turfpy.measurement import boolean_point_in_polygon
 from pydrive_logic import *
 
+urls_name = [
+    "places",
+     "reglementatbions",
+      "emplacement_reglementations",
+       "reglementation_periode",
+        "periodes",
+         "bornes_sur_rue",
+          "bornes_hors_rue",
+           "date_exportation"
+           ]
+
 arrondissements = [
+    "plaza",
     "Outremont",
     "LaSalle",
     "Mont-Royal",
@@ -49,10 +61,48 @@ arrondissements = [
     ]
 
 '''
-    Pour filtrer tous les arrondissements en même temps
+    liste de clés
 '''
 
 PATH = "data/"
+k_geometry = "geometry".lower()
+k_coordinates = "coordinates".lower()
+k_nlongitude = "NLONGITUDE".lower()
+k_nlatitude = "NLATITUDE".lower()
+k_sno_emplacement = "SNO_EMPLACEMENT".lower()
+k_scodeautocollant = "SCODE_AUTOCOLLANT".lower()
+k_maxheures = "MAXHEURES".lower()
+k_datedebut = "DATEDEBUT".lower()
+k_datefin = "DATEFIN".lower()
+k_sNoplace_sNoEmplacement = "SNOPLACE".lower()
+k_nPositionCentreLongitude = "NPOSITIONCENTRELONGITUDE".lower()
+k_nPositionCentreLatitude = "NPOSITIONCENTRELATITUDE".lower()
+k_sStatut = "SSTATUT".lower()
+k_sGenre = "SGENRE".lower()
+k_sType = "STYPE".lower()
+k_sAutreTete = "SAUTRETETE".lower()
+k_sNomRue = "SNOMRUE".lower()
+k_nSupVelo = "NSUPVELO".lower()
+k_sTypeExploitation = "STYPEEXPLOITATION".lower()
+k_nTarifHoraire = "NTARIFHORAIRE".lower()
+k_sLocalisation = "SLOCALISATION".lower()
+k_nTarifMax = "NTARIFMAX".lower()
+k_name = "NAME".lower()
+k_type = "TYPE".lower()
+k_scode = "SCODE".lower()
+k_noperiode = "NOPERIODE".lower()
+k_sdescription = "SDESCRIPTION".lower()
+k_nid = "NID".lower()
+k_dtheuredebut = "DTHEUREDEBUT".lower()
+k_dtheurefin = "DTHEUREFIN".lower()
+k_blun = "BLUN".lower()
+k_bmar = "BMAR".lower()
+k_bmer = "BMER".lower()
+k_bjeu = "BJEU".lower()
+k_bven = "BVEN".lower()
+k_bsam = "BSAM".lower()
+k_bdim = "BDIM".lower()
+
 
 def filter_mtl(places_collection_wr, arronds=["plaza"]):
     l_out_file = []
@@ -63,13 +113,14 @@ def filter_mtl(places_collection_wr, arronds=["plaza"]):
 
         # PLAZA
         if arrondissement_montreal == "plaza":
-            file_to_open = PATH + "plaza_rosemont.geojson"
+            file_to_open = PATH + "plaza-saint-hubert.geojson"#"plaza_rosemont.geojson"
             with open(file_to_open) as f:
                 data = json.load(f)
-                for i in (data["features"]):
-                    if i["properties"]["Name"] == "Oasis bellechasse+ plaza":
-                        polygone = i["geometry"]["coordinates"]
-                        break
+                polygone = data["features"][0]["geometry"]["coordinates"]
+                # for i in (data["features"]):
+                    # if i["properties"]["Name"] == "Oasis bellechasse+ plaza":
+                        # polygone = i["geometry"]["coordinates"]
+                        # break
         else:
             file_to_open = PATH + "limadmin.geojson.json"
             with open(file_to_open) as f:
@@ -89,7 +140,7 @@ def filter_mtl(places_collection_wr, arronds=["plaza"]):
         l = []
         for i in (data["features"]):
             m+=1
-            point_a_tester = i["geometry"]["coordinates"]
+            point_a_tester = i[k_geometry][k_coordinates]
             # print(i["properties"]["nPositionCentreLongitude"])
             # print(point_a_tester)
             point_format_turfpy = Feature(geometry=Point(point_a_tester))
@@ -114,43 +165,6 @@ def filter_mtl(places_collection_wr, arronds=["plaza"]):
         dic[outfile] = data
             
     return dic #l_out_file
-    
-
-
-# from parcometres import add_reglementations
-#----------------------------------------------------------------------
-#https://blog.bearer.sh/making-api-requests-with-python/
-# import asyncio
-# import aiohttp
-
-# async def launch(url="http://localhost", bearer_token=None, body={}):
-#     async with aiohttp.ClientSession() as session:
-# 		if bearer_token is not None:
-#             async with session.post(url, headers={'Authorization':'Bearer ' + bearer_token, 'Content-Type':'application/json'}, json=body) as resp:
-#                 response = await resp.json() # [2]
-#                 print(response)
-#                 return response
-#         #LOGIN
-#         async with session.post(url, json=body) as resp:
-#             response = await resp.json() # [2]
-#             token = response["token"]
-#             print(response)
-#             return response, token
-# asyncio.run(launch()) # [6]
-#----------------------------------------------------------------------
-
-urls_name = [
-    "places",
-     "reglementatbions",
-      "emplacement_reglementations",
-       "reglementation_periode",
-        "periodes",
-         "bornes_sur_rue",
-          "bornes_hors_rue",
-           "date_exportation"
-           ]
-
-PATH = "data/"
 
 def convert_places(data, dateTime_reservation:Optional[datetime]=None,
                     price=None,
@@ -160,8 +174,8 @@ def convert_places(data, dateTime_reservation:Optional[datetime]=None,
     # sStatut, sGenre, sType, sAutreTete, sNomRue, nSupVelo, sTypeExploitation, nTarifHoraire, sLocalisation, nTarifMax
     data = data["data"]    
     for place in data:
-        longitude = place["NLONGITUDE"]
-        latitude = place["NLATITUDE"]
+        longitude = k_nlongitude
+        latitude = k_nlatitude
         try:
             latitude, longitude = map(float, (latitude, longitude))
             features.append(
@@ -169,19 +183,19 @@ def convert_places(data, dateTime_reservation:Optional[datetime]=None,
                     # geometry = p,
                     geometry = Point((longitude, latitude)),
                     properties = {
-                        "sNoplace_sNoEmplacement": place["SNOPLACE"],
-                        "nPositionCentreLongitude": place["NPOSITIONCENTRELONGITUDE"],
-                        "nPositionCentreLatitude": place["NPOSITIONCENTRELATITUDE"],
-                        "sStatut": place["SSTATUT"],
-                        "sGenre": place["SGENRE"],
-                        "sType": place["STYPE"],
-                        "sAutreTete": place["SAUTRETETE"],
-                        "sNomRue": place["SNOMRUE"],
-                        "nSupVelo": place["NSUPVELO"],
-                        "sTypeExploitation": place["STYPEEXPLOITATION"],
-                        "nTarifHoraire": place["NTARIFHORAIRE"],
-                        "sLocalisation": place["SLOCALISATION"],
-                        "nTarifMax": place["NTARIFMAX"]
+                        "sNoplace_sNoEmplacement": k_sNoplace_sNoEmplacement,
+                        "nPositionCentreLongitude": k_nPositionCentreLongitude,
+                        "nPositionCentreLatitude": k_nPositionCentreLatitude,
+                        "sStatut": k_sStatut,
+                        "sGenre": k_sGenre,
+                        "sType": k_sType,
+                        "sAutreTete": k_sAutreTete,
+                        "sNomRue": k_sNomRue,
+                        "nSupVelo": k_nSupVelo,
+                        "sTypeExploitation": k_sTypeExploitation,
+                        "nTarifHoraire": k_nTarifHoraire,
+                        "sLocalisation": k_sLocalisation,
+                        "nTarifMax": k_nTarifMax
                     }
                 )
         )
@@ -235,8 +249,8 @@ def emplacement_reglementations_to_dic(data):
         if first_ligne == False:
             first_ligne = True
             continue
-        dic[ligne["SNO_EMPLACEMENT"]] = {"sCodeAutocollant_Name":[]}
-        l_tuple.append((ligne["SNO_EMPLACEMENT"], ligne["SCODE_AUTOCOLLANT"]) )
+        dic[ligne[k_sno_emplacement]] = {"sCodeAutocollant_Name":[]}
+        l_tuple.append((ligne[k_sno_emplacement], ligne[k_scodeautocollant]) )
     for tp in l_tuple:
         dic[tp[0]]["sNoEmplacement"] = tp[0]
         dic[tp[0]]["sCodeAutocollant_Name"].append(tp[1])
@@ -250,18 +264,19 @@ def reglementations_to_dic(data, dateTime_reservation:Optional[datetime]=None, m
     first_ligne = False
     data = data["data"]  
     for ligne in data:
-        maxHeures = ligne["MAXHEURES"]
+
+        maxHeures = ligne[k_maxheures]
         if dateTime_reservation is not None:
             if first_ligne == False:
                 first_ligne = True
                 continue
             #TODO dateTime and minStay
-            day_begin = int(ligne["DATEDEBUT"][:2])
-            month_begin = int(ligne["DATEDEBUT"][2:])
+            day_begin = int(ligne[k_datedebut][:2])
+            month_begin = int(ligne[k_datedebut][2:])
 
             date_begin = date(dateTime_reservation.year, month_begin, day_begin)
-            day_end = int(ligne["DATEFIN"][:2])
-            month_end = int(ligne["DATEFIN"][2:])
+            day_end = int(ligne[k_datefin][:2])
+            month_end = int(ligne[k_datefin][2:])
             date_end = date(dateTime_reservation.year, month_end, day_end)
             day_reservation = dateTime_reservation.day
             month_reservation = dateTime_reservation.month
@@ -278,19 +293,19 @@ def reglementations_to_dic(data, dateTime_reservation:Optional[datetime]=None, m
                 month_reservation,
                 weekday_reservation)
             if (dateTime_reservation<=date_end and dateTime_reservation>=date_begin):#todoMaxHeures
-                dic[ligne["NAME"]] = {
-                    "Name":ligne["NAME"],
-                     "Type":ligne["TYPE"],
-                      "DateDebut":ligne["DATEDEBUT"],
-                       "DateFin":ligne["DATEFIN"],
+                dic[ligne[k_name]] = {
+                    "Name":ligne[k_name],
+                     "Type":ligne[k_type],
+                      "DateDebut":ligne[k_datedebut],
+                       "DateFin":ligne[k_datefin],
                         "maxHeures": maxHeures
                         }
         else:
-            dic[ligne["NAME"]] = {
-                "Name":ligne["NAME"],
-                 "Type":ligne["TYPE"],
-                  "DateDebut":ligne["DATEDEBUT"],
-                   "DateFin":ligne["DATEFIN"],
+            dic[ligne[k_name]] = {
+                "Name":ligne[k_name],
+                 "Type":ligne[k_type],
+                  "DateDebut":ligne[k_datedebut],
+                   "DateFin":ligne[k_datefin],
                     "maxHeures": maxHeures
                     }
 
@@ -306,8 +321,9 @@ def reglementations_periods_to_dic(data):
         if first_ligne == False:
             first_ligne = True
             continue
-        dic[ligne["SCODE"]] = {"sub_prop":[]}
-        l_tuple.append( (ligne["SCODE"], ligne["NOPERIODE"], ligne["SDESCRIPTION"]) )
+
+        dic[ligne[k_scode]] = {"sub_prop":[]}
+        l_tuple.append( (ligne[k_scode], ligne[k_noperiode], ligne[k_sdescription]) )
     
     for tp in l_tuple:
         dic[tp[0]]["sCode"] = tp[0]
@@ -328,17 +344,18 @@ def periods_to_dic(data, dateTime_reservation:Optional[datetime]=None):
         if first_ligne == False:
             first_ligne = True
             continue
-        dic[ligne["NID"]] = {
-            "nID":ligne["NID"],
-                "dtHeureDebut":ligne["DTHEUREDEBUT"],
-                "dtHeureFin":ligne["DTHEUREFIN"],
-                "bLun":ligne["BLUN"],
-                "bMar":ligne["BMAR"],
-                "bMer":ligne["BMER"],
-                "bJeu":ligne["BJEU"],
-                "bVen":ligne["BVEN"],
-                "bSam":ligne["BSAM"],
-                "bDim":ligne["BDIM"]
+
+        dic[ligne[k_nid]] = {
+            "nID":ligne[k_nid],
+                "dtHeureDebut":ligne[k_dtheuredebut],
+                "dtHeureFin":ligne[k_dtheurefin],
+                "bLun":ligne[k_blun],
+                "bMar":ligne[k_bmar],
+                "bMer":ligne[k_bmer],
+                "bJeu":ligne[k_bjeu],
+                "bVen":ligne[k_bven],
+                "bSam":ligne[k_bsam],
+                "bDim":ligne[k_bdim]
                 }
     return dic
 
@@ -396,7 +413,6 @@ def turn_regl_to_regu(buffered_file):
                     # print(feature_properties["pp_scodeautocollant_name"][autocollant]["sub_prob"])
                     for sub_prob in feature_properties["pp_scodeautocollant_name"][autocollant]["sub_prob"]:
                         days = []
-                        
                         if sub_prob["periodes"]["bLun"] == "1":
                             days.append("mo")
                         if sub_prob["periodes"]["bMar"] == "1":
@@ -523,7 +539,8 @@ def turn_regl_to_regu(buffered_file):
     return outfile, geojson
 
 def run(arronds=[arrondissements[0]], dateTime_reservation:Optional[datetime]=None, price=None, minStay=None):
-    uri_login = "http://52.235.16.115:8083/auth/signin"
+    # uri_login = "http://52.235.16.115:8083/auth/signin" #old API
+    uri_login = "https://jalonmtl.services/api/v1/auth/signin"
     body_login = {}
     with open('credits.json') as f:
         body_login = json.load(f)
@@ -535,7 +552,8 @@ def run(arronds=[arrondissements[0]], dateTime_reservation:Optional[datetime]=No
 
     # print(r_uri_login, type(r_uri_login))
 
-    uri_select_data = "http://52.235.16.115:8083/dataAPI/selectData"
+    # uri_select_data = "http://52.235.16.115:8083/dataAPI/selectData" #old API
+    uri_select_data = "https://jalonmtl.services/api/v1/public/data"
 
     # ITER stg_stationnement_mtl_emplacement_reglementation
     body_emp_regl = {
@@ -573,21 +591,21 @@ def run(arronds=[arrondissements[0]], dateTime_reservation:Optional[datetime]=No
         "currentPage": "1"
     }
 
-    r_uri_select_data = requests.get(uri_select_data, json=body_emp_regl, headers=headers)
+    r_uri_select_data = requests.post(uri_select_data, json=body_emp_regl, headers=headers)
     data_empl_reglementations = r_uri_select_data.json()
     # print(data_empl_reglementations)
 
-    r_uri_select_data = requests.get(uri_select_data, json=body_period, headers=headers) 
+    r_uri_select_data = requests.post(uri_select_data, json=body_period, headers=headers) 
     data_periods = r_uri_select_data.json()
     
-    r_uri_select_data = requests.get(uri_select_data, json=body_places, headers=headers) 
+    r_uri_select_data = requests.post(uri_select_data, json=body_places, headers=headers) 
     data_places = r_uri_select_data.json()
     # print(data_places)
 
-    r_uri_select_data = requests.get(uri_select_data, json=body_regl, headers=headers) 
+    r_uri_select_data = requests.post(uri_select_data, json=body_regl, headers=headers) 
     data_reglementations = r_uri_select_data.json()
     
-    r_uri_select_data = requests.get(uri_select_data, json=body_regl_period, headers=headers) 
+    r_uri_select_data = requests.post(uri_select_data, json=body_regl_period, headers=headers) 
     data_regl_periods = r_uri_select_data.json()
     
     # print("\n Response: ", r_uri_select_data,
@@ -639,6 +657,7 @@ def run(arronds=[arrondissements[0]], dateTime_reservation:Optional[datetime]=No
         # f = "https://drive.google.com/uc?export=download&id=13L3dqI_DJvPL_O4PcrARZr6GsFZrS9ev"
         ##Cloud Vs File
         with open("data/current_data.geojson", "w") as f:
+            print(data_i)
             json.dump(data_i, f)    
         #-----------------------------------
         #exemple
@@ -835,6 +854,12 @@ def run(arronds=[arrondissements[0]], dateTime_reservation:Optional[datetime]=No
         # json_l = "'" + json_l + "'"
         #-----------------------------------
 
+        # c = f"shst match {f_subset}  \
+        #         --search-radius=15 \
+        #             --offset-line=10 \
+        #                 --snap-side-of-street \
+        #                         --buffer-points"
+
         json_l = "data/current_data.geojson"
         c = f"shst match {json_l}  \
             --join-points \
@@ -871,9 +896,10 @@ def run(arronds=[arrondissements[0]], dateTime_reservation:Optional[datetime]=No
                 - un seul fichier - class
                 - creer un dictionnaire des conversions par arrondissements, et eventuellement enregistrer dans une bd
 
-        TODO: lier a sharedstreets node js
+        TODO: lier a sharedstreets node env
         TODO: deploy
     '''
 
 if __name__ == "__main__":
+    # os.system("nvm use 12.18.0")
     geojson = run()

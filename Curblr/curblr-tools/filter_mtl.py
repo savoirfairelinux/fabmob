@@ -126,13 +126,15 @@ def filter_mtl(arronds=["Rosemont-La Petite-Patrie"], specific_arrond=""):
 
         # PLAZA
         if arrondissement_montreal == "plaza":
-            file_to_open = DATA_PATH + "plaza_rosemont.geojson"
+            file_to_open = DATA_PATH + "plaza-saint-hubert.geojson"
             with open(file_to_open) as f:
                 data = json.load(f)
-                for i in (data["features"]):
-                    if i["properties"]["Name"] == "Oasis bellechasse+ plaza":
-                        polygone = i["geometry"]["coordinates"]
-                        break
+                polygone = data["features"][0]["geometry"]["coordinates"]
+                        
+                # for i in (data["features"]):
+                #     if i["properties"]["Name"] == "Oasis bellechasse+ plaza":
+                #         polygone = i["geometry"]["coordinates"]
+                #         break
         else:
             file_to_open = DATA_PATH + "quartiers_arrodissement_villemarie.geojson" if specific_arrond == "Ville-Marie" else DATA_PATH + "limadmin.geojson.json"
             with open(file_to_open) as f:

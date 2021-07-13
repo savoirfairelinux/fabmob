@@ -158,7 +158,7 @@ def run(arronds, dateTime_reservation:Optional[datetime]=None, price=None, minSt
 # (cd ../curb-map/; yarn start)
 
 if __name__ == "__main__":
-    # run([arronds[0]])
+    run([arronds[0]])
     ville_marie_quartiers = [
         "DOWNTOWN",
         "QUARTIER DES SPECTACLES",
@@ -167,4 +167,4 @@ if __name__ == "__main__":
         "JEAN-DRAPEAU",
     ]
     # run(arronds=ville_marie_quartiers, specific_arrond="Ville-Marie")
-    run(arronds[:3])
+    # run(arronds[:3])
