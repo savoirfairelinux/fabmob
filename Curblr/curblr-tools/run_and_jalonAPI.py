@@ -61,10 +61,11 @@ arrondissements = [
     ]
 
 '''
-    liste de clés
+    liste de clés pour faciliter le refactoring en cas de changement dans l'API
+    exemple: dans l'ancienne API, toutes les clés étaient en majuscule
 '''
 
-PATH = "data/"
+DATA_PATH = "data/"
 k_geometry = "geometry".lower()
 k_coordinates = "coordinates".lower()
 k_nlongitude = "NLONGITUDE".lower()
@@ -104,16 +105,15 @@ k_bsam = "BSAM".lower()
 k_bdim = "BDIM".lower()
 
 
-def filter_mtl(places_collection_wr, arronds=["plaza"]):
+def filter_mtl(places_collection_wr, arrondissements=["plaza"]):
     l_out_file = []
     dic = {}
-    for i in arronds:
-        arrondissement_montreal = i
+    for arrond in arrondissements:
         polygone = []
 
         # PLAZA
-        if arrondissement_montreal == "plaza":
-            file_to_open = PATH + "plaza-saint-hubert.geojson"#"plaza_rosemont.geojson"
+        if arrond == "plaza":
+            file_to_open = DATA_PATH + "plaza-saint-hubert.geojson"#"plaza_rosemont.geojson"
             with open(file_to_open) as f:
                 data = json.load(f)
                 polygone = data["features"][0]["geometry"]["coordinates"]
@@ -122,48 +122,48 @@ def filter_mtl(places_collection_wr, arronds=["plaza"]):
                         # polygone = i["geometry"]["coordinates"]
                         # break
         else:
-            file_to_open = PATH + "limadmin.geojson.json"
+            file_to_open = DATA_PATH + "limadmin.geojson.json"
             with open(file_to_open) as f:
                 data = json.load(f)
                 for i in (data["features"]):
-                    if i["properties"]["NOM"] == arrondissement_montreal:
+                    if i["properties"]["NOM"] == arrond:
                         polygone = i["geometry"]["coordinates"][0]
                         break
 
         point_a_tester = []
         data = ""
-        m=0
         # file_to_open = "signalisation_stationnement.geojson"
         data = places_collection_wr
+        '''
+            m,n,p pour faciliter le debogage des filtres. Montre les points retenus et exclus.
+        '''
+        m=0
         n=0
         p =0
-        l = []
-        for i in (data["features"]):
+        filtered_features = []
+        for feature in (data["features"]):
             m+=1
-            point_a_tester = i[k_geometry][k_coordinates]
-            # print(i["properties"]["nPositionCentreLongitude"])
-            # print(point_a_tester)
+            point_a_tester = feature[k_geometry][k_coordinates]
             point_format_turfpy = Feature(geometry=Point(point_a_tester))
             polygone_format_turfpy = Polygon(polygone)
             if(boolean_point_in_polygon(point_format_turfpy, polygone_format_turfpy)) == True:
-                l.append(i)
+                filtered_features.append(feature)
                 p += 1
             else:
                 n += 1
-        data["features"] = l
-        print(arrondissement_montreal, "-- in: ", p, ", out: ", n, ", total: ", m)
-        if arrondissement_montreal == "plaza":
+        data["features"] = filtered_features
+        print(arrond, " <-> in:", p, ", out:", n, ", total:", m)
+        if arrond == "plaza":
             outfile = "mtl-parco-" + "places-oasis-bellechasse-plaza".replace(" ","-").replace("+","-") + ".filtred.geojson"
         else:
-            outfile = "mtl-parco-" + arrondissement_montreal.replace(" ","-").replace("+","-") + ".filtred.geojson"
+            outfile = "mtl-parco-" + arrond.replace(" ","-").replace("+","-") + ".filtred.geojson"
         
-        # with open(PATH + outfile, mode="w") as f:
+        # with open(DATA_PATH + outfile, mode="w") as f:
         #     json.dump(data, f)
         # print("filtrage terminé")
 
         # l_out_file.append(outfile)
         dic[outfile] = data
-            
     return dic #l_out_file
 
 def convert_places(data, dateTime_reservation:Optional[datetime]=None,
@@ -172,10 +172,10 @@ def convert_places(data, dateTime_reservation:Optional[datetime]=None,
     features = []
     # sNoPlace, nLongitude, nLatitude, nPositionCentreLongitude, nPositionCentreLatitude,
     # sStatut, sGenre, sType, sAutreTete, sNomRue, nSupVelo, sTypeExploitation, nTarifHoraire, sLocalisation, nTarifMax
-    data = data["data"]    
+    data = data["data"]
     for place in data:
-        longitude = k_nlongitude
-        latitude = k_nlatitude
+        longitude = place[k_nlongitude]
+        latitude = place[k_nlatitude]
         try:
             latitude, longitude = map(float, (latitude, longitude))
             features.append(
@@ -183,19 +183,19 @@ def convert_places(data, dateTime_reservation:Optional[datetime]=None,
                     # geometry = p,
                     geometry = Point((longitude, latitude)),
                     properties = {
-                        "sNoplace_sNoEmplacement": k_sNoplace_sNoEmplacement,
-                        "nPositionCentreLongitude": k_nPositionCentreLongitude,
-                        "nPositionCentreLatitude": k_nPositionCentreLatitude,
-                        "sStatut": k_sStatut,
-                        "sGenre": k_sGenre,
-                        "sType": k_sType,
-                        "sAutreTete": k_sAutreTete,
-                        "sNomRue": k_sNomRue,
-                        "nSupVelo": k_nSupVelo,
-                        "sTypeExploitation": k_sTypeExploitation,
-                        "nTarifHoraire": k_nTarifHoraire,
-                        "sLocalisation": k_sLocalisation,
-                        "nTarifMax": k_nTarifMax
+                        "sNoplace_sNoEmplacement": place[k_sNoplace_sNoEmplacement],
+                        "nPositionCentreLongitude": place[k_nPositionCentreLongitude],
+                        "nPositionCentreLatitude": place[k_nPositionCentreLatitude],
+                        "sStatut": place[k_sStatut],
+                        "sGenre": place[k_sGenre],
+                        "sType": place[k_sType],
+                        "sAutreTete": place[k_sAutreTete],
+                        "sNomRue": place[k_sNomRue],
+                        "nSupVelo": place[k_nSupVelo],
+                        "sTypeExploitation": place[k_sTypeExploitation],
+                        "nTarifHoraire": place[k_nTarifHoraire],
+                        "sLocalisation": place[k_sLocalisation],
+                        "nTarifMax": place[k_nTarifMax]
                     }
                 )
         )
@@ -216,10 +216,11 @@ def add_reglementations(data_geo_empl_reglementations,
     for feature in collection["features"]:
         feature_properties = feature["properties"]
         sNoplace =  feature_properties["sNoplace_sNoEmplacement"]
-        # try:
-        sNoplace_from_dic = data_geo_empl_reglementations[sNoplace]
-        # except Exception:
-        #     continue
+        try:
+            sNoplace_from_dic = data_geo_empl_reglementations[sNoplace]
+        except Exception as e:
+            print("add_reglementations, exception: ",e)
+            continue
         sCodeAutocollant_from_dic = data_geo_empl_reglementations[sNoplace]["sCodeAutocollant_Name"]
         feature_properties["sCodeAutocollant_Name"] = {}
         feature_properties["liste_sCodeAutocollant_Name"] = sCodeAutocollant_from_dic
@@ -369,14 +370,14 @@ def turn_regl_to_regu(buffered_file):
         geojson = {}
         geojson['manifest']= {
         "priorityHierarchy": [
-                "no standing",
-                "no parking",
-                "passenger loading",
-                "loading",
-                "transit",
-                "free parking",
-                "paid parking", 
-                "restricted"
+            "no standing",
+            "no parking",
+            "passenger loading",
+            "loading",
+            "transit",
+            "free parking",
+            "paid parking", 
+            "restricted"
         ],
         "curblrVersion": "1.1.0",
         }
@@ -386,11 +387,11 @@ def turn_regl_to_regu(buffered_file):
         p = 0
         for feature in data['features']:
             try:
-                # print(feature)
                 regulations = []
                 n = 0
                 feature_properties = feature["properties"]
-                for autocollant in feature_properties["pp_liste_scodeautocollant_name"]: 
+                # print(feature_properties.keys())
+                for autocollant in feature_properties["pp_liste_scodeautocollant_name"]:
                     durations = [int(value["maxHeures"])*60 for value in feature_properties["pp_scodeautocollant_name"].values()]
                     sub_prob = feature_properties["pp_scodeautocollant_name"][autocollant]
                     regulation = {}    
@@ -522,10 +523,10 @@ def turn_regl_to_regu(buffered_file):
                 )
                 p += 1
             except KeyError as e:
-                print(e)
+                print("turn_regl_to_regu, KeyError: ", e)
                 print("Pas de match pour,", buffered_file, ". Fichier buffered probablement vide ou clé inexistante")
             except TypeError as e: 
-                print("Il n'y aura pas de match pour", buffered_file, "car la propriété 'geometry' du fichier manque probablement")
+                print("turn_regl_to_regu, Il n'y aura pas de match pour", buffered_file, "car la propriété 'geometry' du fichier manque probablement")
                 print("Type error", e)
                 
     outfile = buffered_file.replace(".buffered.geojson", ".curblr.json")
@@ -565,7 +566,7 @@ def run(arronds=[arrondissements[0]], dateTime_reservation:Optional[datetime]=No
     # FULL stg_stationnement_mtl_periode
     body_period = {
         "table": "stg_stationnement_mtl_periode",
-        "recordsPerPage": "500",
+        "recordsPerPage": "100000",
         "currentPage": "1",
         "defaultReturnDateFormat":"HH:mm:ss"
     }
@@ -580,14 +581,14 @@ def run(arronds=[arrondissements[0]], dateTime_reservation:Optional[datetime]=No
     #FULL stg_stationnement_mtl_reglementation
     body_regl = {
         "table": "stg_stationnement_mtl_reglementation",
-        "recordsPerPage": "500",
+        "recordsPerPage": "100000",
         "currentPage": "1"
     }
 
     #FULL stg_stationnement_mtl_reglementation_periode
     body_regl_period = {
         "table": "stg_stationnement_mtl_reglementation_periode",
-        "recordsPerPage": "800",
+        "recordsPerPage": "100000",
         "currentPage": "1"
     }
 
@@ -616,7 +617,7 @@ def run(arronds=[arrondissements[0]], dateTime_reservation:Optional[datetime]=No
     places_collection = convert_places(data=data_places)
     # r = ""
     # file_name = urls_name[0] + r +".geojson"
-    # with open(PATH + file_name, "w") as f:
+    # with open(DATA_PATH + file_name, "w") as f:
     #     f.write('%s' % places_collection)
    
     '''
@@ -640,7 +641,7 @@ def run(arronds=[arrondissements[0]], dateTime_reservation:Optional[datetime]=No
                                                 minStay)
     # r = "_with_reglementations"
     # file_name = urls_name[0] + r +".geojson"
-    # with open(PATH + file_name, "w") as f:
+    # with open(DATA_PATH + file_name, "w") as f:
     #     f.write('%s' % places_collection_wr)
 
     # stream = os.popen(f'{python_exe} {main_file} -i="{src}" -it=1 -o="{dest}" twin -d=0 -pd=1')
@@ -651,13 +652,15 @@ def run(arronds=[arrondissements[0]], dateTime_reservation:Optional[datetime]=No
         Match des data avec SharedStreets
     ''' 
 
-    for data_i in data_filtred.values():
+    for outfile, data_i in data_filtred.items():
         #-----------------------------------
         # UploadMapFile(data_i)
         # f = "https://drive.google.com/uc?export=download&id=13L3dqI_DJvPL_O4PcrARZr6GsFZrS9ev"
         ##Cloud Vs File
-        with open("data/current_data.geojson", "w") as f:
-            print(data_i)
+
+        current_file = "current_data.geojson"
+        json_l = DATA_PATH + current_file
+        with open(json_l, "w") as f:
             json.dump(data_i, f)    
         #-----------------------------------
         #exemple
@@ -853,14 +856,12 @@ def run(arronds=[arrondissements[0]], dateTime_reservation:Optional[datetime]=No
         # json_l = json_l.replace('\"', '\\"')
         # json_l = "'" + json_l + "'"
         #-----------------------------------
-
         # c = f"shst match {f_subset}  \
         #         --search-radius=15 \
         #             --offset-line=10 \
         #                 --snap-side-of-street \
         #                         --buffer-points"
 
-        json_l = "data/current_data.geojson"
         c = f"shst match {json_l}  \
             --join-points \
                 --join-points-match-fields=PANNEAU_ID_RPA,CODE_RPA \
@@ -882,14 +883,15 @@ def run(arronds=[arrondissements[0]], dateTime_reservation:Optional[datetime]=No
     '''
         Transformation des data en regulations
     ''' 
-    f = "current_data.geojson"
+    
     geojson = {}
     try:
-        f = "data/current_data.buffered.geojson"
-        _, geojson = turn_regl_to_regu(f)
+        current_file_buffered = DATA_PATH + current_file.replace("geojson", "buffered.geojson")
+        _, geojson = turn_regl_to_regu(current_file_buffered)
     except FileNotFoundError as e:
         print("Pas de match pour,", f, ". Fichier buffered manquant")
 
+    os.system("rm data/mtl-*")
     return geojson
     '''
         TODO: ameliorations:
