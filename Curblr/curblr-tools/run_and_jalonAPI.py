@@ -889,7 +889,7 @@ def run(arronds=[arrondissements[0]], dateTime_reservation:Optional[datetime]=No
         current_file_buffered = DATA_PATH + current_file.replace("geojson", "buffered.geojson")
         _, geojson = turn_regl_to_regu(current_file_buffered)
     except FileNotFoundError as e:
-        print("Pas de match pour,", f, ". Fichier buffered manquant")
+        print("Pas de match pour,", json_l, ". Fichier buffered manquant")
 
     os.system("rm data/mtl-*")
     return geojson
