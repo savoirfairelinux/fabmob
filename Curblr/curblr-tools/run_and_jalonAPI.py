@@ -818,4 +818,4 @@ def run(arronds=[arrondissements[0]], dateTime_reservation: Optional[datetime] =
 
 if __name__ == "__main__":
     # os.system("nvm use 12.18.0")
-    geojson = run(arronds=arrondissements)
+    geojson = run(arronds=arrondissements[:4])
