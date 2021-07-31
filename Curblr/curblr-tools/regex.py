@@ -1,3 +1,7 @@
+'''
+    Utilisation d'expressions régulieres pour extraire les periodes dans les descriptions des régulations
+'''
+
 jours = [
     "LUN", "MAR", "MER", "JEU", "VEN", "SAM", "DIM"
 ]
