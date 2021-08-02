@@ -562,26 +562,100 @@ def turn_regl_to_regu(current_file):
                     # voir types de reglementations page 4
                     # https://www.agencemobilitedurable.ca/images/DescriptionDonneesOuvertes.pdf
                     if current_autocollant["Type"] == "I":
-                        pass
+                        '''
+                            "ARRET INT. 16 h - 18 h 30 LUN À VEN" 
+                        '''
+                        regulation["rule"] = {  # https://github.com/curblr/curblr-spec/blob/master/Rule.md
+                                                "activity": "no parking",  # parking, no parking, standing, no standing, loading, no loading
+                                                "priority": "paid parking",
+                                                "maxStay": maxStay,
+                                                # "reason": "street cleaning",
+                                                # "noReturn": 240,
+                                                "payment": True
+                        }
+                        regulation["userClasses"] = [  # https://github.com/curblr/curblr-spec/blob/master/UserClasses.md
+                            {
+                                # "classes": ["permit"],
+                                # "subclasses": ["zone 5"]
+                            }
+                        ]
                     if current_autocollant["Type"] == "R":
-                        pass
+                        '''
+                            R - Remorquage
+                        '''
+                        regulation["rule"] = { 
+                                                "activity": "no parking",  # parking, no parking, standing, no standing, loading, no loading
+                                                "priority": "paid parking",
+                                                "maxStay": maxStay,
+                                                # "noReturn": 240,
+                                                "payment": True
+                        }
                     if current_autocollant["Type"] == "E":
-                        pass
+                        '''
+                        E - Entretien
+                        '''
+                        regulation["rule"] = { 
+                                                "activity": "no parking",  # parking, no parking, standing, no standing, loading, no loading
+                                                "priority": "paid parking",
+                                                "maxStay": maxStay,
+                                                "reason": "street cleaning", #to verify
+                                                # "noReturn": 240,
+                                                "payment": True
+                        }
                     if current_autocollant["Type"] == "A":
-                        pass
+                        '''
+                        Autre, Interdiction autre : balai mécanique 
+                        ex: STAT. INT. 14 h 30 - 15 h 30 MER 01 avril au 01 déc
+                        '''
+                        regulation["rule"] = { 
+                                                "activity": "no parking",  # parking, no parking, standing, no standing, loading, no loading
+                                                "priority": "paid parking",
+                                                "maxStay": maxStay,
+                                                "reason": "other", #to verify
+                                                # "noReturn": 240,
+                                                "payment": True
+                        }
                     if current_autocollant["Type"] == "P":
+                        '''
+                        MAX 3 h18 h - 21 h LUN A VEN
+                        '''
                         pass
                     if current_autocollant["Type"] == "Q":
+                        '''
+                        MAX 3 h 9h - 18 h SAM et 13 h - 18 h DIM
+                        '''
                         pass
                     if current_autocollant["Type"] == "V":
+                        '''
+                        9 h - 21 h AVEC MAX JOUR P$ 6 HEURES
+                        '''
                         pass
                     if current_autocollant["Type"] == "M":
+                        '''
+                            Tarif max Journalier
+                            ex: LUN À VEN 9 h - 18 h (9 $ MAX)
+                        '''
                         pass
                     if current_autocollant["Type"] == "F":
+                        '''
+                        F - Utilisation - Tarification et durée fixe
+                        '''
                         pass
                     if current_autocollant["Type"] == "U":
+                        '''
+                        U - Utilisation
+                        '''
                         pass
-
+                    if current_autocollant["Type"] == "H":
+                        '''
+                            Réservé aux personnes handicapées
+                            ex: \\P  Réservé aux handicapés"
+                        '''
+                        regulation["userClasses"].append(# https://github.com/curblr/curblr-spec/blob/master/UserClasses.md
+                            {
+                                "classes": ["handicap"]
+                            }
+                        )
                     # break#
                 geojson['features'].append(
                     {
