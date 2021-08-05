@@ -898,6 +898,8 @@ def run(arronds=[arrondissements[0]], dateTime_reservation: Optional[datetime] =
         print("Pas de match pour,", json_l, ". Fichier buffered manquant")
 
     os.system("rm data/mtl-*")
+    with open("../../../curb-map/src/assets/data/last_converted.curblr.json", "w") as f:
+        json.dump(geojson, f)
     return geojson
     '''
         TODO: ameliorations:
