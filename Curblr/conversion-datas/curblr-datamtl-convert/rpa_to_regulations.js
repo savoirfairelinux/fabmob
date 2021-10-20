@@ -12,8 +12,8 @@ function debug(...param){
 
 const fs = require('fs');
 
-const rpaCodeJson = fs.readFileSync('data/signalisation-codification-rpa.json');
-const rpaCodes = JSON.parse(rpaCodeJson);
+const rpaCodificationJson = fs.readFileSync('data/signalisation-codification-rpa.json');
+const rpaCodification = JSON.parse(rpaCodificationJson);
 
 /* TODO fix
 2445 livraison et non seulement \p
@@ -30,20 +30,34 @@ const overide = { 11: [{priorityCategory:"4",rule:{activity:"no standing"}, time
                   13810: [{priorityCategory:"3",rule:{activity:"no parking"}, timeSpans:[{"effectiveDates":[{"from":"04-01","to":"12-01"}],"daysOfWeek":{"days":["mo","th"]},"timesOfDay":[{"from":"09:00","to":"12:00"}]}], userClasses:[{classes:["truck"]}]}]
                 }
 
-for (var rpaCode of rpaCodes) {
-    if(overide[rpaCode.PANNEAU_ID_RPA]){
-        rpaCode['regulations'] = [{
+const rpaIds = rpaCodification.PANNEAU_ID_RPA;
+const rpaDescriptions = rpaCodification.DESCRIPTION_RPA;
+const rpaCodes = rpaCodification.CODE_RPA;
+const rpaInfos = {};
+
+if(Object.keys(rpaIds).length != Object.keys(rpaDescriptions).length || Object.keys(rpaIds).length!= Object.keys(rpaCodes).length) {
+    console.warn("PANNEAU_ID_RPA, DESCRIPTION_RPA, and CODE_RPA do not have all the same number of elements.",
+        "Please make sure this is a normal situation."
+    )
+}
+
+for (let [key, rpaId] of Object.entries(rpaIds)) {
+    const rpaInfo = {}
+    rpaInfos[rpaId] = rpaInfo
+
+    if(overide[rpaId]){
+        rpaInfo['regulations'] = [{
             priorityCategory: "5",
             rule:{
                 activity: "parking"
             },
             timeSpans: []
-        },...overide[rpaCode.PANNEAU_ID_RPA]
+        },...overide[rpaId]
         ];
         continue;
     }
 
-    description = rpaCode.DESCRIPTION_RPA.toUpperCase();
+    description = rpaDescriptions[key].toUpperCase();
     let activity = '';
 
     if(description.includes("\\P ") || description.startsWith("STAT. INT. ")) {
@@ -58,6 +72,7 @@ for (var rpaCode of rpaCodes) {
         continue;
         //debug(`${rpaCode.CODE_RPA} ${description}`)
     }
+
 
     let timeSpans = [];
     let timeSpan = {};
@@ -112,6 +127,7 @@ for (var rpaCode of rpaCodes) {
                     "SEPT A JUIN":[{"from":"09-01","to":"06-30"}],
                     "SEPT À JUIN":[{"from":"09-01","to":"06-30"}],
                     "SEPT. A JUIN":[{"from":"09-01","to":"06-30"}],
+                    "SEPT. À JUIN":[{"from":"09-01","to":"06-30"}],
                     "1 SEPT. AU 30 JUIN":[{"from":"09-01","to":"06-30"}],
                     "1 SEPT. AU 31 MAI":[{"from":"09-01","to":"05-31"}],
                     "1 NOV. AU 31 MARS":[{"from":"11-01","to":"03-31"}],
@@ -125,14 +141,16 @@ for (var rpaCode of rpaCodes) {
                     "1 DEC. AU 1 MARS":[{"from":"12-01","to":"03-01"}],
                     "1ER DECEMBRE AU 1ER MARS":[{"from":"12-01","to":"03-01"}],
                     "1 DEC. AU 1 AVRIL":[{"from":"12-01","to":"04-01"}]}
-                    
+
     months = Object.entries(monthValues).reduce((ret,val)=>description.includes(val[0])?val[1]:ret,null)
     if(months){
         timeSpan["effectiveDates"] = months;
     }
 
+    const rpaCode = rpaCodes[key];
+
     if(/.*(JAN|FEV|AVR|MARS|JUI|AOUT|SEP|OCT|NOV|DEC).*/.exec(description) && !months){
-        console.error("months rules unknown",rpaCode.CODE_RPA, description);
+        console.error("months rules unknown", rpaCode, description);
     }
 
     //   ********** days
@@ -172,7 +190,7 @@ for (var rpaCode of rpaCodes) {
                 days.push(dayMap[daysRule[1]]);
                 days.push(dayMap[daysRule[3]]);
             } else {
-                console.error("day rules verbe unknown",daysRule[2], rpaCode.CODE_RPA, description);
+                console.error("day rules verbe unknown",daysRule[2], rpaCode, description);
             }
         } else {
             dayRegex  = new RegExp(`(${dayText})`);
@@ -227,7 +245,7 @@ for (var rpaCode of rpaCodes) {
     let priorityCategory = timeSpans.length>0?"3":"4";
     
     if(activity){
-        rpaCode['regulations'] = [{
+        rpaInfo['regulations'] = [{
             priorityCategory,
             rule:{
                 activity
@@ -235,12 +253,13 @@ for (var rpaCode of rpaCodes) {
             timeSpans
         }];
     } else if(timeSpans.length>0){
-        rpaCode['regulations'] = [{
+        rpaInfo['regulations'] = [{
             timeSpans
         }];
     }
-    debug(`${rpaCode.CODE_RPA.padEnd(11)} ${description.padEnd(55)} ${daysRule||dayRule} ${JSON.stringify(timeSpans)}`)
+    debug(`${rpaCode.padEnd(11)} ${description.padEnd(55)} ${daysRule||dayRule} ${JSON.stringify(timeSpans)}`)
 }
+
 if(jsonOutput){
-    console.log(JSON.stringify(rpaCodes, null, 2))
+    console.log(JSON.stringify(rpaInfos, null, 2))
 }
