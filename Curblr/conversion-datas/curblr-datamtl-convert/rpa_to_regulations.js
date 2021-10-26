@@ -45,6 +45,9 @@ for (let [key, rpaId] of Object.entries(rpaIds)) {
     const rpaInfo = {}
     rpaInfos[rpaId] = rpaInfo
 
+    rpaInfo.description = rpaDescriptions[key];
+    rpaInfo.code = rpaCodes[key];
+
     if(overide[rpaId]){
         rpaInfo['regulations'] = [{
             priorityCategory: "5",
