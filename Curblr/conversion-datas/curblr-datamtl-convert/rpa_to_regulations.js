@@ -21,15 +21,6 @@ const rpaCodification = JSON.parse(rpaCodificationJson);
 1425  max 60 min
 */
 
-
-const overide = { 11: [{priorityCategory:"4",rule:{activity:"no standing"}, timeSpans:[] }],
-                  95: [{ priorityCategory: "3", rule:{activity:"standing"}, timeSpans:[{daysOfWeek:{days:["mo","tu","we","th","fr"]},timesOfDay:[{from:"08:00",to:"09:30"}]},{daysOfWeek:{days:["mo","tu","we","th","fr"]},timesOfDay:[{from:"15:30",to:"18:00"}]}]}],
-                  2413: [{priorityCategory:"4",rule:{activity:"no parking"}, timeSpans:[] }],
-                  2414: [{priorityCategory:"4",rule:{activity:"no parking"}, timeSpans:[] }],
-                  2348: [{priorityCategory:"4",rule:{activity:"no parking"}, timeSpans:[], userClasses:[{classes:["truck"]}]}],
-                  13810: [{priorityCategory:"3",rule:{activity:"no parking"}, timeSpans:[{"effectiveDates":[{"from":"04-01","to":"12-01"}],"daysOfWeek":{"days":["mo","th"]},"timesOfDay":[{"from":"09:00","to":"12:00"}]}], userClasses:[{classes:["truck"]}]}]
-                }
-
 const rpaIds = rpaCodification.PANNEAU_ID_RPA;
 const rpaDescriptions = rpaCodification.DESCRIPTION_RPA;
 const rpaCodes = rpaCodification.CODE_RPA;
@@ -47,18 +38,6 @@ for (let [key, rpaId] of Object.entries(rpaIds)) {
 
     rpaInfo.description = rpaDescriptions[key];
     rpaInfo.code = rpaCodes[key];
-
-    if(overide[rpaId]){
-        rpaInfo['regulations'] = [{
-            priorityCategory: "5",
-            rule:{
-                activity: "parking"
-            },
-            timeSpans: []
-        },...overide[rpaId]
-        ];
-        continue;
-    }
 
     description = rpaDescriptions[key].toUpperCase();
     let activity = '';
@@ -101,6 +80,7 @@ for (let [key, rpaId] of Object.entries(rpaIds)) {
                     "1 AVRIL AU 15 NOVEMBRE":[{"from":"05-01","to":"11-15"}],
                     "1 AVRIL AU 30 NOV":[{"from":"04-01","to":"11-30"}],
                     "1ER AVRIL - 30 NOV":[{"from":"04-01","to":"11-30"}],
+                    "1 AVRILAU 1 DEC":[{"from":"04-01","to":"12-01"}],
                     "1 AVRIL AU 1 DEC":[{"from":"04-01","to":"12-01"}],
                     "1 AVIL AU 1 DEC":[{"from":"04-01","to":"12-01"}],
                     "1 AVRIL ET 1 DEC":[{"from":"04-01","to":"12-01"}],
