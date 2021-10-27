@@ -46,6 +46,25 @@ function containsIrrelevantExpression(description) {
     return irrelevantExpressions.some( expression => description.includes(expression));
 }
 
+function getActivity(description) {
+    if(description.includes("\\P ") || description.startsWith("/P ") || description.startsWith("STAT. INT. ") || description.startsWith("INTERDICTION DE STAT. ")) {
+        return 'no parking';
+    } else if(description.includes("\\A ") || description.startsWith("A ")) {
+        return 'no standing';
+    } else if(description.startsWith("P ")) {
+        return'parking';
+    } else if(description.startsWith("PANONCEAU ") || description.startsWith("PANNONCEAU")) {
+        return null;
+    } else if (descriptionContainsTimespan(description)) {
+        // We assume descriptions containing timespan without further indications are no parking
+        // This might be a wrong assumption
+        return 'no parking';
+    }
+    else {
+        return undefined;
+    }
+}
+
 const monthValues = {
     "1 MARS AU 1 DEC":[{"from":"03-01","to":"12-01"}],
     "1ER MARS 1ER DEC":[{"from":"03-01","to":"12-01"}],
@@ -123,6 +142,13 @@ const monthValues = {
     "1 DEC. AU 1 AVRIL":[{"from":"12-01","to":"04-01"}]
 };
 
+function getEffectiveDates(description) {
+    Object.entries(monthValues)
+    .reduce( (ret,val) => {
+        description.includes(val[0]) ? val[1] : ret;
+    }, undefined);
+}
+
 const dayValues = {
     "mo":["LUNDI","LUN\\.","LUN"],
     "tu":["MARDI","MAR\\.","MAR"],
@@ -136,10 +162,44 @@ const dayMap = Object.entries(dayValues).reduce((acc,val)=>{
     const [key, value] = val;
     value.forEach(val2=>acc[val2.replace("\\","")]=key);
     return acc;
-},{})
-const dayText = Object.values(dayValues).flat().join('|')
+}, {});
+const dayText = Object.values(dayValues).flat().join('|');
 const threeDaysRegex = new RegExp(`(${dayText})\\s(${dayText})\\s(${dayText})`);
-const timeRegexp=/(\d+[H]\d*)\s?[Aaà@-]\s?(\d+[H]\d*)/g;
+
+function getDaysOfWeek(description) {
+    let days = [];
+    const threeDaysRule = threeDaysRegex.exec(description);
+    if(threeDaysRule){
+        days.push(dayMap[threeDaysRule[1]]);
+        days.push(dayMap[threeDaysRule[2]]);
+        days.push(dayMap[threeDaysRule[3]]);
+    } else {
+        const daysRegex = new RegExp(`(${dayText})(\\s?\\S*\\s)(${dayText})`);
+        const daysRule = daysRegex.exec(description);
+
+        if(daysRule){
+            if(/.*(A|À|AU).*/.exec(daysRule[2])) {
+                const daysAbbr = Object.keys(dayValues);
+                days = daysAbbr.slice(daysAbbr.findIndex(val=>val===dayMap[daysRule[1]]),daysAbbr.findIndex(val=>val===dayMap[daysRule[3]])+1)
+            } else if(/(ET|\s)/.exec(daysRule[2])) {
+                days.push(dayMap[daysRule[1]]);
+                days.push(dayMap[daysRule[3]]);
+            } else {
+                console.error("day rules verbe unknown",daysRule[2], rpaCode, description);
+            }
+        } else {
+            const dayRegex = new RegExp(`(${dayText})`);
+            const dayRule = dayRegex.exec(description);
+            if(dayRule) {
+                days.push(dayMap[dayRule[1]]);
+            }
+        }
+    }
+
+    return (days.length != 0) ? {days} : undefined;
+}
+
+const timeRegexp = /(\d+[H]\d*)\s?[Aaà@-]\s?(\d+[H]\d*)/g;
 
 function convert(rpaCodification) {
     const rpaIds = rpaCodification.PANNEAU_ID_RPA;
@@ -160,73 +220,16 @@ function convert(rpaCodification) {
             continue;
         }
 
-        let activity = '';
-
-        if(description.includes("\\P ") || description.startsWith("/P ") || description.startsWith("STAT. INT. ") || description.startsWith("INTERDICTION DE STAT. ")) {
-            activity = 'no parking';
-        } else if(description.includes("\\A ") || description.startsWith("A ")) {
-            activity = 'no standing';
-        } else if(description.startsWith("P ")) {
-            activity = 'parking';
-        } else if(description.startsWith("PANONCEAU ") || description.startsWith("PANNONCEAU")) {
-            activity = null;
-        } else if (descriptionContainsTimespan(description)) {
-            // We assume descriptions containing timespan without further indications are no parking
-            // This might be a wrong assumption
-            activity = 'no parking';
-        }
-        else {
+        let activity = getActivity(description);
+        if (activity === undefined) {
             continue;
         }
 
         let timeSpans = [];
         let timeSpan = {};
 
-        //   ********** months
-        const months = Object.entries(monthValues).reduce((ret,val)=>description.includes(val[0])?val[1]:ret,null)
-        if(months){
-            timeSpan["effectiveDates"] = months;
-        }
-
-        const rpaCode = rpaCodes[key];
-
-        if(/.*(JAN|FEV|AVR|MARS|JUI|AOUT|SEP|OCT|NOV|DEC).*/.exec(description) && !months){
-            console.error("months rules unknown", rpaCode, description);
-        }
-
-        //   ********** days
-        let days = [];
-        const threeDaysRule = threeDaysRegex.exec(description);
-        if(threeDaysRule){
-            days.push(dayMap[threeDaysRule[1]]);
-            days.push(dayMap[threeDaysRule[2]]);
-            days.push(dayMap[threeDaysRule[3]]);
-
-        } else {
-            daysRegex  = new RegExp(`(${dayText})(\\s?\\S*\\s)(${dayText})`);
-            daysRule=daysRegex.exec(description);
-
-            if(daysRule){
-                if(/.*(A|À|AU).*/.exec(daysRule[2])){
-                    daysAbbr=Object.keys(dayValues);
-                    days=daysAbbr.slice(daysAbbr.findIndex(val=>val===dayMap[daysRule[1]]),daysAbbr.findIndex(val=>val===dayMap[daysRule[3]])+1)
-                } else if(/(ET|\s)/.exec(daysRule[2])){
-                    days.push(dayMap[daysRule[1]]);
-                    days.push(dayMap[daysRule[3]]);
-                } else {
-                    console.error("day rules verbe unknown",daysRule[2], rpaCode, description);
-                }
-            } else {
-                dayRegex  = new RegExp(`(${dayText})`);
-                dayRule=dayRegex.exec(description);
-                if(dayRule){
-                    days.push(dayMap[dayRule[1]]);
-                }
-            }
-        }
-        if(days.length){
-            timeSpan["daysOfWeek"] = {days};
-        }
+        timeSpan["effectiveDates"] = getEffectiveDates(description);
+        timeSpan["daysOfWeek"] = getDaysOfWeek(description);
 
         //   ********** time
         if(time = timeRegexp.exec(description)){
@@ -293,5 +296,8 @@ if (typeof require !== 'undefined' && require.main === module) {
 
 module.exports = {
     convert,
+    getActivity,
+    getEffectiveDates,
+    getDaysOfWeek,
     descriptionContainsTimespan
-}
+};
