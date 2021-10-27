@@ -1,5 +1,24 @@
 const fs = require('fs');
 
+const ignoredValidations = {};
+
+function addIgnoredValidation(description) {
+    if (ignoredValidations[description]) {
+        ignoredValidations[description] += 1;
+    }
+    else {
+        ignoredValidations[description] = 1;
+    }
+}
+
+function valid() {
+    return { "ok": true, "message": ""};
+}
+
+function invalid(message) {
+    return { "ok": false, message };
+}
+
 // one or two digits, followed by zero or more spaces, followed by "h" or "min"
 const timeRegex = /\d{1,2}\s*(h|min)/i;
 
@@ -49,48 +68,98 @@ function getUsedRpaCodes(signalisation) {
     return usedRpaCodes;
 }
 
-// Vefiry the converted RPAs and the originalRPAs have the same quantity of data
-function verifyLengths(convertedRpa, originalRpa) {
+// validate the converted RPAs and the originalRPAs have the same quantity of data
+function validateLengths(convertedRpa, originalRpa) {
     return Object.keys(convertedRpa).length == Object.keys(originalRpa.PANNEAU_ID_RPA).length;
 }
 
+function validateRegulations(description, regulations) {
+    if (!Array.isArray(regulations) || regulations.length == 0) {
+        return invalid("Regulations are missing")
+    }
 
-function verifyRegulationIsNotMissing(rpa, usedRpaCodes) {
-    if (Array.isArray(rpa.regulations)) {
-        // rpa has regulation
-        return true;
+    if (regulations.length > 1) {
+        return invalid("The convertion script does not support multiple rules yet");
     }
-    if (!usedRpaCodes.has(rpa.code)) {
-        // rpa is not used, so won't lose time trying to fix it
-        return true;
-    }
-    if (!descriptionContainsTimespanInfos(rpa.description)) {
-        // if there is no timespan, then it is not possible to make a rule
-        return true;
-    }
-    return false;
+
+    return validateRule(description, regulations[0].rule);
 }
 
-function verify() {
+function validateRule(description, rule) {
+    if (!rule) {
+        // TODO: add rules for panonceaux
+        if (/pan{1,2}onceau/i.test(description)) {
+            addIgnoredValidation("panonceau rule");
+            return valid();
+        }
+        return invalid("Rule is missing");
+    }
+    return validateActivity(description, rule.activity);
+}
+
+function validateActivity(description, activity) {
+    switch (activity) {
+        case "no standing":
+            return validateIsNoStanding(description);
+        case "no parking":
+            return validateIsNoParking(description);
+        case "parking":
+            return validateIsParking(description);
+        default:
+            return invalid("unknown activity");
+    }
+}
+
+function validateIsNoStanding(description) {
+    return valid();
+}
+
+function validateIsNoParking(description) {
+    return valid();
+}
+
+function validateIsParking(description) {
+    return valid();
+}
+
+function validate() {
     const convertedRpa = loadFromJsonFile("../data/signalisation-codification-rpa_withRegulation.json");
     const originalRpa = loadFromJsonFile("../data/signalisation-codification-rpa.json");
     const signalisation = loadFromJsonFile("../data/signalisation_stationnement.geojson");
     const usedRpaCodes = getUsedRpaCodes(signalisation);
 
-    if (!verifyLengths(convertedRpa, originalRpa)) {
+    if (!validateLengths(convertedRpa, originalRpa)) {
         console.error("The original RPA and the converted RPA don't have the same number of data");
     }
 
-    const missingRules = [];
+    const errors = [];
     for (const [rpaId, rpa] of Object.entries(convertedRpa)) {
-        if (!verifyRegulationIsNotMissing(rpa, usedRpaCodes)) {
-            missingRules.push(`${rpaId} ${rpa.code} ${rpa.description}`);
+        if (!usedRpaCodes.has(rpa.code)) {
+            // Lets not put efforts into validating unused RPAs
+            addIgnoredValidation("not used");
             continue;
         }
-        
+
+        if (!descriptionContainsTimespanInfos(rpa.description)) {
+            // There's nothing to do without timespan
+            addIgnoredValidation("no timespan");
+            continue;
+        }
+
+        // TODO: handle maxStays.
+        if (/\d{1,2}\s*min/i.test(rpa.description)) {
+            addIgnoredValidation("maxStay");
+            continue;
+        }
+
+        const result = validateRegulations(rpa.description, rpa.regulations)
+        if (!result.ok) {
+            errors.push(`${result.message}: ${rpa.code} ${rpa.description}`);
+        }
     }
 
-    console.log("missing rules:", missingRules);
+    console.log("errors:", errors);
+    console.log("ignored validations:", ignoredValidations);
 }
 
-verify();
+validate();
