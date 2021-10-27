@@ -143,10 +143,11 @@ const monthValues = {
 };
 
 function getEffectiveDates(description) {
-    Object.entries(monthValues)
-    .reduce( (ret,val) => {
-        description.includes(val[0]) ? val[1] : ret;
-    }, undefined);
+    return Object.entries(monthValues)
+    .reduce(
+        (ret,val) => description.includes(val[0]) ? val[1] : ret,
+        undefined
+    );
 }
 
 const dayValues = {
