@@ -22,7 +22,7 @@ const monthsRegexes = {
     "04": /(\d|\b)avr(\b|\.|il)/i,
     "05": /(\d|\b)mai/i,
     "06": /(\d|\b)juin/i,
-    "07": /(\d|\b)juillet/i,
+    "07": /(\d|\b)jui(\b|\.|llet)/i,
     "08": /(\d|\b)ao[uû]t/i,
     "09": /(\d|\b)sep(\b|\.|tembre)/i,
     "10": /(\d|\b)oct(\b|\.|obre)/i,
@@ -200,7 +200,66 @@ function getDaysOfWeek(description) {
     return (days.length != 0) ? {days} : undefined;
 }
 
+function convertHtime(time) {
+    let [h,m] = time.split("H");
+    if (!m) {
+        m = "00"
+    }
+    return `${h.padStart(2,'0')}:${m}`
+}
+
 const timeRegexp = /(\d+[H]\d*)\s?[Aaà@-]\s?(\d+[H]\d*)/g;
+
+function getTimesOfDay(description) {
+    const timesOfDay = [];
+    let time;
+    while (time = timeRegexp.exec(description)) {
+        if (time) {
+            const startTime = convertHtime(time[1]);
+            const endTime = convertHtime(time[2]);
+            if (startTime && endTime) {
+                timesOfDay.push({
+                    from: startTime,
+                    to: endTime
+                });
+            }
+        }
+    }
+    return (timesOfDay.length != 0) ? timesOfDay : undefined;
+}
+
+function getTimeSpans(description) {
+    const timeSpans = [];
+    const timeSpan = {};
+
+    timeSpan["effectiveDates"] = getEffectiveDates(description);
+    timeSpan["daysOfWeek"] = getDaysOfWeek(description);
+    timeSpan["timesOfDay"] = getTimesOfDay(description);
+
+    if (Object.values(timeSpan).some( (value) => value !== undefined) ) {
+        timeSpans.push(timeSpan);
+    }
+
+    return (timeSpans.length != 0) ? timeSpans : undefined;
+}
+
+function getRegulations(description) {
+    const activity = getActivity(description);
+    if (activity === undefined) {
+        return undefined;
+    }
+
+    const timeSpans = getTimeSpans(description);
+
+    const regulation = {
+        // we assume regulations with timeSpans are more specific than those without, thus have higher priority
+        "priorityCategory": timeSpans ? "3" : "4",
+        "rule": (activity === null) ? undefined : { activity },
+        "timeSpans": timeSpans
+    };
+
+    return [regulation];
+}
 
 function convert(rpaCodification) {
     const rpaIds = rpaCodification.PANNEAU_ID_RPA;
@@ -208,78 +267,21 @@ function convert(rpaCodification) {
     const rpaCodes = rpaCodification.CODE_RPA;
     const rpaInfos = {};
 
-    for (let [key, rpaId] of Object.entries(rpaIds)) {
+    for (const [key, rpaId] of Object.entries(rpaIds)) {
         const rpaInfo = {}
         rpaInfos[rpaId] = rpaInfo
-
         rpaInfo.description = rpaDescriptions[key];
         rpaInfo.code = rpaCodes[key];
 
-        description = rpaDescriptions[key].toUpperCase();
+        const description = rpaDescriptions[key].toUpperCase();
 
         if (containsIrrelevantExpression(description)) {
             continue;
         }
 
-        let activity = getActivity(description);
-        if (activity === undefined) {
-            continue;
-        }
-
-        let timeSpans = [];
-        let timeSpan = {};
-
-        timeSpan["effectiveDates"] = getEffectiveDates(description);
-        timeSpan["daysOfWeek"] = getDaysOfWeek(description);
-
-        //   ********** time
-        if(time = timeRegexp.exec(description)){
-            do{
-                const convertHtime = (time) => {
-                    [h,m] = time.split("H")
-                    if(!m){
-                        m="00"
-                    }
-                    return `${h.padStart(2,'0')}:${m}`
-                }
-                if(time){
-                    startTime = convertHtime(time[1]);
-                    endTime = convertHtime(time[2]);
-                }
-
-                if(startTime && endTime) {
-                    timeSpan['timesOfDay'] = [{
-                        from: startTime,
-                        to: endTime
-                    }]
-                }
-
-                if(Object.keys(timeSpan).length){
-                    timeSpans.push({...timeSpan});
-                }
-            } while(time = timeRegexp.exec(description))
-        } else {
-            if(Object.keys(timeSpan).length){
-                timeSpans.push({...timeSpan});
-            }
-        }
-
-        const priorityCategory = timeSpans.length>0?"3":"4";
-        
-        if(activity){
-            rpaInfo['regulations'] = [{
-                priorityCategory,
-                rule:{
-                    activity
-                },
-                timeSpans
-            }];
-        } else if(timeSpans.length>0){
-            rpaInfo['regulations'] = [{
-                timeSpans
-            }];
-        }
+        rpaInfo["regulations"] = getRegulations(description);
     }
+
     return rpaInfos;
 }
 
@@ -298,7 +300,9 @@ if (typeof require !== 'undefined' && require.main === module) {
 module.exports = {
     convert,
     getActivity,
-    getEffectiveDates,
     getDaysOfWeek,
+    getEffectiveDates,
+    getRegulations,
+    getTimeSpans,
     descriptionContainsTimespan
 };
