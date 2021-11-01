@@ -2,7 +2,7 @@
 const timeStr = "\\d{1,2}\\s*h\\d{0,2}";
 const time = new RegExp(timeStr, "i");
 
-const timeIntervalStr = `(${timeStr})\\s*[Aaà@-]\\s*(${timeStr})`;
+const timeIntervalStr = `(?:${timeStr})\\s*[Aaà@-]\\s*(?:${timeStr})`;
 const timeInterval = new RegExp(timeIntervalStr, "i");
 
 // one or two digits, followed by zero or more spaces, followed by "min"
@@ -10,8 +10,8 @@ const maxStayStr = "\\d{1,2}\\s*min";
 const maxStay = new RegExp(maxStayStr, "i");
 
 // match a sequence of time intervals
-// examples: "6h-7h30" or "6h-7h30 8h À 10h et 11h@12h"
-const timesSequenceStr = `(${timeIntervalStr})(\\s+(?:et\\s+)?(${timeIntervalStr}))*`;
+// examples: "6h-7h30", "6h-7h30, 8h-10",  or "6h-7h30 8h À 10h et 11h@12h"
+const timesSequenceStr = `(?:${timeIntervalStr})(?:,?\\s+(?:et\\s+)?(?:${timeIntervalStr}))*`;
 const timesSequence = new RegExp(timesSequenceStr, "i");
 
 // mapping of days of the week with the regex that will match that day
@@ -35,9 +35,13 @@ const days = Object.entries(daysStrs)
 const anyDayStr = Object.values(daysStrs).join("|");
 const anyDay = new RegExp(anyDayStr, "i");
 
-// regex that will match any interval of time
+// regex that will match any interval of days
 const daysIntervalStr = `(${anyDayStr})\\s+(?:A|À|AU)\\s+(${anyDayStr})`;
 const daysInterval = new RegExp(daysIntervalStr, "i");
+
+// Matches an enumeration of days
+const daysEnumerationStr = `(${anyDayStr})(?:\\s+(?:et\\s+)?(?:${anyDayStr}))*`
+const daysEnumeration = new RegExp(daysEnumerationStr, "i");
 
 // mapping of months names with the regex that will match that month
 const monthsStrs = {
@@ -77,26 +81,15 @@ const noTimespanBeforeStr = `(?<!(${anyTimespanStr}).*)`;
 const noTimespanAfterStr = `(?!.*(${anyTimespanStr}))`;
 
 module.exports = {
-    timeStr,
     time,
-    timeIntervalStr,
     timeInterval,
-    maxStayStr,
     maxStay,
-    timesSequenceStr,
     timesSequence,
-    daysStrs,
     days,
-    anyDayStr,
     anyDay,
-    daysIntervalStr,
     daysInterval,
-    monthsStrs,
+    daysEnumeration,
     months,
-    anyMonthStr,
     anyMonth,
-    anyTimespanStr,
-    anyTimespan,
-    noTimespanBeforeStr,
-    noTimespanAfterStr
+    anyTimespan
 }

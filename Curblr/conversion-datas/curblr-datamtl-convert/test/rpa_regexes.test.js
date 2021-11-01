@@ -94,8 +94,21 @@ describe("regexes", () => {
         ["1h-2h et 2h-3h et 4h-5h", "1h-2h et 2h-3h et 4h-5h"],
         ["1h-2h et 2h-3h 4h-5h", "1h-2h et 2h-3h 4h-5h"],
         ["1h-2h lundi 2h-3h 4h-5h", "1h-2h"],
-    ])("rpaRegex.timesSequenceStr.exec('%s')[0]", (value, expected) => {
+        ["06h30-09h30, 15h30-18h30", "06h30-09h30, 15h30-18h30"]
+    ])("rpaRegex.timesSequence.exec('%s')[0]", (value, expected) => {
         const result = rpaRegex.timesSequence.exec(value)[0];
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["LUN MAR", "LUN MAR"],
+        ["LUN MAR MER", "LUN MAR MER"],
+        ["LUN ET MAR", "LUN ET MAR"],
+        ["LUN ET MAR ET MER", "LUN ET MAR ET MER"],
+        ["LUN MAR ET MER", "LUN MAR ET MER"],
+        ["LUN ET MAR MER", "LUN ET MAR MER"],
+    ])("rpaRegex.daysEnumeration.exec('%s')[0]", (value, expected) => {
+        const result = rpaRegex.daysEnumeration.exec(value)[0];
         expect(result).toBe(expected);
     });
 })
