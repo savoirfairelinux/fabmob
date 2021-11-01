@@ -32,6 +32,7 @@ describe("regexes", () => {
         ["1h @ 2h", true],
         ["1h@2h", true],
         ["1h    -  2h", true],
+        ["1h", false],
         ["1h 2h", false],
         ["1hb2h", false],
         ["1h b 2h", false],
@@ -81,6 +82,20 @@ describe("regexes", () => {
         ["1h À 2h", false]
     ])("daysInterval.test('%s')", (value, expected) => {
         const result = rpaRegex.daysInterval.test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["1h-2h", "1h-2h"],
+        ["1h-2h 2h-3h", "1h-2h 2h-3h"],
+        ["1h-2h 2h-3h 4h-5h", "1h-2h 2h-3h 4h-5h"],
+        ["1h-2h 2h-3h 4h-5h 6h-7h", "1h-2h 2h-3h 4h-5h 6h-7h"],
+        ["1h-2h et 2h-3h", "1h-2h et 2h-3h"],
+        ["1h-2h et 2h-3h et 4h-5h", "1h-2h et 2h-3h et 4h-5h"],
+        ["1h-2h et 2h-3h 4h-5h", "1h-2h et 2h-3h 4h-5h"],
+        ["1h-2h lundi 2h-3h 4h-5h", "1h-2h"],
+    ])("rpaRegex.timesSequenceStr.exec('%s')[0]", (value, expected) => {
+        const result = rpaRegex.timesSequence.exec(value)[0];
         expect(result).toBe(expected);
     });
 })

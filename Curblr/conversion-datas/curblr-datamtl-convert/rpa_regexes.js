@@ -11,7 +11,8 @@ const maxStay = new RegExp(maxStayStr, "i");
 
 // match a sequence of time intervals
 // examples: "6h-7h30" or "6h-7h30 8h À 10h et 11h@12h"
-const timesSequenceStr = `(${timeIntervalStr})(?:\\s+(?:et\\s+)?(${timeIntervalStr}))*`;
+const timesSequenceStr = `(${timeIntervalStr})(\\s+(?:et\\s+)?(${timeIntervalStr}))*`;
+const timesSequence = new RegExp(timesSequenceStr, "i");
 
 // mapping of days of the week with the regex that will match that day
 const daysStrs = {
@@ -83,6 +84,7 @@ module.exports = {
     maxStayStr,
     maxStay,
     timesSequenceStr,
+    timesSequence,
     daysStrs,
     days,
     anyDayStr,
