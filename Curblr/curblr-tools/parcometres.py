@@ -5,6 +5,8 @@ import csv
 import json
 import math
 import os
+from datetime import datetime, date
+from typing import Optional
 #from varname import name
 from geojson import Feature, FeatureCollection, Point
 
@@ -35,7 +37,7 @@ urls = [
 
 urls_name = [
     "places",
-     "reglementations",
+     "reglementatbions",
       "emplacement_reglementations",
        "reglementation_periode",
         "periodes",
@@ -87,7 +89,7 @@ def emplacement_reglementations_to_dic(url_name):
             dic[tp[0]]["sCodeAutocollant_Name"].append(tp[1])
     return dic
 
-def reglementations_to_dic(url_name):
+def reglementations_to_dic(url_name, dateTime_reservation:Optional[datetime]=None, minStay=None):#TODO minStay - pas forcement utile, l'interface le fait deja
     # file_name = PATH + urls_name[1] + ".csv"
     file_name = url_name + ".csv"
     dic = {}
@@ -97,10 +99,38 @@ def reglementations_to_dic(url_name):
         l_tuple = []
         first_ligne = False
         for ligne in reader:
-            if first_ligne == False:
-                first_ligne = True
-                continue
-            dic[ligne[0]] = {"Name":ligne[0], "Type":ligne[1], "DateDebut":ligne[2], "DateFin":ligne[3], "maxHeures":ligne[4]}
+            maxHeures = ligne[4]
+            if dateTime_reservation is not None:
+                if first_ligne == False:
+                    first_ligne = True
+                    continue
+                #TODO dateTime and minStay
+                day_begin = int(ligne[2][:2])
+                month_begin = int(ligne[2][2:])
+
+                date_begin = date(dateTime_reservation.year, month_begin, day_begin)
+                day_end = int(ligne[3][:2])
+                month_end = int(ligne[3][2:])
+                date_end = date(dateTime_reservation.year, month_end, day_end)
+                day_reservation = dateTime_reservation.day
+                month_reservation = dateTime_reservation.month
+                weekday_reservation = dateTime_reservation.weekday()
+
+                dateTime_reservation = date(dateTime_reservation.year, dateTime_reservation.month, dateTime_reservation.day)
+                print("FILTERING",
+                day_begin,
+                month_begin,
+                day_end,
+                    month_end,
+                    maxHeures,
+                    day_reservation,
+                    month_reservation,
+                        weekday_reservation)
+                if (dateTime_reservation<=date_end and dateTime_reservation>=date_begin):#todoMaxHeures
+                    dic[ligne[0]] = {"Name":ligne[0], "Type":ligne[1], "DateDebut":ligne[2], "DateFin":ligne[3], "maxHeures": maxHeures}
+            else:
+                dic[ligne[0]] = {"Name":ligne[0], "Type":ligne[1], "DateDebut":ligne[2], "DateFin":ligne[3], "maxHeures": maxHeures}
+
     return dic
 
 def reglementations_periode_to_dic(url_name):
@@ -123,7 +153,7 @@ def reglementations_periode_to_dic(url_name):
             dic[tp[0]]["sub_prop"].append({"noPeriode": tp[1], "sDescription":tp[2]})
     return dic
 
-def periodes_to_dic(url_name):
+def periodes_to_dic(url_name, dateTime_reservation:Optional[datetime]=None):
     # file_name = PATH + urls_name[4] + ".csv"
     file_name = url_name + ".csv"
     dic = {}
@@ -133,6 +163,9 @@ def periodes_to_dic(url_name):
 
         l_tuple = []
         first_ligne = False
+        if dateTime_reservation is not None:
+            weekday = dateTime_reservation.weekday() #TODO weekday - pas forcement utile, l'interface le fait deja
+            # print("weekday", weekday)
         for ligne in reader:
             if first_ligne == False:
                 first_ligne = True
@@ -158,7 +191,7 @@ def periodes_to_dic(url_name):
     https://www.agencemobilitedurable.ca/fr/informations/donnees-ouvertes/description-des-donnees-disponibles.html
 
 '''
-def convert_places():
+def convert_places(dateTime_reservation:Optional[datetime]=None, price=None, minStay=None):#TODO Parameters for polygon filter, price - pas forcement necessaire
     features = []
     file_name = urls_name[0] + ".csv"
     with open(PATH + file_name, newline='', encoding="ISO-8859-1") as csvfile:
@@ -191,7 +224,7 @@ def convert_places():
                             "sTypeExploitation": colonnes[11],
                             "nTarifHoraire": colonnes[12],
                             "sLocalisation": colonnes[13],
-                            "nTarifMax": colonnes[14]
+                            "nTarifMax": colonnes[14] #TODO price
                         }
                     )
             )
@@ -206,7 +239,7 @@ def convert_places():
         Ajout des réglementations
     '''
 
-    collection = add_reglementations(collection)
+    collection = add_reglementations(collection, dateTime_reservation, price, minStay)
     r = "_with_reglementations"
     file_name = urls_name[0] + r +".geojson"
     with open(PATH + file_name, "w") as f:
@@ -275,7 +308,7 @@ def convert_bornes_hors_rue():
                             "nMax":colonnes[16]
                         }
                     )
-            )
+                )
             except ValueError:
                 pass
     collection = FeatureCollection(features)
@@ -283,28 +316,33 @@ def convert_bornes_hors_rue():
     with open(PATH + file_name, "w") as f:
         f.write('%s' % collection)
 
-def add_reglementations(collection):
-    a = emplacement_reglementations_to_dic(urls_name[2])
-    b = reglementations_to_dic(urls_name[1])
+def add_reglementations(collection, dateTime_reservation=None, price=None, minStay=None):#TODO Parameters for polygon filter and tarif(max)vation, price, minStay):
+    a = emplacement_reglementations_to_dic(urls_name[2]) 
+    b = reglementations_to_dic(urls_name[1], dateTime_reservation, minStay)#TODO minStay - pas forcement utile, l'interface le fait deja
     c = reglementations_periode_to_dic(urls_name[3])
-    d = periodes_to_dic(urls_name[4])
+    d = periodes_to_dic(urls_name[4], dateTime_reservation)#TODO weekday - pas forcement utile, l'interface le fait deja
     
-    for k in collection["features"]:
-        sNoplace =  k["properties"]["sNoplace_sNoEmplacement"]
+    for feature in collection["features"]:
+        feature_properties = feature["properties"]
+        sNoplace =  feature_properties["sNoplace_sNoEmplacement"]
         # print(sNoplace)
         sNoplace_from_dic = a[sNoplace]
         sCodeAutocollant_from_dic = a[sNoplace]["sCodeAutocollant_Name"]
         # print(sCodeAutocollant_from_dic)
-        k["properties"]["sCodeAutocollant_Name"] = {}
-        k["properties"]["liste_sCodeAutocollant_Name"] = sCodeAutocollant_from_dic
+        feature_properties["sCodeAutocollant_Name"] = {}
+        feature_properties["liste_sCodeAutocollant_Name"] = sCodeAutocollant_from_dic
         for i in sCodeAutocollant_from_dic:
-            # k["properties"]["liste_sCodeAutocollant_Name"].append(i)
-            k["properties"]["sCodeAutocollant_Name"][i] = b[i]
-            # print(k["properties"]["sCodeAutocollant_Name"][i])
-            k["properties"]["sCodeAutocollant_Name"][i]["sub_prob"] = c[i]["sub_prop"]
-            for j in k["properties"]["sCodeAutocollant_Name"][i]["sub_prob"]:
-                nId = j["noPeriode"]
-                j["periodes"] = d[nId]
+            # feature_properties["liste_sCodeAutocollant_Name"].append(i)
+            try:
+                feature_properties["sCodeAutocollant_Name"][i] = b[i]
+                # print(feature_properties["sCodeAutocollant_Name"][i])
+                feature_properties["sCodeAutocollant_Name"][i]["sub_prob"] = c[i]["sub_prop"]
+                for j in feature_properties["sCodeAutocollant_Name"][i]["sub_prob"]:
+                    nId = j["noPeriode"]
+                    j["periodes"] = d[nId]
+            except KeyError as e: #du au filtre selon le jour et le mois, certains autocollants disparaissent
+                # print(e)
+                pass
     return collection
 
 
@@ -335,226 +373,236 @@ def turn_regl_to_regu(buffered_file):
         
         p = 0
         for feature in data['features']:
-            # print(feature)
-            regulations = []
-            n = 0
-            for autocollant in feature["properties"]["pp_liste_scodeautocollant_name"]: 
-                durations = [int(value["maxHeures"])*60 for value in feature["properties"]["pp_scodeautocollant_name"].values()]
-                sub_prob = feature["properties"]["pp_scodeautocollant_name"][autocollant]
-                regulation = {}    
-                regulation["rule"] = { #https://github.com/curblr/curblr-spec/blob/master/Rule.md
-                                        "activity": "parking", #parking, no parking, standing, no standing, loading, no loading
-                                        "priority": "paid parking",
-                                        "maxStay": max(durations),
-                                        # "reason": "construction",
-                                        # "noReturn": 240,
-                                        "payment": True #
-                                    }
-                regulation["userClasses"] = [#https://github.com/curblr/curblr-spec/blob/master/UserClasses.md
-                                    {
-                                        # "classes": ["permit"],
-                                        # "subclasses": ["zone 5"]
-                                    }
-                                ]
-                regulation["timeSpans"] = []
-                
-                # print(feature["properties"]["pp_scodeautocollant_name"][autocollant]["sub_prob"])
-                for sub_prob in feature["properties"]["pp_scodeautocollant_name"][autocollant]["sub_prob"]:
-                    days = []
-                    
-                    if sub_prob["periodes"]["bLun"] == "1":
-                        days.append("mo")
-                    if sub_prob["periodes"]["bMar"] == "1":
-                        days.append("tu")
-                    if sub_prob["periodes"]["bMer"] == "1":
-                        days.append("we")
-                    if sub_prob["periodes"]["bJeu"] == "1":
-                        days.append("th")
-                    if sub_prob["periodes"]["bVen"] == "1":
-                        days.append("fr")
-                    if sub_prob["periodes"]["bSam"] == "1":
-                        days.append("sa")
-                    if sub_prob["periodes"]["bDim"] == "1":
-                        days.append("su")
-                    timeSpan = {
-                        "daysOfWeek": {
-                            "days": days 
-                            # [
-                            #     "mo","tu", "we","th","fr","sa"
-                                
-                            # ],
-                            # "occurrencesInMonth": ["2nd", "4th"]
-                        },
-                        "timesOfDay": [
-                            {
-                                "from": sub_prob["periodes"]["dtHeureDebut"][:5],#couper les secondes
-                                "to": sub_prob["periodes"]["dtHeureFin"][:5]
-                                # "from": "07:00",
-                                # "to": "19:00"
-                            }
-                        ],
-                        # "designated 
-                        "effectiveDates": [
-                            {
-                                "from": feature["properties"]["pp_scodeautocollant_name"][autocollant]["DateDebut"][2:]+"-"+ feature["properties"]["pp_scodeautocollant_name"][autocollant]["DateDebut"][:2],
-                                "to":  feature["properties"]["pp_scodeautocollant_name"][autocollant]["DateFin"][2:]+"-"+ feature["properties"]["pp_scodeautocollant_name"][autocollant]["DateFin"][:2]
-                            }
-                            # {"from": "12-01", "to": "12-31"},
-                            # {"from": "01-01", "to": "03-31"}
-                        ],
-                    }
-                    a = feature["properties"]["pp_snoplace_snoemplacement"]
-                    # if a == "RB133":#TODO: DEBUG PARCO
-                        # print(p, " ", a," - " ,n, " ", autocollant,  ": ", timeSpan) 
-                    regulation["timeSpans"].append(timeSpan)
-                    regulation["payment"] = {#https://github.com/curblr/curblr-spec/blob/master/Payment.md
-                                    "rates": [
-                                        {
-                                            "fees": [
-                                                # 0.5
-                                                float(feature["properties"]["pp_ntarifhoraire"])/100
-                                            ],
-                                            "durations": durations
-                                            # [
-                                            #     # 15
-                                            #     float()
-                                            # ]
+            try:
+                # print(feature)
+                regulations = []
+                n = 0
+                feature_properties = feature["properties"]
+                for autocollant in feature_properties["pp_liste_scodeautocollant_name"]: 
+                    durations = [int(value["maxHeures"])*60 for value in feature_properties["pp_scodeautocollant_name"].values()]
+                    sub_prob = feature_properties["pp_scodeautocollant_name"][autocollant]
+                    regulation = {}    
+                    regulation["rule"] = { #https://github.com/curblr/curblr-spec/blob/master/Rule.md
+                                            "activity": "parking", #parking, no parking, standing, no standing, loading, no loading
+                                            "priority": "paid parking",
+                                            "maxStay": max(durations),
+                                            # "reason": "construction",
+                                            # "noReturn": 240,
+                                            "payment": True #
                                         }
-                                    ],
-                                    "methods": [
-                                        "pay_station",
-                                        # "digital"
-                                    ],
-                                    "forms": [
-                                        "Visa",
-                                        "Mastercard",
-                                        # "American Express",
-                                        # "Smart Card",
-                                        # "coins",
-                                        # "Parking Kitty"
-                                    ],
-                                    # "phone": "+15032785410",
-                                    # "operator": "PBOT",
-                                    # "deviceIds": [
-                                    #     "zone 1002"
-                                    # ]
+                    regulation["userClasses"] = [#https://github.com/curblr/curblr-spec/blob/master/UserClasses.md
+                                        {
+                                            # "classes": ["permit"],
+                                            # "subclasses": ["zone 5"]
+                                        }
+                                    ]
+                    regulation["timeSpans"] = []
+                    
+                    # print(feature_properties["pp_scodeautocollant_name"][autocollant]["sub_prob"])
+                    for sub_prob in feature_properties["pp_scodeautocollant_name"][autocollant]["sub_prob"]:
+                        days = []
+                        
+                        if sub_prob["periodes"]["bLun"] == "1":
+                            days.append("mo")
+                        if sub_prob["periodes"]["bMar"] == "1":
+                            days.append("tu")
+                        if sub_prob["periodes"]["bMer"] == "1":
+                            days.append("we")
+                        if sub_prob["periodes"]["bJeu"] == "1":
+                            days.append("th")
+                        if sub_prob["periodes"]["bVen"] == "1":
+                            days.append("fr")
+                        if sub_prob["periodes"]["bSam"] == "1":
+                            days.append("sa")
+                        if sub_prob["periodes"]["bDim"] == "1":
+                            days.append("su")
+                        timeSpan = {
+                            "daysOfWeek": {
+                                "days": days 
+                                # [
+                                #     "mo","tu", "we","th","fr","sa"
+                                    
+                                # ],
+                                # "occurrencesInMonth": ["2nd", "4th"]
+                            },
+                            "timesOfDay": [
+                                {
+                                    "from": sub_prob["periodes"]["dtHeureDebut"][:5],#couper les secondes
+                                    "to": sub_prob["periodes"]["dtHeureFin"][:5]
+                                    # "from": "07:00",
+                                    # "to": "19:00"
                                 }
-                regulations.append(regulation)
-                n += 1
-                # break#
-            geojson['features'].append(
-                {
-                    "type": feature["type"],
-                    "properties": {
-                        "location":{
-                            "shstRefId": feature["properties"]["referenceId"],
-                            "sideOfStreet": feature["properties"]["sideOfStreet"],
-                            "shstLocationStart": round(feature["properties"]["section"][0]), #Math.round
-                            "shstLocationEnd": round(feature["properties"]["section"][1]),
-                            # "referenceLength": feature["properties"]["referenceLength"],
-                            "assetType": feature["properties"]["pp_stypeexploitation"], 
-                            # "baysAngle": "parallel",
-                            # "objectId": "94022",
-                            # "derivedFrom": ["sign_820", "sign_028", "sign-940"],
-                            # "assetType": "sign",
-                            "streetName": feature["properties"]["pp_snomrue"],
-                            # "status": "proposed"
+                            ],
+                            # "designated 
+                            "effectiveDates": [
+                                {
+                                    "from": feature_properties["pp_scodeautocollant_name"][autocollant]["DateDebut"][2:]+"-"+ feature_properties["pp_scodeautocollant_name"][autocollant]["DateDebut"][:2],
+                                    "to":  feature_properties["pp_scodeautocollant_name"][autocollant]["DateFin"][2:]+"-"+ feature_properties["pp_scodeautocollant_name"][autocollant]["DateFin"][:2]
+                                }
+                                # {"from": "12-01", "to": "12-31"},
+                                # {"from": "01-01", "to": "03-31"}
+                            ],
+                        }
+                        a = feature_properties["pp_snoplace_snoemplacement"]
+                        # if a == "RB133":#TODO: DEBUG PARCO
+                            # print(p, " ", a," - " ,n, " ", autocollant,  ": ", timeSpan) 
+                        regulation["timeSpans"].append(timeSpan)
+                        regulation["payment"] = {#https://github.com/curblr/curblr-spec/blob/master/Payment.md
+                                        "rates": [
+                                            {
+                                                "fees": [
+                                                    # 0.5
+                                                    float(feature_properties["pp_ntarifhoraire"])/100
+                                                ],
+                                                "durations": durations
+                                                # [
+                                                #     # 15
+                                                #     float()
+                                                # ]
+                                            }
+                                        ],
+                                        "methods": [
+                                            "pay_station",
+                                            # "digital"
+                                        ],
+                                        "forms": [
+                                            "Visa",
+                                            "Mastercard",
+                                            # "American Express",
+                                            # "Smart Card",
+                                            # "coins",
+                                            # "Parking Kitty"
+                                        ],
+                                        # "phone": "+15032785410",
+                                        # "operator": "PBOT",
+                                        # "deviceIds": [
+                                        #     "zone 1002"
+                                        # ]
+                                    }
+                    regulations.append(regulation)
+                    n += 1
+                    # break#
+                geojson['features'].append(
+                    {
+                        "type": feature["type"],
+                        "properties": {
+                            "location":{
+                                "shstRefId": feature_properties["referenceId"],
+                                "sideOfStreet": feature_properties["sideOfStreet"],
+                                "shstLocationStart": round(feature_properties["section"][0]), #Math.round
+                                "shstLocationEnd": round(feature_properties["section"][1]),
+                                # "referenceLength": feature_properties["referenceLength"],
+                                "assetType": feature_properties["pp_stypeexploitation"], 
+                                # "baysAngle": "parallel",
+                                # "objectId": "94022",
+                                # "derivedFrom": ["sign_820", "sign_028", "sign-940"],
+                                # "assetType": "sign",
+                                "streetName": feature_properties["pp_snomrue"],
+                                # "status": "proposed"
+                            },
+                            "regulations": regulations
                         },
-                        "regulations": regulations
-                    },
-                    "geometry": feature["geometry"],
-                    # "images": [
-                    #     "https://fordspacesdev.blob.core.windows.net/images/DA877882-E220-4A8B-A7C1-69D446C43CD8"
-                    #     ]
+                        "geometry": feature["geometry"],
+                        # "images": [
+                        #     "https://fordspacesdev.blob.core.windows.net/images/DA877882-E220-4A8B-A7C1-69D446C43CD8"
+                        #     ]
 
-                }
-            )
-            p += 1
+                    }
+                )
+                p += 1
+            except KeyError as e:
+                pass
+                # print(e)
+                # print("Pas de match pour,", buffered_file, ". Fichier buffered probablement vide ou clé inexistante")
+            except TypeError as e: 
+                print("Il n'y aura pas de match pour", buffered_file, "car la propriété 'geometry' du fichier manque probablement")
+                print("Type error", e)
+                
     outfile = buffered_file.replace(".buffered.geojson", ".curblr.json")
     # outfile = "last_converted.curblr.json"
     # outfile = "last_converted_all.curblr.json"
-    # print(1,outfile)
+    
     with open(PATH + outfile, mode="w") as f:
         # print(2,outfile)
         json.dump(geojson, f)
         # print(3,outfile)
-    return outfile
+    return outfile, geojson
 # %%
 
 '''
-                        [
-                            {
-                                "rule": { #https://github.com/curblr/curblr-spec/blob/master/Rule.md
-                                    "activity": "parking",
-                                    "priorityCategory": "5",
-                                    # "maxStay": 30,
-                                    # "reason": "construction",
-                                    # "noReturn": 240,
-                                    "payment": True #
-                                },
-                                "userClasses": [#https://github.com/curblr/curblr-spec/blob/master/UserClasses.md
-                                    {
-                                        # "classes": ["permit"],
-                                        # "subclasses": ["zone 5"]
-                                    },
-                                ],
-                                "timeSpans": [#https://github.com/curblr/curblr-spec/blob/master/TimeSpans.md
-                                    {
-                                        "daysOfWeek": {
-                                            "days": [
-                                                "mo","tu", "we","th","fr","sa"
-                                            ],
-                                            "occurrencesInMonth": ["2nd", "4th"]
-                                        },
-                                        "timesOfDay": [
-                                            {
-                                                "from": "07:00",
-                                                "to": "19:00"
-                                            }
-                                        ],
-                                        "designatedPeriods": [
-                                            {
-                                                "name": "holidays",
-                                                "apply": "except during"
-                                            }
-                                        ],
-                                        "effectiveDates": [
-                                            {"from": "12-01", "to": "12-31"},
-                                            {"from": "01-01", "to": "03-31"}
-                                        ],
-                                    }
-                                ],
-                                "payment": {#https://github.com/curblr/curblr-spec/blob/master/Payment.md
-                                    "rates": [
-                                        {
-                                            "fees": [
-                                                # 0.5
+    [
+        {
+            "rule": { #https://github.com/curblr/curblr-spec/blob/master/Rule.md
+                "activity": "parking",
+                "priorityCategory": "5",
+                # "maxStay": 30,
+                # "reason": "construction",
+                # "noReturn": 240,
+                "payment": True #
+            },
+            "userClasses": [#https://github.com/curblr/curblr-spec/blob/master/UserClasses.md
+                {
+                    # "classes": ["permit"],
+                    # "subclasses": ["zone 5"]
+                },
+            ],
+            "timeSpans": [#https://github.com/curblr/curblr-spec/blob/master/TimeSpans.md
+                {
+                    "daysOfWeek": {
+                        "days": [
+                            "mo","tu", "we","th","fr","sa"
+                        ],
+                        "occurrencesInMonth": ["2nd", "4th"]
+                    },
+                    "timesOfDay": [
+                        {
+                            "from": "07:00",
+                            "to": "19:00"
+                        }
+                    ],
+                    "designatedPeriods": [
+                        {
+                            "name": "holidays",
+                            "apply": "except during"
+                        }
+                    ],
+                    "effectiveDates": [
+                        {"from": "12-01", "to": "12-31"},
+                        {"from": "01-01", "to": "03-31"}
+                    ],
+                }
+            ],
+            "payment": {#https://github.com/curblr/curblr-spec/blob/master/Payment.md
+                "rates": [
+                    {
+                        "fees": [
+                            # 0.5
 
-                                            ],
-                                            "durations": [
-                                                15
-                                            ]
-                                        }
-                                    ],
-                                    "methods": [
-                                        "pay_station",
-                                        "digital"
-                                    ],
-                                    "forms": [
-                                        "Visa",
-                                        "Mastercard",
-                                        "American Express",
-                                        "Smart Card",
-                                        "coins",
-                                        "Parking Kitty"
-                                    ],
-                                    "phone": "+15032785410",
-                                    "operator": "PBOT",
-                                    "deviceIds": [
-                                        "zone 1002"
-                                    ]
-                                }
-                            }
+                        ],
+                        "durations": [
+                            15
                         ]
+                    }
+                ],
+                "methods": [
+                    "pay_station",
+                    "digital"
+                ],
+                "forms": [
+                    "Visa",
+                    "Mastercard",
+                    "American Express",
+                    "Smart Card",
+                    "coins",
+                    "Parking Kitty"
+                ],
+                "phone": "+15032785410",
+                "operator": "PBOT",
+                "deviceIds": [
+                    "zone 1002"
+                ]
+            }
+        }
+    ]
 '''
 # %%

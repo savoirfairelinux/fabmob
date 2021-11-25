@@ -214,9 +214,11 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+.dev-env
 .env
 .venv
 env/
+dev-env/
 venv/
 ENV/
 env.bak/
@@ -249,7 +251,7 @@ last_converted_all.curblr.json
 *.csv
 !limadmin.geojson.json
 !plaza_rosemont.geojson
-
+!current_data*
 #data convert
 **/data/*
 # !agregate-pannonceau-rpa.json

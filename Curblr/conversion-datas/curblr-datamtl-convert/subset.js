@@ -6,7 +6,9 @@ const path = require('path');
 const inputGeojson = fs.readFileSync('data/agregate-signalisation.json');
 const input = JSON.parse(inputGeojson);
 
-var geojson = {"crs":input.crs};
+var geojson = {
+    "crs": input.crs
+};
 geojson['type'] = 'FeatureCollection';
 
 //filtrer avec un arrondissement recu en ligne de commande
@@ -15,11 +17,11 @@ process.argv.shift();
 const arrond_from_cmd = process.argv.join(" ");
 // console.log('myArgs: ', arrond_from_cmd);
 
-function zoneFilter (feature, lon,lat){
-  return Math.min(...lon)<feature.geometry.coordinates[0] 
-      && Math.max(...lon)>feature.geometry.coordinates[0] 
-      && Math.min(...lat)<feature.geometry.coordinates[1] 
-      && Math.max(...lat)>feature.geometry.coordinates[1]
+function zoneFilter(feature, lon, lat) {
+    return Math.min(...lon) < feature.geometry.coordinates[0] &&
+        Math.max(...lon) > feature.geometry.coordinates[0] &&
+        Math.min(...lat) < feature.geometry.coordinates[1] &&
+        Math.max(...lat) > feature.geometry.coordinates[1]
 }
 
 // aucun filtre
@@ -60,20 +62,18 @@ function zoneFilter (feature, lon,lat){
 // ]
 // console.log("XXXXXXXXXXXXXXXXXXXXXXXXX =>>>>>>>>", arrond_from_cmd);
 arrond = [arrond_from_cmd]
-geojson['features'] = input.features.filter(feature=>arrond.indexOf(feature.properties.NOM_ARROND)>=0);
-
+geojson['features'] = input.features.filter(feature => arrond.indexOf(feature.properties.NOM_ARROND) >= 0);
+geojson['features'] = input.features
 
 // geojson['features'] = geojson.features.filter(feature=>feature.properties.DESCRIPTION_REP!="Enlevé");
 
-geojson['features'] = geojson.features.map(feature=>{
+geojson['features'] = geojson.features.map(feature => {
     feature.properties.title = feature.properties.PANNEAU_ID_PAN;
     feature.properties.description = `${feature.properties.PANNEAU_ID_RPA} --- ${feature.properties.DESCRIPTION_RPA}
     ${feature.properties.POSITION_POP} --- ${feature.properties.FLECHE_PAN}`;
-    feature.properties.original_geometry=feature.geometry;
+    feature.properties.original_geometry = feature.geometry;
     return feature;
 });
 
 console.error(geojson.features.length);
 console.log(JSON.stringify(geojson, null, 2))
-
-
