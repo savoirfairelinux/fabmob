@@ -454,7 +454,7 @@ def turn_regl_to_regu(current_file):
                 for autocollant in feature_properties["pp_liste_scodeautocollant_name"]:
                     current_autocollant = feature_properties["pp_scodeautocollant_name"][autocollant]
                     regulation = {}
-                    maxStay = current_autocollant["maxHeures"]*60
+                    maxStay = int(current_autocollant["maxHeures"])*60
                     regulation["rule"] = {  # https://github.com/curblr/curblr-spec/blob/master/Rule.md
                                             "activity": "parking",  # parking, no parking, standing, no standing, loading, no loading
                                             "priority": "paid parking",
