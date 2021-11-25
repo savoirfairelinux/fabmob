@@ -43,6 +43,10 @@ const daysInterval = new RegExp(daysIntervalStr, "i");
 const daysEnumerationStr = `(${anyDayStr})(?:\\s+(?:et\\s+)?(?:${anyDayStr}))*`
 const daysEnumeration = new RegExp(daysEnumerationStr, "i");
 
+// Matches week times
+const weekTimeStr = `(?:${timesSequenceStr})\\s*(?:(?:${daysIntervalStr})|(?:${daysEnumerationStr}))?`
+const weekTime = new RegExp(weekTimeStr, "ig");
+
 // mapping of months names with the regex that will match that month
 const monthsStrs = {
     // a digit or the beginning of a word, followed by the truncated name of a month or its complete name.
@@ -65,9 +69,19 @@ const months = Object.entries(monthsStrs)
                               return acc;
                             }, {});
 
-// regex that will match any day of the week
+// regex that will match any month
 const anyMonthStr = Object.values(monthsStrs).join("|");
 const anyMonth = new RegExp(anyMonthStr, "i");
+
+// regex that will match any day of the month for which the day comes before the month
+// One or two digits, followed by zero or more whitespaces, followed by any month
+const dayOfMonthDayFirstStr = `(?:\\d{1,2}|1er) *(?:${anyMonthStr})`;
+const dayOfMonthDayFirst = new RegExp(dayOfMonthDayFirstStr, "i");
+
+// regex that will match any day of the month for which the day comes after the month
+// Any month, followed by zero or more whitespaces, followed by one or two digits
+const dayOfMonthDaySecondStr = `(?:${anyMonthStr}) *(?:\\d{1,2}|1er)`;
+const dayOfMonthDaySecond = new RegExp(dayOfMonthDaySecondStr, "i");
 
 const anyTimespanStr = [
     timeStr,
@@ -91,5 +105,8 @@ module.exports = {
     daysEnumeration,
     months,
     anyMonth,
-    anyTimespan
+    dayOfMonthDayFirst,
+    dayOfMonthDaySecond,
+    anyTimespan,
+    weekTime
 }

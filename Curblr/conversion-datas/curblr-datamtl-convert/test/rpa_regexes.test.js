@@ -107,8 +107,56 @@ describe("regexes", () => {
         ["LUN ET MAR ET MER", "LUN ET MAR ET MER"],
         ["LUN MAR ET MER", "LUN MAR ET MER"],
         ["LUN ET MAR MER", "LUN ET MAR MER"],
+        ["1h-2h LUN MAR", "LUN MAR"],
     ])("rpaRegex.daysEnumeration.exec('%s')[0]", (value, expected) => {
         const result = rpaRegex.daysEnumeration.exec(value)[0];
         expect(result).toBe(expected);
     });
+
+    test.each([
+        ["1h-2h", "1h-2h"],
+        ["1h-2h LUN", "1h-2h LUN"],
+        ["1h-2h LUN MAR", "1h-2h LUN MAR"],
+        ["1h-2h LUN À MAR", "1h-2h LUN À MAR"],
+        ["1h-2h LUN 3h-4h MAR", "1h-2h LUN"],
+    ])("rpaRegex.weekTime.exec('%s')[0]", (value, expected) => {
+        rpaRegex.weekTime.lastIndex = 0;
+        const result = rpaRegex.weekTime.exec(value)?.[0];
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["1h-2h LUN 3h-4h MAR", "3h-4h MAR"],
+        ["1h-2h LUN, 3h-4h MAR", "3h-4h MAR"],
+        ["1h-2h LUN", undefined],
+    ])("rpaRegex.weekTime.exec('%s')[0] second call", (value, expected) => {
+        rpaRegex.weekTime.lastIndex = 0;
+        rpaRegex.weekTime.exec(value); // first call
+        const result = rpaRegex.weekTime.exec(value)?.[0]; // second call
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["1 MARS", true],
+        ["1ER MARS", true],
+        ["1 MARSL", true],
+        ["1 AVRILAU", true],
+        ["1 DEC", true],
+        ["15NOV", true],
+        ["AVRIL 01", false],
+        ["MAI-JUIN", false],
+    ])("rpaRegex.dayOfMonthDayFirst.test('%s')", (value, expected) => {
+        const result = rpaRegex.dayOfMonthDayFirst.test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["AVRIL 01", true],
+        ["01 AVRIL 01 DEC", true], // wrong. Lets just document this behaviour
+        ["1 MARS", false],
+    ])("rpaRegex.dayOfMonthDaySecond.test('%s')", (value, expected) => {
+        const result = rpaRegex.dayOfMonthDaySecond.test(value);
+        expect(result).toBe(expected);
+    });
 })
+
