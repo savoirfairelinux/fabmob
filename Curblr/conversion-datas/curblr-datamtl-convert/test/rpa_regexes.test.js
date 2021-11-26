@@ -158,6 +158,8 @@ describe("regexes", () => {
         ["mars", true],
         ["mar", true],
         ["mar.", true],
+        ["mrs.", true],
+        ["mr", true], // uncertain
         ["1 mars", true],
         ["1mars", true],
         ["marsl", true],
@@ -175,6 +177,7 @@ describe("regexes", () => {
         ["1 avril", true],
         ["1avril", true],
         ["avil", true],
+        ["avrils", true],
         ["avrtest", false],
     ])("rpaRegex.months['04'].test('%s')", (value, expected) => {
         const result = rpaRegex.months['04'].test(value);
@@ -203,11 +206,11 @@ describe("regexes", () => {
 
     test.each([
         ["juillet", true],
-        ["jui", true],
-        ["jui.", true],
+        ["juil", true],
+        ["juil.", true],
         ["1 juillet", true],
         ["1juillet", true],
-        ["juitest", false],
+        ["juiltest", false],
     ])("rpaRegex.months['07'].test('%s')", (value, expected) => {
         const result = rpaRegex.months['07'].test(value);
         expect(result).toBe(expected);
@@ -226,8 +229,8 @@ describe("regexes", () => {
 
     test.each([
         ["septembre", true],
-        ["sep", true],
-        ["sep.", true],
+        ["sept", true],
+        ["sept.", true],
         ["1 septembre", true],
         ["1septembre", true],
         ["septest", false],
@@ -289,6 +292,7 @@ describe("regexes", () => {
 
     test.each([
         ["1 MARS", true],
+        ["9NOV", true],
         ["1ER MARS", true],
         ["1 MARSL", true],
         ["1 AVRILAU", true],
@@ -330,6 +334,7 @@ describe("regexes", () => {
         ["1 MARS A 1 DEC", true],
         ["1 MARS À 1 DEC", true],
         ["1 MARS AU 1 DEC", true],
+        ["1 AVRIL ET 1 DEC", true], // this is in data
         ["MAI", false],
         ["1 MARS TEST 1 DEC", false],
         ["MAI-JUIN", false],

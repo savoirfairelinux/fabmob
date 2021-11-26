@@ -49,19 +49,19 @@ const weekTime = new RegExp(weekTimeStr, "ig");
 
 // mapping of months names with the regex that will match that month
 const monthsStrs = {
-    // a digit or the beginning of a word, followed by the truncated name of a month or its complete name.
-    "01": "(?:\\d|\\b)jan(?:\\.|\\b|vier)",
-    "02": "(?:\\d|\\b)f[eé]v(?:\\.|\\b|rier)",
-    "03": "(?<!de-)(?:\\d|\\b)mar(?:\\.|\\b|s)(:?l)?", // exclude champ-de-mars
-    "04": "(?:\\d|\\b)av(?:r)?(?:\\.|\\b|il)",
-    "05": "(?:\\d|\\b)mai\\b",
-    "06": "(?:\\d|\\b)juin\\b",
-    "07": "(?:\\d|\\b)jui(?:\\.|\\b|llet)",
-    "08": "(?:\\d|\\b)ao[uû]t\\b",
-    "09": "(?:\\d|\\b)sep(?:\\.|\\b|tembre)",
-    "10": "(?:\\d|\\b)oct(?:\\.|\\b|obre)",
-    "11": "(?:\\d|\\b)nov(?:\\.|\\b|embre)",
-    "12": "(?:\\d|\\b)d[eé]c(?:\\.|\\b|embre)",
+    // the truncated name of a month or its complete name.
+    "01": "jan(?:\\.|\\b|vier)",
+    "02": "f[eé]v(?:\\.|\\b|rier)",
+    "03": "(?<!de-)m(?:a)?r(?:\\.|\\b|s)(:?l)?", // exclude champ-de-mars
+    "04": "av(?:r)?(?:\\.|\\b|il)(:?s)?",
+    "05": "mai\\b",
+    "06": "juin\\b",
+    "07": "juil(?:\\.|\\b|let)",
+    "08": "ao[uû]t\\b",
+    "09": "sept(?:\\.|\\b|embre)",
+    "10": "oct(?:\\.|\\b|obre)",
+    "11": "nov(?:\\.|\\b|embre)",
+    "12": "d[eé]c(?:\\.|\\b|embre)",
 }
 const months = Object.entries(monthsStrs)
                           .reduce( (acc, [key, value]) => {
@@ -89,7 +89,7 @@ const dayOfMonthSlashedStr = "\\d{2}/\\d{2}";
 const dayOfMonthSlashed = new RegExp(dayOfMonthSlashedStr, "ig");
 
 // regex will match any interval of days of the month, for which the day comes before the month
-const daysOfMonthIntervalDayFirstStr = `(?:${dayOfMonthDayFirstStr})\\s*(?:A|À|AU|-)?\\s*(?:${dayOfMonthDayFirstStr})`;
+const daysOfMonthIntervalDayFirstStr = `(?:${dayOfMonthDayFirstStr})\\s*(?:A|À|AU|ET|-)?\\s*(?:${dayOfMonthDayFirstStr})`;
 const daysOfMonthIntervalDayFirst = new RegExp(daysOfMonthIntervalDayFirstStr, "i");
 
 // regex will match any interval of days of the month, for which the day comes after the month
