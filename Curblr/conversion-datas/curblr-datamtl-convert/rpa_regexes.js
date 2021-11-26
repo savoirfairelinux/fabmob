@@ -83,6 +83,22 @@ const dayOfMonthDayFirst = new RegExp(dayOfMonthDayFirstStr, "i");
 const dayOfMonthDaySecondStr = `(?:${anyMonthStr}) *(?:\\d{1,2}|1er)`;
 const dayOfMonthDaySecond = new RegExp(dayOfMonthDaySecondStr, "i");
 
+// regex will match any interval of days of the month, for which the day comes before the month
+const dayOfMonthIntervalDayFirstStr = `(?:${dayOfMonthDayFirstStr})\\s*(?:A|À|AU|-)\\s*(?:${dayOfMonthDayFirstStr})`;
+const dayOfMonthIntervalDayFirst = new RegExp(dayOfMonthIntervalDayFirstStr, "i");
+
+// regex will match any interval of days of the month, for which the day comes after the month
+const dayOfMonthIntervalDaySecondStr = `(?:${dayOfMonthDaySecondStr})\\s*(?:A|À|AU|-)\\s*(?:${dayOfMonthDaySecondStr})`;
+const dayOfMonthIntervalDaySecond = new RegExp(dayOfMonthIntervalDaySecondStr, "i");
+
+// regex will match any interval of days of the month, for which the day is not indicated
+const dayOfMonthIntervalDayAbsentStr = `(?:${anyMonthStr})\\s*(?:A|À|AU|-)\\s*(?:${anyMonthStr})`;
+const dayOfMonthIntervalDayAbsent = new RegExp(dayOfMonthIntervalDayAbsentStr, "i");
+
+// regex will match any interval of days of the month
+const dayOfMonthIntervalStr = `(?:${dayOfMonthIntervalDayFirstStr})|(?:${dayOfMonthIntervalDaySecondStr})|${dayOfMonthIntervalDayAbsentStr}`;
+const dayOfMonthInterval = new RegExp(dayOfMonthIntervalStr, "i");
+
 const anyTimespanStr = [
     timeStr,
     maxStayStr,
@@ -107,6 +123,10 @@ module.exports = {
     anyMonth,
     dayOfMonthDayFirst,
     dayOfMonthDaySecond,
+    dayOfMonthIntervalDayFirst,
+    dayOfMonthIntervalDaySecond,
+    dayOfMonthIntervalDayAbsent,
+    dayOfMonthInterval,
     anyTimespan,
     weekTime
 }

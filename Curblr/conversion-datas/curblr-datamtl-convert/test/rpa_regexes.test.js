@@ -152,10 +152,65 @@ describe("regexes", () => {
 
     test.each([
         ["AVRIL 01", true],
-        ["01 AVRIL 01 DEC", true], // wrong. Lets just document this behaviour
+        ["01 AVRIL AU 01 DEC", false],
         ["1 MARS", false],
     ])("rpaRegex.dayOfMonthDaySecond.test('%s')", (value, expected) => {
         const result = rpaRegex.dayOfMonthDaySecond.test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["1 MARS - 1 DEC", true],
+        ["1 MARS A 1 DEC", true],
+        ["1 MARS À 1 DEC", true],
+        ["1 MARS AU 1 DEC", true],
+        ["MAI", false],
+        ["MAI-JUIN", false],
+        ["MARS 01 A DEC 01", false],
+        ["MARS 1 AU 1 DEC", false],
+    ])("rpaRegex.dayOfMonthIntervalDayFirst.test('%s')", (value, expected) => {
+        const result = rpaRegex.dayOfMonthIntervalDayFirst.test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["MARS 1 - DEC 1", true],
+        ["MARS 1 A DEC 1", true],
+        ["MARS 1 À DEC 1", true],
+        ["MARS 1 AU DEC 1", true],
+        ["MAI", false],
+        ["MAI-JUIN", false],
+        ["1 MARS - 1 DEC", false],
+        ["MARS 1 AU 1 DEC", false],
+    ])("rpaRegex.dayOfMonthIntervalDaySecond.test('%s')", (value, expected) => {
+        const result = rpaRegex.dayOfMonthIntervalDaySecond.test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["MAI-JUIN", true],
+        ["MARS A DEC", true],
+        ["MARS À DEC", true],
+        ["MARS AU DEC", true],
+        ["1 MARS-DEC 1", true], // wrong
+        ["MAI", false],
+        ["1 MARS - 1 DEC", false],
+        ["MARS 1 AU 1 DEC", false],
+        ["MARS 1 AU DEC 1", false],
+    ])("rpaRegex.dayOfMonthIntervalDayAbsent.test('%s')", (value, expected) => {
+        const result = rpaRegex.dayOfMonthIntervalDayAbsent.test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["MAI-JUIN", true],
+        ["1 MARS - 1 DEC", true],
+        ["MARS 1 - DEC 1", true],
+        ["1 MARS-DEC 1", true], // wrong
+        ["MAI", false],
+        ["MARS 1 AU 1 DEC", false],
+    ])("rpaRegex.dayOfMonthInterval.test('%s')", (value, expected) => {
+        const result = rpaRegex.dayOfMonthInterval.test(value);
         expect(result).toBe(expected);
     });
 })
