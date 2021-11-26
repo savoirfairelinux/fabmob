@@ -83,6 +83,11 @@ const dayOfMonthDayFirst = new RegExp(dayOfMonthDayFirstStr, "i");
 const dayOfMonthDaySecondStr = `(?:${anyMonthStr}) *(?:\\d{1,2}|1er)`;
 const dayOfMonthDaySecond = new RegExp(dayOfMonthDaySecondStr, "i");
 
+// regex that will match days of the month with the day and the month separated by a slash
+// The month is expressed with its number. Ex: 12/12
+const dayOfMonthSlashedStr = "\\d{2}/\\d{2}";
+const dayOfMonthSlashed = new RegExp(dayOfMonthSlashedStr, "i");
+
 // regex will match any interval of days of the month, for which the day comes before the month
 const daysOfMonthIntervalDayFirstStr = `(?:${dayOfMonthDayFirstStr})\\s*(?:A|À|AU|-)\\s*(?:${dayOfMonthDayFirstStr})`;
 const daysOfMonthIntervalDayFirst = new RegExp(daysOfMonthIntervalDayFirstStr, "i");
@@ -95,8 +100,12 @@ const daysOfMonthIntervalDaySecond = new RegExp(daysOfMonthIntervalDaySecondStr,
 const daysOfMonthIntervalDayAbsentStr = `(?:${anyMonthStr})\\s*(?:A|À|AU|-)\\s*(?:${anyMonthStr})`;
 const daysOfMonthIntervalDayAbsent = new RegExp(daysOfMonthIntervalDayAbsentStr, "i");
 
+
+const daysOfMonthIntervalSlashedStr = `(?:${dayOfMonthSlashedStr})\\s*(?:A|À|AU|-)\\s*(?:${dayOfMonthSlashedStr})`;
+const daysOfMonthIntervalSlashed = new RegExp(daysOfMonthIntervalSlashedStr, "i");
+
 // regex will match any interval of days of the month
-const daysOfMonthIntervalStr = `(?:${daysOfMonthIntervalDayFirstStr})|(?:${daysOfMonthIntervalDaySecondStr})|${daysOfMonthIntervalDayAbsentStr}`;
+const daysOfMonthIntervalStr = `(?:${daysOfMonthIntervalDayFirstStr})|(?:${daysOfMonthIntervalDaySecondStr})|${daysOfMonthIntervalDayAbsentStr}|${daysOfMonthIntervalSlashedStr}`;
 const daysOfMonthInterval = new RegExp(daysOfMonthIntervalStr, "i");
 
 const anyTimespanStr = [
@@ -123,9 +132,11 @@ module.exports = {
     anyMonth,
     dayOfMonthDayFirst,
     dayOfMonthDaySecond,
+    dayOfMonthSlashed,
     daysOfMonthIntervalDayFirst,
     daysOfMonthIntervalDaySecond,
     daysOfMonthIntervalDayAbsent,
+    daysOfMonthIntervalSlashed,
     daysOfMonthInterval,
     anyTimespan,
     weekTime

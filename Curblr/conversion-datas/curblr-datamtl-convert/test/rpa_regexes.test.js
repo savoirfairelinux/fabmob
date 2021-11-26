@@ -160,6 +160,17 @@ describe("regexes", () => {
     });
 
     test.each([
+        ["01/01", true],
+        ["12/12", true],
+        ["1/1", false],
+        ["01/1", false],
+        ["1/01", false],
+    ])("rpaRegex.dayOfMonthSlashed.test('%s')", (value, expected) => {
+        const result = rpaRegex.dayOfMonthSlashed.test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
         ["1 MARS - 1 DEC", true],
         ["1 MARS A 1 DEC", true],
         ["1 MARS À 1 DEC", true],
@@ -203,9 +214,22 @@ describe("regexes", () => {
     });
 
     test.each([
+        ["01/05-01/10", true],
+        ["01/05 A 01/10", true],
+        ["01/05 À 01/10", true],
+        ["01/05 AU 01/10", true],
+        ["MAI", false],
+        ["1 MARS - 1 DEC", false],
+    ])("rpaRegex.daysOfMonthIntervalSlashed.test('%s')", (value, expected) => {
+        const result = rpaRegex.daysOfMonthIntervalSlashed.test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
         ["MAI-JUIN", true],
         ["1 MARS - 1 DEC", true],
         ["MARS 1 - DEC 1", true],
+        ["01/05-01/10", true],
         ["1 MARS-DEC 1", true], // wrong
         ["MAI", false],
         ["MARS 1 AU 1 DEC", false],
