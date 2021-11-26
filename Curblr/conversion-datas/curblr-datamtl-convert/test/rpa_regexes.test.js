@@ -1,6 +1,6 @@
 const rpaRegex = require("../rpa_regexes");
 
-describe("regexes", () => {
+describe("times", () => {
     test.each([
         ["1h", true],
         ["1h5", true],
@@ -44,6 +44,23 @@ describe("regexes", () => {
     });
 
     test.each([
+        ["1h-2h", "1h-2h"],
+        ["1h-2h 2h-3h", "1h-2h 2h-3h"],
+        ["1h-2h 2h-3h 4h-5h", "1h-2h 2h-3h 4h-5h"],
+        ["1h-2h 2h-3h 4h-5h 6h-7h", "1h-2h 2h-3h 4h-5h 6h-7h"],
+        ["1h-2h et 2h-3h", "1h-2h et 2h-3h"],
+        ["1h-2h et 2h-3h et 4h-5h", "1h-2h et 2h-3h et 4h-5h"],
+        ["1h-2h et 2h-3h 4h-5h", "1h-2h et 2h-3h 4h-5h"],
+        ["1h-2h lundi 2h-3h 4h-5h", "1h-2h"],
+        ["06h30-09h30, 15h30-18h30", "06h30-09h30, 15h30-18h30"]
+    ])("rpaRegex.timesSequence.exec('%s')[0]", (value, expected) => {
+        const result = rpaRegex.timesSequence.exec(value)[0];
+        expect(result).toBe(expected);
+    });
+});
+
+describe("days", () => {
+    test.each([
         ["LUN", true],
         ["LUN.", true],
         ["LUNDI", true],
@@ -86,21 +103,6 @@ describe("regexes", () => {
     });
 
     test.each([
-        ["1h-2h", "1h-2h"],
-        ["1h-2h 2h-3h", "1h-2h 2h-3h"],
-        ["1h-2h 2h-3h 4h-5h", "1h-2h 2h-3h 4h-5h"],
-        ["1h-2h 2h-3h 4h-5h 6h-7h", "1h-2h 2h-3h 4h-5h 6h-7h"],
-        ["1h-2h et 2h-3h", "1h-2h et 2h-3h"],
-        ["1h-2h et 2h-3h et 4h-5h", "1h-2h et 2h-3h et 4h-5h"],
-        ["1h-2h et 2h-3h 4h-5h", "1h-2h et 2h-3h 4h-5h"],
-        ["1h-2h lundi 2h-3h 4h-5h", "1h-2h"],
-        ["06h30-09h30, 15h30-18h30", "06h30-09h30, 15h30-18h30"]
-    ])("rpaRegex.timesSequence.exec('%s')[0]", (value, expected) => {
-        const result = rpaRegex.timesSequence.exec(value)[0];
-        expect(result).toBe(expected);
-    });
-
-    test.each([
         ["LUN MAR", "LUN MAR"],
         ["LUN MAR MER", "LUN MAR MER"],
         ["LUN ET MAR", "LUN ET MAR"],
@@ -112,7 +114,12 @@ describe("regexes", () => {
         const result = rpaRegex.daysOfWeekEnumeration.exec(value)[0];
         expect(result).toBe(expected);
     });
+});
 
+    
+
+    
+describe( "times of week", () => {
     test.each([
         ["1h-2h", "1h-2h"],
         ["1h-2h LUN", "1h-2h LUN"],
@@ -127,6 +134,20 @@ describe("regexes", () => {
         expect(result).toBe(expected);
     });
 
+    test.each([
+        ["1h-2h LUN 3h-4h MAR", "3h-4h MAR"],
+        ["1h-2h LUN, 3h-4h MAR", "3h-4h MAR"],
+        ["1h-2h LUN, 3h-4h 5h-6h MAR", "3h-4h 5h-6h MAR"],
+        ["1h-2h LUN", undefined],
+    ])("rpaRegex.weekTime.exec('%s')[0] second call", (value, expected) => {
+        rpaRegex.weekTime.lastIndex = 0;
+        rpaRegex.weekTime.exec(value); // first call
+        const result = rpaRegex.weekTime.exec(value)?.[0]; // second call
+        expect(result).toBe(expected);
+    });
+});
+    
+describe("months", () => {
     test.each([
         ["janvier", true],
         ["jan", true],
@@ -277,26 +298,16 @@ describe("regexes", () => {
         const result = rpaRegex.months['12'].test(value);
         expect(result).toBe(expected);
     });
+});
 
-    test.each([
-        ["1h-2h LUN 3h-4h MAR", "3h-4h MAR"],
-        ["1h-2h LUN, 3h-4h MAR", "3h-4h MAR"],
-        ["1h-2h LUN, 3h-4h 5h-6h MAR", "3h-4h 5h-6h MAR"],
-        ["1h-2h LUN", undefined],
-    ])("rpaRegex.weekTime.exec('%s')[0] second call", (value, expected) => {
-        rpaRegex.weekTime.lastIndex = 0;
-        rpaRegex.weekTime.exec(value); // first call
-        const result = rpaRegex.weekTime.exec(value)?.[0]; // second call
-        expect(result).toBe(expected);
-    });
-
+describe( "dates", () => {
     test.each([
         ["1 MARS", true],
-        ["9NOV", true],
         ["1ER MARS", true],
         ["1 MARSL", true],
         ["1 AVRILAU", true],
         ["1 DEC", true],
+        ["9NOV", true],
         ["15NOV", true],
         ["AVRIL 01", false],
         ["MAI-JUIN", false],
@@ -406,5 +417,4 @@ describe("regexes", () => {
         const result = rpaRegex.daysOfMonthInterval.test(value);
         expect(result).toBe(expected);
     });
-})
-
+});
