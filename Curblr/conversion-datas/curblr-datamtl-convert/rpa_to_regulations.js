@@ -34,89 +34,115 @@ function getActivity(description) {
     }
 }
 
-const monthValues = {
-    "1 MARS AU 1 DEC":[{"from":"03-01","to":"12-01"}],
-    "1ER MARS 1ER DEC":[{"from":"03-01","to":"12-01"}],
-    "1ER MARS - 1ER DÉC":[{"from":"03-01","to":"12-01"}],
-    "1ER MARS - 1ER  DÉC":[{"from":"03-01","to":"12-01"}],
-    "1ER MARS AU 1ER DECEMBRE":[{"from":"03-01","to":"12-01"}],
-    "1ER MARS AU 1ER DEC":[{"from":"03-01","to":"12-01"}],
-    "MARS 01 A DEC. 01":[{"from":"03-01","to":"12-01"}],
-    "1 MARSL AU 1 DEC":[{"from":"03-01","to":"12-01"}],
-    "1MARS AU 1 DEC.":[{"from":"03-01","to":"12-01"}],
-    "15 MRS - 15 NOV.":[{"from":"03-15","to":"11-15"}],
-    "15 MARS AU 15 NOV":[{"from":"03-15","to":"11-15"}],
-    "15 MARS À 15 NOV":[{"from":"03-15","to":"11-15"}],
-    "15 MARS - 15 NOVEMBRE":[{"from":"03-15","to":"11-15"}],
-    "15 MARS AU 15 NOVEMBRE":[{"from":"03-15","to":"11-15"}],
-    "1 AVRIL AU 30 SEPT":[{"from":"04-01","to":"09-30"}],
-    "1 AVRIL AU 15 OCT":[{"from":"05-01","to":"10-15"}],
-    "1 AVRIL AU 31 OCT":[{"from":"05-01","to":"10-31"}],
-    "1 AVRIL AU 1 NOVEMBRE":[{"from":"05-01","to":"11-01"}],
-    "1 AVRIL AU 15 NOV":[{"from":"05-01","to":"11-15"}],
-    "1 AVRIL AU 15 NOVEMBRE":[{"from":"05-01","to":"11-15"}],
-    "1 AVRIL AU 30 NOV":[{"from":"04-01","to":"11-30"}],
-    "1ER AVRIL - 30 NOV":[{"from":"04-01","to":"11-30"}],
-    "1 AVRILAU 1 DEC":[{"from":"04-01","to":"12-01"}],
-    "1 AVRIL AU 1 DEC":[{"from":"04-01","to":"12-01"}],
-    "1 AVIL AU 1 DEC":[{"from":"04-01","to":"12-01"}],
-    "1 AVRIL ET 1 DEC":[{"from":"04-01","to":"12-01"}],
-    "1AVRIL AU 1 DEC":[{"from":"04-01","to":"12-01"}],
-    "1AVRIL AU 1DEC":[{"from":"04-01","to":"12-01"}],
-    "1ER AVRIL AU 1ER DEC":[{"from":"04-01","to":"12-01"}],
-    "AVRIL 01 A DEC. 01":[{"from":"04-01","to":"12-01"}],
-    "1 AVRILS AU 1 DEC":[{"from":"04-01","to":"12-01"}],
-    "1 AVRIL  AU 1 DEC":[{"from":"04-01","to":"12-01"}],
-    "15 AVRIL AU 15 OCTOBRE":[{"from":"04-15","to":"10-15"}],
-    "15 AVRIL AU 1 NOV":[{"from":"05-15","to":"11-01"}],
-    "15 AVRIL AU 1ER NOV.":[{"from":"04-15","to":"11-01"}],
-    "15 AVRIL AU 1 NOVEMBRE":[{"from":"04-15","to":"11-01"}],
-    "15 AVRIL AU 15 NOVEMBRE":[{"from":"04-15","to":"11-15"}],
-    "15 AVR - 15 NOV":[{"from":"04-15","to":"11-15"}],
-    "15 AVR AU 15 NOV":[{"from":"04-15","to":"11-15"}],
-    "15 AVRIL AU 1ER DEC":[{"from":"05-15","to":"12-01"}],
-    "MAI-JUIN":[{"from":"05-01","to":"06-01"}],
-    "1MAI AU 1 SEPT":[{"from":"05-01","to":"09-01"}],
-    "1MAI AU 1OCT":[{"from":"05-01","to":"10-01"}],
-    "1 MAI AU 1 NOV":[{"from":"06-01","to":"11-01"}],
-    "15 MAI AU 15 OCT":[{"from":"05-15","to":"10-15"}],
-    "15 MAI AU 15 SEPT":[{"from":"05-15","to":"09-15"}],
-    "1 JUIN AU 1 OCT":[{"from":"06-01","to":"10-01"}],
-    "15 JUIN AU 1ER SEPT.":[{"from":"06-15","to":"09-01"}],
-    "21 JUIN AU 1 SEPT":[{"from":"06-21","to":"09-01"}],
-    "30 JUIN AU 30 AOUT":[{"from":"06-30","to":"08-30"}],
-    "16 JUIL. AU 4 SEPT.":[{"from":"07-16","to":"09-04"}],
-    "15 AOUT - 28 JUIN":[{"from":"08-15","to":"06-28"}],
-    "20 AOÛT AU 30 JUIN":[{"from":"08-20","to":"06-30"}],
-    "1 SEPT. AU 23 JUIN":[{"from":"09-01","to":"06-23"}],
-    "SEPT A JUIN":[{"from":"09-01","to":"06-30"}],
-    "SEPT À JUIN":[{"from":"09-01","to":"06-30"}],
-    "SEPT. A JUIN":[{"from":"09-01","to":"06-30"}],
-    "SEPT. À JUIN":[{"from":"09-01","to":"06-30"}],
-    "1 SEPT. AU 30 JUIN":[{"from":"09-01","to":"06-30"}],
-    "1 SEPT. AU 31 MAI":[{"from":"09-01","to":"05-31"}],
-    "1ER SEPT AU 31 MAI":[{"from":"09-01","to":"05-31"}],
-    "1 NOV. AU 31 MARS":[{"from":"11-01","to":"03-31"}],
-    "1 NOV. AU 1 AVRIL":[{"from":"11-01","to":"04-01"}],
-    "1 NOVEMBRE AU 15 AVRIL":[{"from":"11-01","to":"04-15"}],
-    "1 NOV. AU 1 MAI":[{"from":"11-01","to":"05-01"}],
-    "15 NOV. AU 15 MARS":[{"from":"11-15","to":"03-15"}],
-    "15 NOV. AU 1 AVRIL":[{"from":"11-15","to":"04-01"}],
-    "15 NOV - 15 AVR":[{"from":"11-15","to":"04-15"}],
-    "15NOV - 15AVRIL":[{"from":"11-15","to":"04-15"}],
-    "16 NOV. AU 14 MARS":[{"from":"11-16","to":"03-14"}],
-    "30 NOV - 1ER AVRIL":[{"from":"11-30","to":"04-01"}],
-    "1 DEC. AU 1 MARS":[{"from":"12-01","to":"03-01"}],
-    "1ER DECEMBRE AU 1ER MARS":[{"from":"12-01","to":"03-01"}],
-    "1 DEC. AU 1 AVRIL":[{"from":"12-01","to":"04-01"}]
-};
+function extractFirstTwoDigitsNumber(string) {
+    const number = /\d{1,2}/.exec(string)?.[0];
+    return number?.padStart(2,'0');
+}
+
+// Extract a month from a string. Not sure which one when more than two
+function extractMonth(string) {
+    return Object.entries(rpaReg.months).find( ([monthNumber, regex]) => {
+        if (regex.test(string)) {
+            return true;
+        }
+    })?.[0];
+}
+
+// Get effective dates for dates which the day is before the month
+// ex: 1 MARS AU 1 DEC
+function getEffectiveDatesFromDayFirstSyntax(dayOfMonthInterval) {
+    const from = rpaReg.dayOfMonthDayFirst.exec(dayOfMonthInterval)[0];
+    const to = rpaReg.dayOfMonthDayFirst.exec(dayOfMonthInterval)[0];
+    rpaReg.dayOfMonthDayFirst.lastIndex = 0;
+    const fromDay = extractFirstTwoDigitsNumber(from);
+    const fromMonth = extractMonth(from);
+    const toDay = extractFirstTwoDigitsNumber(to);
+    const toMonth = extractMonth(to);
+    return [{
+        "from": `${fromMonth}-${fromDay}`,
+        "to": `${toMonth}-${toDay}`
+    }];
+}
+
+// Get effective dates for dates which the day is after the month
+// ex: MARS 1 AU DEC 1
+function getEffectiveDatesFromDaySecondSyntax(dayOfMonthInterval) {
+    const from = rpaReg.dayOfMonthDaySecond.exec(dayOfMonthInterval)[0];
+    const to = rpaReg.dayOfMonthDaySecond.exec(dayOfMonthInterval)[0];
+    rpaReg.dayOfMonthDaySecond.lastIndex = 0;
+    const fromDay = extractFirstTwoDigitsNumber(from);
+    const fromMonth = extractMonth(from);
+    const toDay = extractFirstTwoDigitsNumber(to);
+    const toMonth = extractMonth(to);
+    return [{
+        "from": `${fromMonth}-${fromDay}`,
+        "to": `${toMonth}-${toDay}`
+    }];
+}
+
+// Get effective dates for dates which the day is absent
+// ex: MARS - DEC 
+function getEffectiveDatesFromDayAbsentSyntax(dayOfMonthInterval) {
+    const from = rpaReg.anyMonth.exec(dayOfMonthInterval)[0];
+    const to = rpaReg.anyMonth.exec(dayOfMonthInterval)[0];
+    rpaReg.anyMonth.lastIndex = 0;
+    const fromMonth = extractMonth(from);
+    const toMonth = extractMonth(to);
+
+    const toDay = (() => {
+        if (["04", "06", "09", "01"].includes(toMonth)) {
+            return "30";
+        }
+        else if (toMonth == "02") {
+            return "28";
+        }
+        else {
+            return "31";
+        }
+    })();
+
+    return [{
+        "from": `${fromMonth}-01`,
+        "to": `${toMonth}-${toDay}`
+    }];
+}
+
+// Get effective dates for dates which the day and month are numbers separated with a slash
+// ex: 01/03 - 01/11
+function getEffectiveDatesFromSlashedSyntax(dayOfMonthInterval) {
+    const from = rpaReg.dayOfMonthSlashed.exec(dayOfMonthInterval)[0];
+    const to = rpaReg.dayOfMonthSlashed.exec(dayOfMonthInterval)[0];
+    rpaReg.dayOfMonthSlashed.lastIndex = 0;
+    const fromDay = from.slice(0, 2);
+    const fromMonth = from.slice(3, 5);
+    const toDay = to.slice(0, 2);
+    const toMonth = to.slice(3, 5);
+    return [{
+        "from": `${fromMonth}-${fromDay}`,
+        "to": `${toMonth}-${toDay}`
+    }];
+}
 
 function getEffectiveDates(description) {
-    return Object.entries(monthValues)
-    .reduce(
-        (ret,val) => description.includes(val[0]) ? val[1] : ret,
-        undefined
-    );
+    // We assume there is only one set of effective dates
+    const daysOfMonthInterval = rpaReg.daysOfMonthInterval.exec(description)?.[0];
+
+    if (!daysOfMonthInterval) {
+        return undefined;
+    }
+
+    if (rpaReg.daysOfMonthIntervalDayFirst.test(daysOfMonthInterval)) {
+        return getEffectiveDatesFromDayFirstSyntax(daysOfMonthInterval);
+    }
+    if (rpaReg.daysOfMonthIntervalDaySecond.test(daysOfMonthInterval)) {
+        return getEffectiveDatesFromDaySecondSyntax(daysOfMonthInterval);
+    }
+    if (rpaReg.daysOfMonthIntervalDayAbsent.test(daysOfMonthInterval)) {
+        return getEffectiveDatesFromDayAbsentSyntax(daysOfMonthInterval);
+    }
+    if (rpaReg.daysOfMonthIntervalSlashed.test(daysOfMonthInterval)) {
+        return getEffectiveDatesFromSlashedSyntax(daysOfMonthInterval);
+    }
 }
 
 const dayValues = {
@@ -273,5 +299,11 @@ module.exports = {
     getEffectiveDates,
     getRegulations,
     getTimeSpans,
-    descriptionContainsTimespan
+    descriptionContainsTimespan,
+    extractFirstTwoDigitsNumber,
+    extractMonth,
+    getEffectiveDatesFromDayFirstSyntax,
+    getEffectiveDatesFromDaySecondSyntax,
+    getEffectiveDatesFromDayAbsentSyntax,
+    getEffectiveDatesFromSlashedSyntax,
 };

@@ -1,9 +1,33 @@
-const { getActivity, getEffectiveDates, getDaysOfWeek } = require("../rpa_to_regulations");
+const rpaToRegulations = require("../rpa_to_regulations");
 
 /*
     uncertain: behaviour that is not certainly right or wrong
     wrong: wrong behaviour that seems not worth fixing
 */
+
+describe("tool functions", () => {
+    test.each([
+        ["01", "01"],
+        ["1", "01"],
+        ["11", "11"],
+        ["01 02", "01"],
+        ["1MARS", "01"],
+        ["111", "11"], // uncertain
+        ["a", undefined]
+    ])("extractFirstTwoDigitsNumber('%s')", (description, expected) => {
+        const result = rpaToRegulations.extractFirstTwoDigitsNumber(description);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["JAN", "01"],
+        ["1 AVRILAU", "04"],
+        ["MARDI", undefined]
+    ])("extractMonth('%s')", (description, expected) => {
+        const result = rpaToRegulations.extractMonth(description);
+        expect(result).toBe(expected);
+    });
+})
 
 describe("getActivity", () => {
     test.each([
@@ -36,12 +60,48 @@ describe("getActivity", () => {
         [" P", undefined],
         [" PANNONCEAU", undefined], // uncertain
     ])("getActivity('%s')", (description, expected) => {
-        const activity = getActivity(description);
+        const activity = rpaToRegulations.getActivity(description);
         expect(activity).toBe(expected);
     });
 });
 
 describe("getEffectiveDates", () => {
+
+    test.each([
+        ["1 MARS AU 1 DEC", [{"from":"03-01","to":"12-01"}]],
+        ["3 AVR - 5 NOVEMBRE", [{"from":"04-03","to":"11-05"}]],
+
+        ["1ER MARS 1ER DEC", [{"from":"03-01","to":"12-01"}]],
+        
+    ])("getEffectiveDatesFromDayFirstSyntax('%s')", (description, expected) => {
+        const activity = rpaToRegulations.getEffectiveDatesFromDayFirstSyntax(description);
+        expect(activity).toStrictEqual(expected);
+    });
+
+    test.each([
+        ["MARS 1 AU DEC 1", [{"from":"03-01","to":"12-01"}]],
+        ["AVR 3 - NOVEMBRE 5", [{"from":"04-03","to":"11-05"}]]
+    ])("getEffectiveDatesFromDaySecondSyntax('%s')", (description, expected) => {
+        const activity = rpaToRegulations.getEffectiveDatesFromDaySecondSyntax(description);
+        expect(activity).toStrictEqual(expected);
+    });
+
+    test.each([
+        ["MARS AU DEC", [{"from":"03-01","to":"12-31"}]],
+        ["AVR - NOVEMBRE", [{"from":"04-01","to":"11-31"}]]
+    ])("getEffectiveDatesFromDayAbsentSyntax('%s')", (description, expected) => {
+        const activity = rpaToRegulations.getEffectiveDatesFromDayAbsentSyntax(description);
+        expect(activity).toStrictEqual(expected);
+    });
+
+    test.each([
+        ["01/03 AU 01/12", [{"from":"03-01","to":"12-01"}]],
+        ["01/04 - 01/11", [{"from":"04-01","to":"11-01"}]]
+    ])("getEffectiveDatesFromSlashedSyntax('%s')", (description, expected) => {
+        const activity = rpaToRegulations.getEffectiveDatesFromSlashedSyntax(description);
+        expect(activity).toStrictEqual(expected);
+    });
+
     test.each([
         ["1 MARS AU 1 DEC", [{"from":"03-01","to":"12-01"}]],
         ["1ER MARS 1ER DEC", [{"from":"03-01","to":"12-01"}]],
@@ -58,11 +118,11 @@ describe("getEffectiveDates", () => {
         ["15 MARS - 15 NOVEMBRE", [{"from":"03-15","to":"11-15"}]],
         ["15 MARS AU 15 NOVEMBRE", [{"from":"03-15","to":"11-15"}]],
         ["1 AVRIL AU 30 SEPT", [{"from":"04-01","to":"09-30"}]],
-        ["1 AVRIL AU 15 OCT", [{"from":"05-01","to":"10-15"}]],
-        ["1 AVRIL AU 31 OCT", [{"from":"05-01","to":"10-31"}]],
-        ["1 AVRIL AU 1 NOVEMBRE", [{"from":"05-01","to":"11-01"}]],
-        ["1 AVRIL AU 15 NOV", [{"from":"05-01","to":"11-15"}]],
-        ["1 AVRIL AU 15 NOVEMBRE", [{"from":"05-01","to":"11-15"}]],
+        ["1 AVRIL AU 15 OCT", [{"from":"04-01","to":"10-15"}]],
+        ["1 AVRIL AU 31 OCT", [{"from":"04-01","to":"10-31"}]],
+        ["1 AVRIL AU 1 NOVEMBRE", [{"from":"04-01","to":"11-01"}]],
+        ["1 AVRIL AU 15 NOV", [{"from":"04-01","to":"11-15"}]],
+        ["1 AVRIL AU 15 NOVEMBRE", [{"from":"04-01","to":"11-15"}]],
         ["1 AVRIL AU 30 NOV", [{"from":"04-01","to":"11-30"}]],
         ["1ER AVRIL - 30 NOV", [{"from":"04-01","to":"11-30"}]],
         ["1 AVRILAU 1 DEC", [{"from":"04-01","to":"12-01"}]],
@@ -76,17 +136,17 @@ describe("getEffectiveDates", () => {
         ["1 AVRILS AU 1 DEC", [{"from":"04-01","to":"12-01"}]],
         ["1 AVRIL  AU 1 DEC", [{"from":"04-01","to":"12-01"}]],
         ["15 AVRIL AU 15 OCTOBRE", [{"from":"04-15","to":"10-15"}]],
-        ["15 AVRIL AU 1 NOV", [{"from":"05-15","to":"11-01"}]],
+        ["15 AVRIL AU 1 NOV", [{"from":"04-15","to":"11-01"}]],
         ["15 AVRIL AU 1ER NOV.", [{"from":"04-15","to":"11-01"}]],
         ["15 AVRIL AU 1 NOVEMBRE", [{"from":"04-15","to":"11-01"}]],
         ["15 AVRIL AU 15 NOVEMBRE", [{"from":"04-15","to":"11-15"}]],
         ["15 AVR - 15 NOV", [{"from":"04-15","to":"11-15"}]],
         ["15 AVR AU 15 NOV", [{"from":"04-15","to":"11-15"}]],
-        ["15 AVRIL AU 1ER DEC", [{"from":"05-15","to":"12-01"}]],
-        ["MAI-JUIN", [{"from":"05-01","to":"06-01"}]],
+        ["15 AVRIL AU 1ER DEC", [{"from":"04-15","to":"12-01"}]],
+        ["MAI-JUIN", [{"from":"05-01","to":"06-30"}]],
         ["1MAI AU 1 SEPT", [{"from":"05-01","to":"09-01"}]],
         ["1MAI AU 1OCT", [{"from":"05-01","to":"10-01"}]],
-        ["1 MAI AU 1 NOV", [{"from":"06-01","to":"11-01"}]],
+        ["1 MAI AU 1 NOV", [{"from":"05-01","to":"11-01"}]],
         ["15 MAI AU 15 OCT", [{"from":"05-15","to":"10-15"}]],
         ["15 MAI AU 15 SEPT", [{"from":"05-15","to":"09-15"}]],
         ["1 JUIN AU 1 OCT", [{"from":"06-01","to":"10-01"}]],
@@ -118,7 +178,7 @@ describe("getEffectiveDates", () => {
         ["1ER DECEMBRE AU 1ER MARS", [{"from":"12-01","to":"03-01"}]],
         ["1 DEC. AU 1 AVRIL", [{"from":"12-01","to":"04-01"}]]
     ])("getEffectiveDates('%s')", (description, expected) => {
-        const effectiveDates = getEffectiveDates(description);
+        const effectiveDates = rpaToRegulations.getEffectiveDates(description);
         expect(effectiveDates).toStrictEqual(expected);
     });
 });
@@ -164,7 +224,7 @@ describe("getDaysOfWeek", () => {
         //["P 60 MIN 09H-18H LUN. MAR. MER. SAM. 09H-21H JEU. VEN.", undefined]
         // "\\P 08h-09h MER. 1 MARS AU 1 DEC."
     ])("getDaysOfWeek('%s')", (description, expected) => {
-        const daysOfWeek = getDaysOfWeek(description);
+        const daysOfWeek = rpaToRegulations.getDaysOfWeek(description);
         expect(daysOfWeek).toStrictEqual(expected);
     });
 });
