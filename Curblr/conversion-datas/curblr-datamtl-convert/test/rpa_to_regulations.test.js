@@ -1,6 +1,9 @@
-const fs = require('fs');
+const { getActivity, getEffectiveDates, getDaysOfWeek } = require("../rpa_to_regulations");
 
-const { getActivity, getEffectiveDates } = require("../rpa_to_regulations");
+/*
+    uncertain: behaviour that is not certainly right or wrong
+    wrong: wrong behaviour that seems not worth fixing
+*/
 
 describe("getActivity", () => {
     test.each([
@@ -19,9 +22,9 @@ describe("getActivity", () => {
         ["\\P", undefined],
         ["/P", undefined],
         ["STAT. INT.", undefined],
-        [" STAT. INT. ", undefined],
-        ["INTERDICTION DE STAT.", undefined],
-        [" INTERDICTION DE STAT. ", undefined],
+        [" STAT. INT. ", undefined], // uncertain
+        ["INTERDICTION DE STAT.", undefined], // uncertain
+        [" INTERDICTION DE STAT. ", undefined], // uncertain
         ["STAT", undefined],
         ["\\A", undefined],
         ["\\AA", undefined],
@@ -31,7 +34,7 @@ describe("getActivity", () => {
         ["AA", undefined],
         ["P", undefined],
         [" P", undefined],
-        [" PANNONCEAU", undefined],
+        [" PANNONCEAU", undefined], // uncertain
     ])("getActivity('%s')", (description, expected) => {
         const activity = getActivity(description);
         expect(activity).toBe(expected);
@@ -118,4 +121,50 @@ describe("getEffectiveDates", () => {
         const effectiveDates = getEffectiveDates(description);
         expect(effectiveDates).toStrictEqual(expected);
     });
-})
+});
+
+describe("getDaysOfWeek", () => {
+    test.each([
+        ["LUNDI", {"days": ["mo"]}],
+        ["LUN.", {"days": ["mo"]}],
+        ["LUN", {"days": ["mo"]}],
+        ["MARDI", {"days": ["tu"]}],
+        ["MAR.", {"days": ["tu"]}],
+        ["MAR", {"days": ["tu"]}],
+        ["MERCREDI", {"days": ["we"]}],
+        ["MER.", {"days": ["we"]}],
+        ["MER", {"days": ["we"]}],
+        ["JEUDI", {"days": ["th"]}],
+        ["JEU.", {"days": ["th"]}],
+        ["JEU", {"days": ["th"]}],
+        ["VENDREDI", {"days": ["fr"]}],
+        ["VEN.", {"days": ["fr"]}],
+        ["VEN", {"days": ["fr"]}],
+        ["VEMDREDI", {"days": ["fr"]}], // typo in data
+        ["SAMEDI", {"days": ["sa"]}],
+        ["SAM.", {"days": ["sa"]}],
+        ["SAM", {"days": ["sa"]}],
+        ["DIMANCHE", {"days": ["su"]}],
+        ["DIM.", {"days": ["su"]}],
+        ["DIM", {"days": ["su"]}],
+        ["LUN VEN", {"days": ["mo", "fr"]}],
+        ["LUN A VEN", {"days": ["mo","tu","we","th","fr"]}],
+        ["LUN À VEN", {"days": ["mo","tu","we","th","fr"]}],
+        ["LUN AU VEN", {"days": ["mo","tu","we","th","fr"]}],
+        ["LUN ET VEN", {"days": ["mo", "fr"]}],
+        ["VEN LUN", {"days": ["fr", "mo"]}],
+        ["LUN VEN MAR", {"days": ["mo", "fr", "tu"]}],
+        //["LUN VEN MAR MER", {"days": ["mo", "fr", "tu", "we"]}]
+        // ["LUN B VEN", {"days": ["mo","tu","we","th","fr"]}],
+        ["LUN ET LUN", {"days": ["mo", "mo"]}], // uncertain
+        ["LUN AU VENA", {"days": ["mo","tu","we","th","fr"]}], // uncertain
+        ["LUNA AU VENA", {"days": ["mo"]}], // wrong
+        ["SAM A LUN", undefined], // uncertain
+        ["1 DEC. AU 1 AVRIL", undefined],
+        //["P 60 MIN 09H-18H LUN. MAR. MER. SAM. 09H-21H JEU. VEN.", undefined]
+        // "\\P 08h-09h MER. 1 MARS AU 1 DEC."
+    ])("getDaysOfWeek('%s')", (description, expected) => {
+        const daysOfWeek = getDaysOfWeek(description);
+        expect(daysOfWeek).toStrictEqual(expected);
+    });
+});

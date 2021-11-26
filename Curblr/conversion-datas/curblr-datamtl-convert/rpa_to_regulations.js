@@ -1,39 +1,8 @@
 const fs = require('fs');
-
-// one or two digits, followed by zero or more spaces, followed by "h" or "min"
-const timeRegex = /\d{1,2}\s*(h|min)/i;
-
-const daysRegexes = {
-    // beginning of a word, followed by the truncated name of a day or its complete name
-    "mo": /\blun(\b|\\|di)/i,
-    "tu": /\bmar(\b|\\|di)/i,
-    "we": /\bmer(\b|\\|credi)/i,
-    "th": /\bjeu(\b|\\|di)/i,
-    "fr": /\bve[nm](\b|\\|dredi)/i, // there is a typo in the data
-    "sa": /\bsam(\b|\\|medi)/i,
-    "su": /\bdim(\b|\\|manche)/i
-};
-
-const monthsRegexes = {
-    // a digit or the beginning of a word, followed by the truncated name of a month or its complete name.
-    "01": /(\d|\b)jan(\b|\.|vier)/i,
-    "02": /(\d|\b)f[eé]v(\b|\.|rier)/i,
-    "03": /(?<!de-)(\d|\b)mar(\b|\.|s)/i, // excludes champ-de-mars
-    "04": /(\d|\b)avr(\b|\.|il)/i,
-    "05": /(\d|\b)mai/i,
-    "06": /(\d|\b)juin/i,
-    "07": /(\d|\b)jui(\b|\.|llet)/i,
-    "08": /(\d|\b)ao[uû]t/i,
-    "09": /(\d|\b)sep(\b|\.|tembre)/i,
-    "10": /(\d|\b)oct(\b|\.|obre)/i,
-    "11": /(\d|\b)nov(\b|\.|embre)/i,
-    "12": /(\d|\b)d[eé]c(\b|\.|embre)/i,
-};
+const rpaReg = require("./rpa_regexes")
 
 function descriptionContainsTimespan(description) {
-    return timeRegex.test(description)
-        || Object.values(daysRegexes).some( reg => reg.test(description) )
-        || Object.values(monthsRegexes).some( reg => reg.test(description) );
+    return rpaReg.anyTimespan.test(description);
 }
 
 const irrelevantExpressions = [
@@ -248,7 +217,7 @@ function getRegulations(description) {
     if (activity === undefined) {
         return undefined;
     }
-
+    
     const timeSpans = getTimeSpans(description);
 
     const regulation = {
