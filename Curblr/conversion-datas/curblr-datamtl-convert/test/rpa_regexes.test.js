@@ -128,6 +128,154 @@ describe("regexes", () => {
     });
 
     test.each([
+        ["janvier", true],
+        ["jan", true],
+        ["jan.", true],
+        ["1 janvier", true],
+        ["1janvier", true],
+        ["jantest", false],
+    ])("rpaRegex.months['01'].test('%s')", (value, expected) => {
+        const result = rpaRegex.months['01'].test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["février", true],
+        ["fevrier", true],
+        ["fév", true],
+        ["fev", true],
+        ["fév.", true],
+        ["fev.", true],
+        ["1 février", true],
+        ["1février", true],
+        ["févtest", false],
+    ])("rpaRegex.months['02'].test('%s')", (value, expected) => {
+        const result = rpaRegex.months['02'].test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["mars", true],
+        ["mar", true],
+        ["mar.", true],
+        ["1 mars", true],
+        ["1mars", true],
+        ["marsl", true],
+        ["martest", false],
+        ["champ-de-mars", false],
+    ])("rpaRegex.months['03'].test('%s')", (value, expected) => {
+        const result = rpaRegex.months['03'].test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["avril", true],
+        ["avr", true],
+        ["avr.", true],
+        ["1 avril", true],
+        ["1avril", true],
+        ["avil", true],
+        ["avrtest", false],
+    ])("rpaRegex.months['04'].test('%s')", (value, expected) => {
+        const result = rpaRegex.months['04'].test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["mai", true],
+        ["1 mai", true],
+        ["1mai", true],
+        ["maitest", false],
+    ])("rpaRegex.months['05'].test('%s')", (value, expected) => {
+        const result = rpaRegex.months['05'].test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["juin", true],
+        ["1 juin", true],
+        ["1juin", true],
+        ["juintest", false],
+    ])("rpaRegex.months['06'].test('%s')", (value, expected) => {
+        const result = rpaRegex.months['06'].test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["juillet", true],
+        ["jui", true],
+        ["jui.", true],
+        ["1 juillet", true],
+        ["1juillet", true],
+        ["juitest", false],
+    ])("rpaRegex.months['07'].test('%s')", (value, expected) => {
+        const result = rpaRegex.months['07'].test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["août", true],
+        ["aout", true],
+        ["1 août", true],
+        ["1août", true],
+        ["aoûttest", false],
+    ])("rpaRegex.months['08'].test('%s')", (value, expected) => {
+        const result = rpaRegex.months['08'].test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["septembre", true],
+        ["sep", true],
+        ["sep.", true],
+        ["1 septembre", true],
+        ["1septembre", true],
+        ["septest", false],
+    ])("rpaRegex.months['09'].test('%s')", (value, expected) => {
+        const result = rpaRegex.months['09'].test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["octobre", true],
+        ["oct", true],
+        ["oct.", true],
+        ["1 octobre", true],
+        ["1octobre", true],
+        ["octtest", false],
+    ])("rpaRegex.months['10'].test('%s')", (value, expected) => {
+        const result = rpaRegex.months['10'].test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["novembre", true],
+        ["nov", true],
+        ["nov.", true],
+        ["1 novembre", true],
+        ["1novembre", true],
+        ["novtest", false],
+    ])("rpaRegex.months['11'].test('%s')", (value, expected) => {
+        const result = rpaRegex.months['11'].test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["décembre", true],
+        ["decembre", true],
+        ["déc", true],
+        ["dec", true],
+        ["déc.", true],
+        ["dec.", true],
+        ["1 décembre", true],
+        ["1décembre", true],
+        ["déctest", false],
+    ])("rpaRegex.months['12'].test('%s')", (value, expected) => {
+        const result = rpaRegex.months['12'].test(value);
+        expect(result).toBe(expected);
+    });
+
+    test.each([
         ["1h-2h LUN 3h-4h MAR", "3h-4h MAR"],
         ["1h-2h LUN, 3h-4h MAR", "3h-4h MAR"],
         ["1h-2h LUN, 3h-4h 5h-6h MAR", "3h-4h 5h-6h MAR"],
@@ -149,6 +297,7 @@ describe("regexes", () => {
         ["AVRIL 01", false],
         ["MAI-JUIN", false],
     ])("rpaRegex.dayOfMonthDayFirst.test('%s')", (value, expected) => {
+        rpaRegex.dayOfMonthDayFirst.lastIndex = 0;
         const result = rpaRegex.dayOfMonthDayFirst.test(value);
         expect(result).toBe(expected);
     });
@@ -158,6 +307,7 @@ describe("regexes", () => {
         ["01 AVRIL AU 01 DEC", false],
         ["1 MARS", false],
     ])("rpaRegex.dayOfMonthDaySecond.test('%s')", (value, expected) => {
+        rpaRegex.dayOfMonthDaySecond.lastIndex = 0;
         const result = rpaRegex.dayOfMonthDaySecond.test(value);
         expect(result).toBe(expected);
     });
@@ -169,16 +319,19 @@ describe("regexes", () => {
         ["01/1", false],
         ["1/01", false],
     ])("rpaRegex.dayOfMonthSlashed.test('%s')", (value, expected) => {
+        rpaRegex.dayOfMonthSlashed.lastIndex = 0;
         const result = rpaRegex.dayOfMonthSlashed.test(value);
         expect(result).toBe(expected);
     });
 
     test.each([
+        ["1 MARS 1 DEC", true],
         ["1 MARS - 1 DEC", true],
         ["1 MARS A 1 DEC", true],
         ["1 MARS À 1 DEC", true],
         ["1 MARS AU 1 DEC", true],
         ["MAI", false],
+        ["1 MARS TEST 1 DEC", false],
         ["MAI-JUIN", false],
         ["MARS 01 A DEC 01", false],
         ["MARS 1 AU 1 DEC", false],
@@ -188,11 +341,13 @@ describe("regexes", () => {
     });
 
     test.each([
+        ["MARS 1 DEC 1", true],
         ["MARS 1 - DEC 1", true],
         ["MARS 1 A DEC 1", true],
         ["MARS 1 À DEC 1", true],
         ["MARS 1 AU DEC 1", true],
         ["MAI", false],
+        ["MARS 1 TEST DEC 1", false],
         ["MAI-JUIN", false],
         ["1 MARS - 1 DEC", false],
         ["MARS 1 AU 1 DEC", false],
@@ -202,12 +357,14 @@ describe("regexes", () => {
     });
 
     test.each([
+        ["MAI JUIN", true],
         ["MAI-JUIN", true],
         ["MARS A DEC", true],
         ["MARS À DEC", true],
         ["MARS AU DEC", true],
         ["1 MARS-DEC 1", true], // wrong
         ["MAI", false],
+        ["MAI TEST JUIN", false],
         ["1 MARS - 1 DEC", false],
         ["MARS 1 AU 1 DEC", false],
         ["MARS 1 AU DEC 1", false],
@@ -217,11 +374,13 @@ describe("regexes", () => {
     });
 
     test.each([
+        ["01/05 01/10", true],
         ["01/05-01/10", true],
         ["01/05 A 01/10", true],
         ["01/05 À 01/10", true],
         ["01/05 AU 01/10", true],
         ["MAI", false],
+        ["01/05 TEST 01/10", false],
         ["1 MARS - 1 DEC", false],
     ])("rpaRegex.daysOfMonthIntervalSlashed.test('%s')", (value, expected) => {
         const result = rpaRegex.daysOfMonthIntervalSlashed.test(value);
@@ -229,12 +388,14 @@ describe("regexes", () => {
     });
 
     test.each([
+        ["MAI JUIN", true],
         ["MAI-JUIN", true],
         ["1 MARS - 1 DEC", true],
         ["MARS 1 - DEC 1", true],
         ["01/05-01/10", true],
         ["1 MARS-DEC 1", true], // wrong
         ["MAI", false],
+        ["MARS 1 TEST 1 DEC", false],
         ["MARS 1 AU 1 DEC", false],
     ])("rpaRegex.daysOfMonthInterval.test('%s')", (value, expected) => {
         const result = rpaRegex.daysOfMonthInterval.test(value);

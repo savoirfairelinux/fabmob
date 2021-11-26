@@ -50,58 +50,58 @@ const weekTime = new RegExp(weekTimeStr, "ig");
 // mapping of months names with the regex that will match that month
 const monthsStrs = {
     // a digit or the beginning of a word, followed by the truncated name of a month or its complete name.
-    "01": "(?:\\d|\\b)jan(?:\\b|vier)",
-    "02": "(?:\\d|\\b)f[eé]v(?:\\b|rier)",
-    "03": "(?<!de-)(?:\\d|\\b)mar(?:\\b|s)", // exclude champ-de-mars
-    "04": "(?:\\d|\\b)avr(?:\\b|il)",
-    "05": "(?:\\d|\\b)mai",
-    "06": "(?:\\d|\\b)juin",
-    "07": "(?:\\d|\\b)jui(?:\\b|llet)",
-    "08": "(?:\\d|\\b)ao[uû]t",
-    "09": "(?:\\d|\\b)sep(?:\\b|tembre)",
-    "10": "(?:\\d|\\b)oct(?:\\b|obre)",
-    "11": "(?:\\d|\\b)nov(?:\\b|embre)",
-    "12": "(?:\\d|\\b)d[eé]c(?:\\b|embre)",
+    "01": "(?:\\d|\\b)jan(?:\\.|\\b|vier)",
+    "02": "(?:\\d|\\b)f[eé]v(?:\\.|\\b|rier)",
+    "03": "(?<!de-)(?:\\d|\\b)mar(?:\\.|\\b|s)(:?l)?", // exclude champ-de-mars
+    "04": "(?:\\d|\\b)av(?:r)?(?:\\.|\\b|il)",
+    "05": "(?:\\d|\\b)mai\\b",
+    "06": "(?:\\d|\\b)juin\\b",
+    "07": "(?:\\d|\\b)jui(?:\\.|\\b|llet)",
+    "08": "(?:\\d|\\b)ao[uû]t\\b",
+    "09": "(?:\\d|\\b)sep(?:\\.|\\b|tembre)",
+    "10": "(?:\\d|\\b)oct(?:\\.|\\b|obre)",
+    "11": "(?:\\d|\\b)nov(?:\\.|\\b|embre)",
+    "12": "(?:\\d|\\b)d[eé]c(?:\\.|\\b|embre)",
 }
 const months = Object.entries(monthsStrs)
                           .reduce( (acc, [key, value]) => {
-                              acc[key] = new RegExp(value);
+                              acc[key] = new RegExp(value, "i");
                               return acc;
                             }, {});
 
 // regex that will match any month
 const anyMonthStr = Object.values(monthsStrs).join("|");
-const anyMonth = new RegExp(anyMonthStr, "i");
+const anyMonth = new RegExp(anyMonthStr, "ig");
 
 // regex that will match any day of the month for which the day comes before the month
 // One or two digits, followed by zero or more whitespaces, followed by any month
 const dayOfMonthDayFirstStr = `(?:\\d{1,2}|1er) *(?:${anyMonthStr})`;
-const dayOfMonthDayFirst = new RegExp(dayOfMonthDayFirstStr, "i");
+const dayOfMonthDayFirst = new RegExp(dayOfMonthDayFirstStr, "ig");
 
 // regex that will match any day of the month for which the day comes after the month
 // Any month, followed by zero or more whitespaces, followed by one or two digits
 const dayOfMonthDaySecondStr = `(?:${anyMonthStr}) *(?:\\d{1,2}|1er)`;
-const dayOfMonthDaySecond = new RegExp(dayOfMonthDaySecondStr, "i");
+const dayOfMonthDaySecond = new RegExp(dayOfMonthDaySecondStr, "ig");
 
 // regex that will match days of the month with the day and the month separated by a slash
 // The month is expressed with its number. Ex: 12/12
 const dayOfMonthSlashedStr = "\\d{2}/\\d{2}";
-const dayOfMonthSlashed = new RegExp(dayOfMonthSlashedStr, "i");
+const dayOfMonthSlashed = new RegExp(dayOfMonthSlashedStr, "ig");
 
 // regex will match any interval of days of the month, for which the day comes before the month
-const daysOfMonthIntervalDayFirstStr = `(?:${dayOfMonthDayFirstStr})\\s*(?:A|À|AU|-)\\s*(?:${dayOfMonthDayFirstStr})`;
+const daysOfMonthIntervalDayFirstStr = `(?:${dayOfMonthDayFirstStr})\\s*(?:A|À|AU|-)?\\s*(?:${dayOfMonthDayFirstStr})`;
 const daysOfMonthIntervalDayFirst = new RegExp(daysOfMonthIntervalDayFirstStr, "i");
 
 // regex will match any interval of days of the month, for which the day comes after the month
-const daysOfMonthIntervalDaySecondStr = `(?:${dayOfMonthDaySecondStr})\\s*(?:A|À|AU|-)\\s*(?:${dayOfMonthDaySecondStr})`;
+const daysOfMonthIntervalDaySecondStr = `(?:${dayOfMonthDaySecondStr})\\s*(?:A|À|AU|-)?\\s*(?:${dayOfMonthDaySecondStr})`;
 const daysOfMonthIntervalDaySecond = new RegExp(daysOfMonthIntervalDaySecondStr, "i");
 
 // regex will match any interval of days of the month, for which the day is not indicated
-const daysOfMonthIntervalDayAbsentStr = `(?:${anyMonthStr})\\s*(?:A|À|AU|-)\\s*(?:${anyMonthStr})`;
+const daysOfMonthIntervalDayAbsentStr = `(?:${anyMonthStr})\\s*(?:A|À|AU|-)?\\s*(?:${anyMonthStr})`;
 const daysOfMonthIntervalDayAbsent = new RegExp(daysOfMonthIntervalDayAbsentStr, "i");
 
 
-const daysOfMonthIntervalSlashedStr = `(?:${dayOfMonthSlashedStr})\\s*(?:A|À|AU|-)\\s*(?:${dayOfMonthSlashedStr})`;
+const daysOfMonthIntervalSlashedStr = `(?:${dayOfMonthSlashedStr})\\s*(?:A|À|AU|-)?\\s*(?:${dayOfMonthSlashedStr})`;
 const daysOfMonthIntervalSlashed = new RegExp(daysOfMonthIntervalSlashedStr, "i");
 
 // regex will match any interval of days of the month
