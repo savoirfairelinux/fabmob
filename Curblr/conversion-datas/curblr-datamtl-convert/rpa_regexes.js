@@ -15,7 +15,7 @@ const timesSequenceStr = `(?:${timeIntervalStr})(?:,?\\s+(?:et\\s+)?(?:${timeInt
 const timesSequence = new RegExp(timesSequenceStr, "i");
 
 // mapping of days of the week with the regex that will match that day
-const daysStrs = {
+const daysOfWeekStrs = {
     // beginning of a word, followed by the truncated name of a day or its complete name
     "mo": "\\blun(?:\\b|di)",
     "tu": "\\bmar(?:\\b|di)",
@@ -25,26 +25,26 @@ const daysStrs = {
     "sa": "\\bsam(?:\\b|edi)",
     "su": "\\bdim(?:\\b|anche)"
 };
-const days = Object.entries(daysStrs)
+const daysOfWeek = Object.entries(daysOfWeekStrs)
                           .reduce( (acc, [key, value]) => {
                               acc[key] = new RegExp(value, "i");
                               return acc;
                             }, {});
 
 // regex that will match any day of the week
-const anyDayStr = Object.values(daysStrs).join("|");
-const anyDay = new RegExp(anyDayStr, "i");
+const anyDayOfWeekStr = Object.values(daysOfWeekStrs).join("|");
+const anyDayOfWeek = new RegExp(anyDayOfWeekStr, "i");
 
 // regex that will match any interval of days
-const daysIntervalStr = `(${anyDayStr})\\s+(?:A|À|AU)\\s+(${anyDayStr})`;
-const daysInterval = new RegExp(daysIntervalStr, "i");
+const daysOfWeekIntervalStr = `(${anyDayOfWeekStr})\\s+(?:A|À|AU)\\s+(${anyDayOfWeekStr})`;
+const daysOfWeekInterval = new RegExp(daysOfWeekIntervalStr, "i");
 
 // Matches an enumeration of days
-const daysEnumerationStr = `(${anyDayStr})(?:\\s+(?:et\\s+)?(?:${anyDayStr}))*`
-const daysEnumeration = new RegExp(daysEnumerationStr, "i");
+const daysOfWeekEnumerationStr = `(${anyDayOfWeekStr})(?:\\s+(?:et\\s+)?(?:${anyDayOfWeekStr}))*`
+const daysOfWeekEnumeration = new RegExp(daysOfWeekEnumerationStr, "i");
 
 // Matches week times
-const weekTimeStr = `(?:${timesSequenceStr})\\s*(?:(?:${daysIntervalStr})|(?:${daysEnumerationStr}))?`
+const weekTimeStr = `(?:${timesSequenceStr})\\s*(?:(?:${daysOfWeekIntervalStr})|(?:${daysOfWeekEnumerationStr}))?`
 const weekTime = new RegExp(weekTimeStr, "ig");
 
 // mapping of months names with the regex that will match that month
@@ -84,25 +84,25 @@ const dayOfMonthDaySecondStr = `(?:${anyMonthStr}) *(?:\\d{1,2}|1er)`;
 const dayOfMonthDaySecond = new RegExp(dayOfMonthDaySecondStr, "i");
 
 // regex will match any interval of days of the month, for which the day comes before the month
-const dayOfMonthIntervalDayFirstStr = `(?:${dayOfMonthDayFirstStr})\\s*(?:A|À|AU|-)\\s*(?:${dayOfMonthDayFirstStr})`;
-const dayOfMonthIntervalDayFirst = new RegExp(dayOfMonthIntervalDayFirstStr, "i");
+const daysOfMonthIntervalDayFirstStr = `(?:${dayOfMonthDayFirstStr})\\s*(?:A|À|AU|-)\\s*(?:${dayOfMonthDayFirstStr})`;
+const daysOfMonthIntervalDayFirst = new RegExp(daysOfMonthIntervalDayFirstStr, "i");
 
 // regex will match any interval of days of the month, for which the day comes after the month
-const dayOfMonthIntervalDaySecondStr = `(?:${dayOfMonthDaySecondStr})\\s*(?:A|À|AU|-)\\s*(?:${dayOfMonthDaySecondStr})`;
-const dayOfMonthIntervalDaySecond = new RegExp(dayOfMonthIntervalDaySecondStr, "i");
+const daysOfMonthIntervalDaySecondStr = `(?:${dayOfMonthDaySecondStr})\\s*(?:A|À|AU|-)\\s*(?:${dayOfMonthDaySecondStr})`;
+const daysOfMonthIntervalDaySecond = new RegExp(daysOfMonthIntervalDaySecondStr, "i");
 
 // regex will match any interval of days of the month, for which the day is not indicated
-const dayOfMonthIntervalDayAbsentStr = `(?:${anyMonthStr})\\s*(?:A|À|AU|-)\\s*(?:${anyMonthStr})`;
-const dayOfMonthIntervalDayAbsent = new RegExp(dayOfMonthIntervalDayAbsentStr, "i");
+const daysOfMonthIntervalDayAbsentStr = `(?:${anyMonthStr})\\s*(?:A|À|AU|-)\\s*(?:${anyMonthStr})`;
+const daysOfMonthIntervalDayAbsent = new RegExp(daysOfMonthIntervalDayAbsentStr, "i");
 
 // regex will match any interval of days of the month
-const dayOfMonthIntervalStr = `(?:${dayOfMonthIntervalDayFirstStr})|(?:${dayOfMonthIntervalDaySecondStr})|${dayOfMonthIntervalDayAbsentStr}`;
-const dayOfMonthInterval = new RegExp(dayOfMonthIntervalStr, "i");
+const daysOfMonthIntervalStr = `(?:${daysOfMonthIntervalDayFirstStr})|(?:${daysOfMonthIntervalDaySecondStr})|${daysOfMonthIntervalDayAbsentStr}`;
+const daysOfMonthInterval = new RegExp(daysOfMonthIntervalStr, "i");
 
 const anyTimespanStr = [
     timeStr,
     maxStayStr,
-    anyDayStr,
+    anyDayOfWeekStr,
     anyMonth,
 ].join("|")
 const anyTimespan = new RegExp(anyTimespanStr, "i");
@@ -115,18 +115,18 @@ module.exports = {
     timeInterval,
     maxStay,
     timesSequence,
-    days,
-    anyDay,
-    daysInterval,
-    daysEnumeration,
+    daysOfWeek,
+    anyDayOfWeek,
+    daysOfWeekInterval,
+    daysOfWeekEnumeration,
     months,
     anyMonth,
     dayOfMonthDayFirst,
     dayOfMonthDaySecond,
-    dayOfMonthIntervalDayFirst,
-    dayOfMonthIntervalDaySecond,
-    dayOfMonthIntervalDayAbsent,
-    dayOfMonthInterval,
+    daysOfMonthIntervalDayFirst,
+    daysOfMonthIntervalDaySecond,
+    daysOfMonthIntervalDayAbsent,
+    daysOfMonthInterval,
     anyTimespan,
     weekTime
 }
