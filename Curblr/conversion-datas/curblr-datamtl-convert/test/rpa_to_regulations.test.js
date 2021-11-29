@@ -27,6 +27,19 @@ describe("tool functions", () => {
         const result = rpaToRegulations.extractMonth(description);
         expect(result).toBe(expected);
     });
+
+    test.each([
+        ["8h", "08:00"],
+        ["08h", "08:00"],
+        ["09h30", "09:30"],
+        ["8H", "08:00"],
+        ["08H", "08:00"],
+        ["09H30", "09:30"],
+        ["09H3", "09:3"], // wrong
+    ])("convertHtime('%s')", (description, expected) => {
+        const result = rpaToRegulations.convertHtime(description);
+        expect(result).toBe(expected);
+    })
 })
 
 describe("getActivity", () => {
@@ -63,6 +76,55 @@ describe("getActivity", () => {
         const activity = rpaToRegulations.getActivity(description);
         expect(activity).toBe(expected);
     });
+});
+
+describe("getTimesOfDay", () => {
+    test.each([
+        ["1h-2h", {"from": "01:00", "to": "02:00"}],
+        ["1h - 2h", {"from": "01:00", "to": "02:00"}],
+        ["1hà2h", {"from": "01:00", "to": "02:00"}],
+        ["1h à 2h", {"from": "01:00", "to": "02:00"}],
+        ["1hÀ2h", {"from": "01:00", "to": "02:00"}],
+        ["1h À 2h", {"from": "01:00", "to": "02:00"}],
+        ["1ha2h", {"from": "01:00", "to": "02:00"}],
+        ["1h a 2h", {"from": "01:00", "to": "02:00"}],
+        ["1h@2h", {"from": "01:00", "to": "02:00"}],
+        ["1h @ 2h", {"from": "01:00", "to": "02:00"}],
+        ["1h 2h", {"from": "01:00", "to": "02:00"}], // invalid syntax but ok
+        ["1h", undefined],
+    ])("getTimeOfDay('%s')", (description, expected) => {
+        const result = rpaToRegulations.getTimeOfDay(description);
+        expect(result).toStrictEqual(expected);
+    });
+
+    test.each([
+        ["1h-2h", [{"from": "01:00", "to": "02:00"}]],
+        ["1h-2h 2h-3h", [{"from": "01:00", "to": "02:00"},
+                         {"from": "02:00", "to": "03:00"}]],
+        ["1h-2h 2h-3h 4h-5h", [{"from": "01:00", "to": "02:00"},
+                               {"from": "02:00", "to": "03:00"},
+                               {"from": "04:00", "to": "05:00"}]],
+        ["1h-2h 2h-3h 4h-5h 6h-7h", [{"from": "01:00", "to": "02:00"}, 
+                                     {"from": "02:00", "to": "03:00"},
+                                     {"from": "04:00", "to": "05:00"},
+                                     {"from": "06:00", "to": "07:00"}]],
+        ["1h-2h et 2h-3h", [{"from": "01:00", "to": "02:00"},
+                            {"from": "02:00", "to": "03:00"}]],
+        ["1h-2h et 2h-3h et 4h-5h", [{"from": "01:00", "to": "02:00"},
+                                     {"from": "02:00", "to": "03:00"},
+                                     {"from": "04:00", "to": "05:00"}]],
+        ["1h-2h et 2h-3h 4h-5h", [{"from": "01:00", "to": "02:00"},
+                                  {"from": "02:00", "to": "03:00"},
+                                  {"from": "04:00", "to": "05:00"}]],
+        ["1h-2h lundi 2h-3h mardi", [{"from": "01:00", "to": "02:00"}, 
+                                     {"from": "02:00", "to": "03:00"}]], // The function does not detect the days. This is fine.
+        ["06h30-09h30, 15h30-18h30", [{"from": "06:30", "to": "09:30"},
+                                      {"from": "15:30", "to": "18:30"}]]
+    ])("getTimesOfDay('%s')", (description, expected) => {
+        const result = rpaToRegulations.getTimesOfDay(description);
+        expect(result).toStrictEqual(expected);
+    });
+
 });
 
 describe("getEffectiveDates", () => {

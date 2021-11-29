@@ -196,30 +196,35 @@ function getDaysOfWeek(description) {
 }
 
 function convertHtime(time) {
-    let [h,m] = time.split("H");
+    let [h,m] = time.toUpperCase().split("H");
     if (!m) {
         m = "00"
     }
     return `${h.padStart(2,'0')}:${m}`
 }
 
-const timeRegexp = /(\d+[H]\d*)\s?[Aaà@-]\s?(\d+[H]\d*)/g;
+
+function getTimeOfDay(timeOfDayDescription) {
+    const startTime = rpaReg.time.exec(timeOfDayDescription)?.[0];
+    const endTime = rpaReg.time.exec(timeOfDayDescription)?.[0];
+    rpaReg.time.lastIndex = 0;
+    if (startTime && endTime) {
+        return {
+            from: convertHtime(startTime),
+            to: convertHtime(endTime)
+        };
+    }
+    return undefined;
+}
 
 function getTimesOfDay(description) {
     const timesOfDay = [];
-    let time;
-    while (time = timeRegexp.exec(description)) {
-        if (time) {
-            const startTime = convertHtime(time[1]);
-            const endTime = convertHtime(time[2]);
-            if (startTime && endTime) {
-                timesOfDay.push({
-                    from: startTime,
-                    to: endTime
-                });
-            }
-        }
+    let timeOfDayDescription;
+    while (timeOfDayDescription = rpaReg.timeInterval.exec(description)?.[0]) {
+        const timeOfDay = getTimeOfDay(timeOfDayDescription)
+        timesOfDay.push(timeOfDay)
     }
+    rpaReg.timeInterval.lastIndex = 0;
     return (timesOfDay.length != 0) ? timesOfDay : undefined;
 }
 
@@ -306,4 +311,7 @@ module.exports = {
     getEffectiveDatesFromDaySecondSyntax,
     getEffectiveDatesFromDayAbsentSyntax,
     getEffectiveDatesFromSlashedSyntax,
+    convertHtime,
+    getTimeOfDay,
+    getTimesOfDay,
 };

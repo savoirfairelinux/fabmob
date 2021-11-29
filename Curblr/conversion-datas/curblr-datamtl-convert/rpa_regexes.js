@@ -1,9 +1,9 @@
 // one or two digits, followed by zero or more spaces, followed by "h", followed by 0 to two digits
 const timeStr = "\\d{1,2}\\s*h\\d{0,2}";
-const time = new RegExp(timeStr, "i");
+const time = new RegExp(timeStr, "ig");
 
 const timeIntervalStr = `(?:${timeStr})\\s*[Aaà@-]\\s*(?:${timeStr})`;
-const timeInterval = new RegExp(timeIntervalStr, "i");
+const timeInterval = new RegExp(timeIntervalStr, "ig");
 
 // one or two digits, followed by zero or more spaces, followed by "min"
 const maxStayStr = "\\d{1,2}\\s*min";

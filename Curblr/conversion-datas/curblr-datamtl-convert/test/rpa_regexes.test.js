@@ -15,6 +15,7 @@ describe("times", () => {
         ["h30", false],
     ])("time.test('%s')", (value, expected) => {
         const result = rpaRegex.time.test(value);
+        rpaRegex.time.lastIndex = 0;
         expect(result).toBe(expected);
     });
 
@@ -40,6 +41,7 @@ describe("times", () => {
         ["lundi à vendredi", false],
     ])("timeInterval.test('%s')", (value, expected) => {
         const result = rpaRegex.timeInterval.test(value);
+        rpaRegex.timeInterval.lastIndex = 0;
         expect(result).toBe(expected);
     });
 
