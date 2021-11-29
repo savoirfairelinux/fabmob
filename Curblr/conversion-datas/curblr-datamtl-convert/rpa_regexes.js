@@ -17,13 +17,13 @@ const timesSequence = new RegExp(timesSequenceStr, "i");
 // mapping of days of the week with the regex that will match that day
 const daysOfWeekStrs = {
     // beginning of a word, followed by the truncated name of a day or its complete name
-    "mo": "\\blun(?:\\b|di)",
-    "tu": "\\bmar(?:\\b|di)",
-    "we": "\\bmer(?:\\b|credi)",
-    "th": "\\bjeu(?:\\b|di)",
-    "fr": "\\bve[nm](?:\\b|dredi)", // there is a typo in the data
-    "sa": "\\bsam(?:\\b|edi)",
-    "su": "\\bdim(?:\\b|anche)"
+    "mo": "\\blun(?:\\.|\\b|di)",
+    "tu": "\\bmar(?:\\.|\\b|di)",
+    "we": "\\bmer(?:\\.|\\b|credi)",
+    "th": "\\bjeu(?:\\.|\\b|di)",
+    "fr": "\\bve[nm](?:\\.|\\b|dredi)", // there is a typo in the data
+    "sa": "\\bsam(?:\\.|\\b|edi)",
+    "su": "\\bdim(?:\\.|\\b|anche)"
 };
 const daysOfWeek = Object.entries(daysOfWeekStrs)
                           .reduce( (acc, [key, value]) => {

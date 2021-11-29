@@ -98,6 +98,7 @@ describe("days", () => {
         ["LUN À VEN", true],
         ["LUN A VEN", true],
         ["LUN AU VEN", true],
+        ["LUN. AU VEN.", true],
         ["LUN VEN", false],
         ["1h À 2h", false]
     ])("daysOfWeekInterval.test('%s')", (value, expected) => {
@@ -130,6 +131,7 @@ describe( "times of week", () => {
         ["1h-2h LUN", "1h-2h LUN"],
         ["1h-2h 3h-4h LUN", "1h-2h 3h-4h LUN"],
         ["1h-2h LUN MAR", "1h-2h LUN MAR"],
+        ["1h-2h LUN. MAR.", "1h-2h LUN. MAR."],
         ["1h-2h 3h-4h LUN MAR", "1h-2h 3h-4h LUN MAR"],
         ["1h-2h LUN À MAR", "1h-2h LUN À MAR"],
         ["1h-2h LUN 3h-4h MAR", "1h-2h LUN"],
@@ -142,6 +144,7 @@ describe( "times of week", () => {
     test.each([
         ["1h-2h LUN 3h-4h MAR", "3h-4h MAR"],
         ["1h-2h LUN, 3h-4h MAR", "3h-4h MAR"],
+        ["1h-2h LUN, 3h-4h MAR. MER.", "3h-4h MAR. MER."],
         ["1h-2h LUN, 3h-4h 5h-6h MAR", "3h-4h 5h-6h MAR"],
         ["1h-2h LUN", undefined],
     ])("rpaRegex.weekTime.exec('%s')[0] second call", (value, expected) => {
