@@ -135,6 +135,7 @@ describe( "times of week", () => {
         ["1h-2h 3h-4h LUN MAR", "1h-2h 3h-4h LUN MAR"],
         ["1h-2h LUN À MAR", "1h-2h LUN À MAR"],
         ["1h-2h LUN 3h-4h MAR", "1h-2h LUN"],
+        ["8H à 16H30 - MARDI", "8H à 16H30 - MARDI"]
     ])("rpaRegex.weekTime.exec('%s')[0]", (value, expected) => {
         rpaRegex.weekTime.lastIndex = 0;
         const result = rpaRegex.weekTime.exec(value)?.[0];

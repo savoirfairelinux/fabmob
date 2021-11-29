@@ -45,7 +45,8 @@ const daysOfWeekEnumerationStr = `(?<!(?:A|À|AU)\\s+)(${anyDayOfWeekStr})(?!\\s
 const daysOfWeekEnumeration = new RegExp(daysOfWeekEnumerationStr, "ig");
 
 // Matches week times
-const weekTimeStr = `(?:${timesSequenceStr})\\s*(?:(?:${daysOfWeekIntervalStr})|(?:${daysOfWeekEnumerationStr}))?`
+// time sequence, followed by spaces and optionally a -, followed by days of week
+const weekTimeStr = `(?:${timesSequenceStr})\\s*(?:-\\s*)?(?:(?:${daysOfWeekIntervalStr})|(?:${daysOfWeekEnumerationStr}))?`
 const weekTime = new RegExp(weekTimeStr, "ig");
 
 // mapping of months names with the regex that will match that month
