@@ -246,6 +246,35 @@ describe("getEffectiveDates", () => {
 });
 
 describe("getDaysOfWeek", () => {
+
+    test.each([
+        ["LUN", "mo"],
+        ["DIMANCHE", "su"],
+        ["1 DEC.", undefined]
+    ])("extractDayOfWeek('%s')", (description, expected) => {
+        const result = rpaToRegulations.extractDayOfWeek(description);
+        expect(result).toStrictEqual(expected);
+    });
+
+    test.each([
+        ["LUN", {"days": ["mo"] }],
+        ["LUN MAR", {"days": ["mo", "tu"] }],
+        ["1 DEC.", undefined]
+    ])("getDaysOfWeekFromEnumeration('%s')", (description, expected) => {
+        const result = rpaToRegulations.getDaysOfWeekFromEnumeration(description);
+        expect(result).toStrictEqual(expected);
+    });
+
+    test.each([
+        ["LUN À VEN", {"days": ["mo", "tu", "we", "th", "fr"] }],
+        ["LUN TEST VEN", {"days": ["mo", "tu", "we", "th", "fr"] }], // The separator does not actually matters
+        ["VEN DIM", {"days": ["fr", "sa", "su"] }], // The separator does not actually matters
+        ["1h À 2h", undefined]
+    ])("getDaysOfWeekFromInterval('%s')", (description, expected) => {
+        const result = rpaToRegulations.getDaysOfWeekFromInterval(description);
+        expect(result).toStrictEqual(expected);
+    })
+
     test.each([
         ["LUNDI", {"days": ["mo"]}],
         ["LUN.", {"days": ["mo"]}],
@@ -269,22 +298,20 @@ describe("getDaysOfWeek", () => {
         ["DIMANCHE", {"days": ["su"]}],
         ["DIM.", {"days": ["su"]}],
         ["DIM", {"days": ["su"]}],
-        ["LUN VEN", {"days": ["mo", "fr"]}],
+        ["LUN VEN", {"days": ["mo", "fr"]}], 
         ["LUN A VEN", {"days": ["mo","tu","we","th","fr"]}],
         ["LUN À VEN", {"days": ["mo","tu","we","th","fr"]}],
         ["LUN AU VEN", {"days": ["mo","tu","we","th","fr"]}],
         ["LUN ET VEN", {"days": ["mo", "fr"]}],
         ["VEN LUN", {"days": ["fr", "mo"]}],
         ["LUN VEN MAR", {"days": ["mo", "fr", "tu"]}],
-        //["LUN VEN MAR MER", {"days": ["mo", "fr", "tu", "we"]}]
-        // ["LUN B VEN", {"days": ["mo","tu","we","th","fr"]}],
+        ["LUN VEN MAR MER", {"days": ["mo", "fr", "tu", "we"]}],
+        ["LUN B VEN", {"days": ["mo", "fr"]}], // uncertain 
         ["LUN ET LUN", {"days": ["mo", "mo"]}], // uncertain
-        ["LUN AU VENA", {"days": ["mo","tu","we","th","fr"]}], // uncertain
-        ["LUNA AU VENA", {"days": ["mo"]}], // wrong
+        ["LUN AU VENA", undefined], // uncertain
         ["SAM A LUN", undefined], // uncertain
         ["1 DEC. AU 1 AVRIL", undefined],
         //["P 60 MIN 09H-18H LUN. MAR. MER. SAM. 09H-21H JEU. VEN.", undefined]
-        // "\\P 08h-09h MER. 1 MARS AU 1 DEC."
     ])("getDaysOfWeek('%s')", (description, expected) => {
         const daysOfWeek = rpaToRegulations.getDaysOfWeek(description);
         expect(daysOfWeek).toStrictEqual(expected);

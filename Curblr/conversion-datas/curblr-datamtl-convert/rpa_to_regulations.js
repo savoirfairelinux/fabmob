@@ -145,54 +145,57 @@ function getEffectiveDates(description) {
     }
 }
 
-const dayValues = {
-    "mo":["LUNDI","LUN\\.","LUN"],
-    "tu":["MARDI","MAR\\.","MAR"],
-    "we":["MERCREDI","MER\\.","MER"],
-    "th":["JEUDI","JEU\\.","JEU"],
-    "fr":["VENDREDI","VEN\\.","VEN","VEMDREDI"],
-    "sa":["SAMEDI","SAM\\.","SAM"],
-    'su':["DIMANCHE","DIM\\.","DIM"]
-};
-const dayMap = Object.entries(dayValues).reduce((acc,val)=>{
-    const [key, value] = val;
-    value.forEach(val2=>acc[val2.replace("\\","")]=key);
-    return acc;
-}, {});
-const dayText = Object.values(dayValues).flat().join('|');
-const threeDaysRegex = new RegExp(`(${dayText})\\s(${dayText})\\s(${dayText})`);
-
-function getDaysOfWeek(description) {
-    let days = [];
-    const threeDaysRule = threeDaysRegex.exec(description);
-    if(threeDaysRule){
-        days.push(dayMap[threeDaysRule[1]]);
-        days.push(dayMap[threeDaysRule[2]]);
-        days.push(dayMap[threeDaysRule[3]]);
-    } else {
-        const daysRegex = new RegExp(`(${dayText})(\\s?\\S*\\s)(${dayText})`);
-        const daysRule = daysRegex.exec(description);
-
-        if(daysRule){
-            if(/.*(A|À|AU).*/.exec(daysRule[2])) {
-                const daysAbbr = Object.keys(dayValues);
-                days = daysAbbr.slice(daysAbbr.findIndex(val=>val===dayMap[daysRule[1]]),daysAbbr.findIndex(val=>val===dayMap[daysRule[3]])+1)
-            } else if(/(ET|\s)/.exec(daysRule[2])) {
-                days.push(dayMap[daysRule[1]]);
-                days.push(dayMap[daysRule[3]]);
-            } else {
-                console.error("day rules verbe unknown",daysRule[2], rpaCode, description);
-            }
-        } else {
-            const dayRegex = new RegExp(`(${dayText})`);
-            const dayRule = dayRegex.exec(description);
-            if(dayRule) {
-                days.push(dayMap[dayRule[1]]);
-            }
+function extractDayOfWeek(string) {
+    return Object.entries(rpaReg.daysOfWeek).find( ([dayAbbreviation, regex]) => {
+        if (regex.test(string)) {
+            return true;
         }
+    })?.[0];
+}
+
+// Get an interval of days. Days separated with "A", "À", "AU",
+// "LUN A MAR"
+const orderedDays = ["mo", "tu", "we", "th", "fr", "sa", "su"];
+function getDaysOfWeekFromInterval(weekTimeDescription) {
+    const startDayDescription = rpaReg.anyDayOfWeek.exec(weekTimeDescription)?.[0];
+    const endDayDescription = rpaReg.anyDayOfWeek.exec(weekTimeDescription)?.[0];
+    rpaReg.anyDayOfWeek.lastIndex = 0;
+    const startDay = extractDayOfWeek(startDayDescription);
+    const endDay = extractDayOfWeek(endDayDescription);
+    const startDayIndex = orderedDays.findIndex(value => value == startDay);
+    const endDayIndex = orderedDays.findIndex(value => value == endDay);
+    const days = orderedDays.slice(startDayIndex, endDayIndex + 1);
+    return (days.length != 0) ? {days} : undefined;
+}
+
+// Get an enumeration of days. Days separated with spaces or "ET"
+// ex: "LUN MAR JEU", "LUN ET MAR ET JEU"
+function getDaysOfWeekFromEnumeration(weekTimeDescription) {
+    const days = [];
+    let dayDescription;
+    while (dayDescription = rpaReg.anyDayOfWeek.exec(weekTimeDescription)?.[0]) {
+        const day = extractDayOfWeek(dayDescription);
+        days.push(day)
+    }
+    rpaReg.anyDayOfWeek.lastIndex = 0;
+    return (days.length != 0) ? {days} : undefined;
+}
+
+function getDaysOfWeek(weekTimeDescription) {
+    let days;
+    if (rpaReg.daysOfWeekInterval.test(weekTimeDescription)) {
+        days = getDaysOfWeekFromInterval(weekTimeDescription)
+        // must reset daysOfWeekInterval lastIndex before return
     }
 
-    return (days.length != 0) ? {days} : undefined;
+    if (rpaReg.daysOfWeekEnumeration.test(weekTimeDescription)) {
+        days = getDaysOfWeekFromEnumeration(weekTimeDescription);
+        // must reset daysOfWeekEnumeration lastIndex before return
+    }
+
+    rpaReg.daysOfWeekInterval.lastIndex = 0;
+    rpaReg.daysOfWeekEnumeration.lastIndex = 0;
+    return days;
 }
 
 function convertHtime(time) {
@@ -314,4 +317,7 @@ module.exports = {
     convertHtime,
     getTimeOfDay,
     getTimesOfDay,
+    extractDayOfWeek,
+    getDaysOfWeekFromEnumeration,
+    getDaysOfWeekFromInterval,
 };

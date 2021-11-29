@@ -33,15 +33,16 @@ const daysOfWeek = Object.entries(daysOfWeekStrs)
 
 // regex that will match any day of the week
 const anyDayOfWeekStr = Object.values(daysOfWeekStrs).join("|");
-const anyDayOfWeek = new RegExp(anyDayOfWeekStr, "i");
+const anyDayOfWeek = new RegExp(anyDayOfWeekStr, "ig");
 
 // regex that will match any interval of days
+// Day of week not preceded or followed by A|À|AU, optionnaly followed by ET, and optionnaly followed by more days
 const daysOfWeekIntervalStr = `(${anyDayOfWeekStr})\\s+(?:A|À|AU)\\s+(${anyDayOfWeekStr})`;
-const daysOfWeekInterval = new RegExp(daysOfWeekIntervalStr, "i");
+const daysOfWeekInterval = new RegExp(daysOfWeekIntervalStr, "ig");
 
 // Matches an enumeration of days
-const daysOfWeekEnumerationStr = `(${anyDayOfWeekStr})(?:\\s+(?:et\\s+)?(?:${anyDayOfWeekStr}))*`
-const daysOfWeekEnumeration = new RegExp(daysOfWeekEnumerationStr, "i");
+const daysOfWeekEnumerationStr = `(?<!(?:A|À|AU)\\s+)(${anyDayOfWeekStr})(?!\\s+(?:A|À|AU))(?:\\s+(?:et\\s+)?(?:${anyDayOfWeekStr}))*`
+const daysOfWeekEnumeration = new RegExp(daysOfWeekEnumerationStr, "ig");
 
 // Matches week times
 const weekTimeStr = `(?:${timesSequenceStr})\\s*(?:(?:${daysOfWeekIntervalStr})|(?:${daysOfWeekEnumerationStr}))?`
