@@ -2,46 +2,46 @@ const rpaRegex = require("../rpa_regexes");
 
 describe("times", () => {
     test.each([
-        ["1h", true],
-        ["1h5", true],
-        ["1h30", true],
-        ["10h", true],
-        ["10h5", true],
-        ["10h30", true],
-        ["lundi1h", true],
-        ["1hlundi", true],
-        ["10", false],
-        ["1ah", false],
-        ["h30", false],
-    ])("time.test('%s')", (value, expected) => {
+        ["1h", "1h"],
+        ["1h5", "1h5"],
+        ["1h30", "1h30"],
+        ["10h", "10h"],
+        ["10h5", "10h5"],
+        ["10h30", "10h30"],
+        ["lundi1h", "1h"],
+        ["1hlundi", "1h"],
+        ["10", undefined],
+        ["1ah", undefined],
+        ["h30", undefined],
+    ])("time.exec('%s')?.[0]", (value, expected) => {
         rpaRegex.time.lastIndex = 0;
-        const result = rpaRegex.time.test(value);
+        const result = rpaRegex.time.exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["1h-2h", true],
-        ["1h - 2h", true],
-        ["1hà2h", true],
-        ["1h à 2h", true],
-        ["1hÀ2h", true],
-        ["1h À 2h", true],
-        ["1ha2h", true],
-        ["1h a 2h", true],
-        ["1hA2h", true],
-        ["1h A 2h", true],
-        ["1h @ 2h", true],
-        ["1h@2h", true],
-        ["1h    -  2h", true],
-        ["1h", false],
-        ["1h 2h", false],
-        ["1hb2h", false],
-        ["1h b 2h", false],
-        ["1hàa2h", false],
-        ["lundi à vendredi", false],
-    ])("timeInterval.test('%s')", (value, expected) => {
+        ["1h-2h", "1h-2h"],
+        ["1h - 2h", "1h - 2h"],
+        ["1hà2h", "1hà2h"],
+        ["1h à 2h", "1h à 2h"],
+        ["1hÀ2h", "1hÀ2h"],
+        ["1h À 2h", "1h À 2h"],
+        ["1ha2h", "1ha2h"],
+        ["1h a 2h", "1h a 2h"],
+        ["1hA2h", "1hA2h"],
+        ["1h A 2h", "1h A 2h"],
+        ["1h @ 2h", "1h @ 2h"],
+        ["1h@2h", "1h@2h"],
+        ["1h    -  2h", "1h    -  2h"],
+        ["1h", undefined],
+        ["1h 2h", undefined],
+        ["1hb2h", undefined],
+        ["1h b 2h", undefined],
+        ["1hàa2h", undefined],
+        ["lundi à vendredi", undefined],
+    ])("timeInterval.exec('%s')?.[0]", (value, expected) => {
         rpaRegex.timeInterval.lastIndex = 0;
-        const result = rpaRegex.timeInterval.test(value);
+        const result = rpaRegex.timeInterval.exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
@@ -54,8 +54,8 @@ describe("times", () => {
         ["1h-2h et 2h-3h et 4h-5h", "1h-2h et 2h-3h et 4h-5h"],
         ["1h-2h et 2h-3h 4h-5h", "1h-2h et 2h-3h 4h-5h"],
         ["1h-2h lundi 2h-3h 4h-5h", "1h-2h"],
-        ["06h30-09h30, 15h30-18h30", "06h30-09h30, 15h30-18h30"]
-    ])("rpaRegex.timesSequence.exec('%s')[0]", (value, expected) => {
+        ["06h30-09h30, 15h30-18h30", "06h30-09h30, 15h30-18h30"],
+    ])("rpaRegex.timesSequence.exec('%s')?.[0]", (value, expected) => {
         const result = rpaRegex.timesSequence.exec(value)[0];
         expect(result).toBe(expected);
     });
@@ -63,48 +63,48 @@ describe("times", () => {
 
 describe("days", () => {
     test.each([
-        ["LUN", true],
-        ["LUN.", true],
-        ["LUNDI", true],
-        ["MAR", true],
-        ["MAR.", true],
-        ["MARDI", true],
-        ["MER", true],
-        ["MER.", true],
-        ["MERCREDI", true],
-        ["JEU", true],
-        ["JEU.", true],
-        ["JEUDI", true],
-        ["VEN", true],
-        ["VEN.", true],
-        ["VEMDREDI", true],
-        ["VENDREDI", true],
-        ["SAM", true],
-        ["SAM.", true],
-        ["SAMEDI", true],
-        ["DIM", true],
-        ["DIM.", true],
-        ["DIMANCHE", true],
-        ["12h LUN 1 MARS", true],
-        ["MONDAY", false],
-        ["MARS", false],
-    ])("anyDayOfWeek.test('%s')", (value, expected) => {
+        ["LUN", "LUN"],
+        ["LUN.", "LUN."],
+        ["LUNDI", "LUNDI"],
+        ["MAR", "MAR"],
+        ["MAR.", "MAR."],
+        ["MARDI", "MARDI"],
+        ["MER", "MER"],
+        ["MER.", "MER."],
+        ["MERCREDI", "MERCREDI"],
+        ["JEU", "JEU"],
+        ["JEU.", "JEU."],
+        ["JEUDI", "JEUDI"],
+        ["VEN", "VEN"],
+        ["VEN.", "VEN."],
+        ["VEMDREDI", "VEMDREDI"],
+        ["VENDREDI", "VENDREDI"],
+        ["SAM", "SAM"],
+        ["SAM.", "SAM."],
+        ["SAMEDI", "SAMEDI"],
+        ["DIM", "DIM"],
+        ["DIM.", "DIM."],
+        ["DIMANCHE", "DIMANCHE"],
+        ["12h LUN 1 MARS", "LUN"],
+        ["MONDAY", undefined ],
+        ["MARS", undefined ],
+    ])("anyDayOfWeek.exec('%s')?.[0]", (value, expected) => {
         rpaRegex.anyDayOfWeek.lastIndex = 0;
-        const result = rpaRegex.anyDayOfWeek.test(value);
+        const result = rpaRegex.anyDayOfWeek.exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["LUN À VEN", true],
-        ["LUN A VEN", true],
-        ["LUN AU VEN", true],
-        ["LUN. AU VEN.", true],
-        ["LUN.AU VEN.", true],
-        ["LUN VEN", false],
-        ["1h À 2h", false]
-    ])("daysOfWeekInterval.test('%s')", (value, expected) => {
+        ["LUN À VEN", "LUN À VEN"],
+        ["LUN A VEN", "LUN A VEN"],
+        ["LUN AU VEN", "LUN AU VEN"],
+        ["LUN. AU VEN.", "LUN. AU VEN."],
+        ["LUN.AU VEN.", "LUN.AU VEN."],
+        ["LUN VEN", undefined ],
+        ["1h À 2h", undefined ],
+    ])("daysOfWeekInterval.exec('%s')?.[0]", (value, expected) => {
         rpaRegex.daysOfWeekInterval.lastIndex = 0;
-        const result = rpaRegex.daysOfWeekInterval.test(value);
+        const result = rpaRegex.daysOfWeekInterval.exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
@@ -118,7 +118,7 @@ describe("days", () => {
         ["LUN.ET VEN.", "LUN.ET VEN."],
         ["1h-2h LUN MAR", "LUN MAR"],
         ["LUN A MER", undefined],
-    ])("rpaRegex.daysOfWeekEnumeration.exec('%s')[0]", (value, expected) => {
+    ])("rpaRegex.daysOfWeekEnumeration.exec('%s')?.[0]", (value, expected) => {
         rpaRegex.daysOfWeekEnumeration.lastIndex = 0;
         const result = rpaRegex.daysOfWeekEnumeration.exec(value)?.[0];
         expect(result).toBe(expected);
@@ -142,7 +142,7 @@ describe( "times of week", () => {
         ["LUN", undefined],
         ["1h-2h LUN", undefined],
         ["MER 17H À JEU 17H", undefined],
-    ])("rpaRegex.weekTimeDaysFirst.exec('%s')[0]", (value, expected) => {
+    ])("rpaRegex.weekTimeDaysFirst.exec('%s')?.[0]", (value, expected) => {
         rpaRegex.weekTimeDaysFirst.lastIndex = 0;
         const result = rpaRegex.weekTimeDaysFirst.exec(value)?.[0];
         expect(result).toBe(expected);
@@ -162,7 +162,7 @@ describe( "times of week", () => {
         ["LUN", undefined],
         ["LUN 1h-2h", undefined],
         ["MER 17H À JEU 17H", undefined],
-    ])("rpaRegex.weekTimeDaysSecond.exec('%s')[0]", (value, expected) => {
+    ])("rpaRegex.weekTimeDaysSecond.exec('%s')?.[0]", (value, expected) => {
         rpaRegex.weekTimeDaysSecond.lastIndex = 0;
         const result = rpaRegex.weekTimeDaysSecond.exec(value)?.[0];
         expect(result).toBe(expected);
@@ -174,7 +174,7 @@ describe( "times of week", () => {
         ["1h-2h LUN, 3h-4h MAR. MER.", "3h-4h MAR. MER."],
         ["1h-2h LUN, 3h-4h 5h-6h MAR", "3h-4h 5h-6h MAR"],
         ["1h-2h LUN", undefined],
-    ])("rpaRegex.weekTimeDaysSecond.exec('%s')[0] second call", (value, expected) => {
+    ])("rpaRegex.weekTimeDaysSecond.exec('%s')?.[0] second call", (value, expected) => {
         rpaRegex.weekTimeDaysSecond.lastIndex = 0;
         rpaRegex.weekTimeDaysSecond.exec(value); // first call
         const result = rpaRegex.weekTimeDaysSecond.exec(value)?.[0]; // second call
@@ -188,7 +188,7 @@ describe( "times of week", () => {
         ["LUN 1h-2h", undefined],
         ["1h-2h LUN", undefined],
         ["MER 17H À JEU 17H", undefined],
-    ])("rpaRegex.weekTimeDaysAbsent.exec('%s')[0]", (value, expected) => {
+    ])("rpaRegex.weekTimeDaysAbsent.exec('%s')?.[0]", (value, expected) => {
         rpaRegex.weekTimeDaysAbsent.lastIndex = 0;
         const result = rpaRegex.weekTimeDaysAbsent.exec(value)?.[0];
         expect(result).toBe(expected);
@@ -201,7 +201,7 @@ describe( "times of week", () => {
         ["LUN 1h-2h", undefined],
         ["1h-2h LUN", undefined],
         ["MER 17H À JEU 17H", undefined],
-    ])("rpaRegex.weekTimeDaysOnly.exec('%s')[0]", (value, expected) => {
+    ])("rpaRegex.weekTimeDaysOnly.exec('%s')?.[0]", (value, expected) => {
         rpaRegex.weekTimeDaysOnly.lastIndex = 0;
         const result = rpaRegex.weekTimeDaysOnly.exec(value)?.[0];
         expect(result).toBe(expected);
@@ -214,7 +214,7 @@ describe( "times of week", () => {
         ["1h-2h 3h-4h LUN", undefined],
         ["1h-2h LUN MAR", undefined],
         ["LUN 1h-2h", undefined],
-    ])("rpaRegex.weekTimeDaysOverlap.exec('%s')[0]", (value, expected) => {
+    ])("rpaRegex.weekTimeDaysOverlap.exec('%s')?.[0]", (value, expected) => {
         rpaRegex.weekTimeDaysOverlap.lastIndex = 0;
         const result = rpaRegex.weekTimeDaysOverlap.exec(value)?.[0];
         expect(result).toBe(expected);
@@ -232,7 +232,7 @@ describe( "times of week", () => {
         ["8H à 16H30 - MARDI", "8H à 16H30 - MARDI"],
         ["LUN 1h-2h", "LUN 1h-2h"],
         ["MER 17H À JEU 17H", "MER 17H À JEU 17H"],
-    ])("rpaRegex.weekTime.exec('%s')[0]", (value, expected) => {
+    ])("rpaRegex.weekTime.exec('%s')?.[0]", (value, expected) => {
         rpaRegex.weekTime.lastIndex = 0;
         const result = rpaRegex.weekTime.exec(value)?.[0];
         expect(result).toBe(expected);
@@ -241,272 +241,272 @@ describe( "times of week", () => {
     
 describe("months", () => {
     test.each([
-        ["janvier", true],
-        ["jan", true],
-        ["jan.", true],
-        ["1 janvier", true],
-        ["1janvier", true],
-        ["jantest", false],
-    ])("rpaRegex.months['01'].test('%s')", (value, expected) => {
-        const result = rpaRegex.months['01'].test(value);
+        ["janvier", "janvier"],
+        ["jan", "jan"],
+        ["jan.", "jan."],
+        ["1 janvier", "janvier"],
+        ["1janvier", "janvier"],
+        ["jantest", undefined ],
+    ])("rpaRegex.months['01'].exec('%s')?.[0]", (value, expected) => {
+        const result = rpaRegex.months['01'].exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["février", true],
-        ["fevrier", true],
-        ["fév", true],
-        ["fev", true],
-        ["fév.", true],
-        ["fev.", true],
-        ["1 février", true],
-        ["1février", true],
-        ["févtest", false],
-    ])("rpaRegex.months['02'].test('%s')", (value, expected) => {
-        const result = rpaRegex.months['02'].test(value);
+        ["février", "février"],
+        ["fevrier", "fevrier"],
+        ["fév", "fév"],
+        ["fev", "fev"],
+        ["fév.", "fév."],
+        ["fev.", "fev."],
+        ["1 février", "février"],
+        ["1février", "février"],
+        ["févtest", undefined ],
+    ])("rpaRegex.months['02'].exec('%s')?.[0]", (value, expected) => {
+        const result = rpaRegex.months['02'].exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["mars", true],
-        ["mar", true],
-        ["mar.", true],
-        ["mrs.", true],
-        ["mr", true], // uncertain
-        ["1 mars", true],
-        ["1mars", true],
-        ["marsl", true],
-        ["martest", false],
-        ["champ-de-mars", false],
-    ])("rpaRegex.months['03'].test('%s')", (value, expected) => {
-        const result = rpaRegex.months['03'].test(value);
+        ["mars", "mars"],
+        ["mar", "mar"],
+        ["mar.", "mar."],
+        ["mrs.", "mrs"],
+        ["mr", "mr"],
+        ["1 mars", "mars"],
+        ["1mars", "mars"],
+        ["marsl", "marsl"],
+        ["martest", undefined ],
+        ["champ-de-mars", undefined ],
+    ])("rpaRegex.months['03'].exec('%s')?.[0]", (value, expected) => {
+        const result = rpaRegex.months['03'].exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["avril", true],
-        ["avr", true],
-        ["avr.", true],
-        ["1 avril", true],
-        ["1avril", true],
-        ["avil", true],
-        ["avrils", true],
-        ["avrtest", false],
-    ])("rpaRegex.months['04'].test('%s')", (value, expected) => {
-        const result = rpaRegex.months['04'].test(value);
+        ["avril", "avril"],
+        ["avr", "avr"],
+        ["avr.", "avr."],
+        ["1 avril", "avril"],
+        ["1avril", "avril"],
+        ["avil", "avil"],
+        ["avrils", "avrils"],
+        ["avrtest", undefined ],
+    ])("rpaRegex.months['04'].exec('%s')?.[0]", (value, expected) => {
+        const result = rpaRegex.months['04'].exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["mai", true],
-        ["1 mai", true],
-        ["1mai", true],
-        ["maitest", false],
-    ])("rpaRegex.months['05'].test('%s')", (value, expected) => {
-        const result = rpaRegex.months['05'].test(value);
+        ["mai", "mai"],
+        ["1 mai", "mai"],
+        ["1mai", "mai"],
+        ["maitest", undefined],
+    ])("rpaRegex.months['05'].exec('%s')?.[0]", (value, expected) => {
+        const result = rpaRegex.months['05'].exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["juin", true],
-        ["1 juin", true],
-        ["1juin", true],
-        ["juintest", false],
-    ])("rpaRegex.months['06'].test('%s')", (value, expected) => {
-        const result = rpaRegex.months['06'].test(value);
+        ["juin", "juin"],
+        ["1 juin", "juin"],
+        ["1juin", "juin"],
+        ["juintest", undefined],
+    ])("rpaRegex.months['06'].exec('%s')?.[0]", (value, expected) => {
+        const result = rpaRegex.months['06'].exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["juillet", true],
-        ["juil", true],
-        ["juil.", true],
-        ["1 juillet", true],
-        ["1juillet", true],
-        ["juiltest", false],
-    ])("rpaRegex.months['07'].test('%s')", (value, expected) => {
-        const result = rpaRegex.months['07'].test(value);
+        ["juillet", "juillet"],
+        ["juil", "juil"],
+        ["juil.", "juil."],
+        ["1 juillet", "juillet"],
+        ["1juillet", "juillet"],
+        ["juiltest", undefined ],
+    ])("rpaRegex.months['07'].exec('%s')?.[0]", (value, expected) => {
+        const result = rpaRegex.months['07'].exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["août", true],
-        ["aout", true],
-        ["1 août", true],
-        ["1août", true],
-        ["aoûttest", false],
-    ])("rpaRegex.months['08'].test('%s')", (value, expected) => {
-        const result = rpaRegex.months['08'].test(value);
+        ["août", "août"],
+        ["aout", "aout"],
+        ["1 août", "août"],
+        ["1août", "août"],
+        ["aoûttest", undefined ],
+    ])("rpaRegex.months['08'].exec('%s')?.[0]", (value, expected) => {
+        const result = rpaRegex.months['08'].exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["septembre", true],
-        ["sept", true],
-        ["sept.", true],
-        ["1 septembre", true],
-        ["1septembre", true],
-        ["septest", false],
-    ])("rpaRegex.months['09'].test('%s')", (value, expected) => {
-        const result = rpaRegex.months['09'].test(value);
+        ["septembre", "septembre"],
+        ["sept", "sept"],
+        ["sept.", "sept."],
+        ["1 septembre", "septembre"],
+        ["1septembre", "septembre"],
+        ["septest", undefined ],
+    ])("rpaRegex.months['09'].exec('%s')?.[0]", (value, expected) => {
+        const result = rpaRegex.months['09'].exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["octobre", true],
-        ["oct", true],
-        ["oct.", true],
-        ["1 octobre", true],
-        ["1octobre", true],
-        ["octtest", false],
-    ])("rpaRegex.months['10'].test('%s')", (value, expected) => {
-        const result = rpaRegex.months['10'].test(value);
+        ["octobre", "octobre"],
+        ["oct", "oct"],
+        ["oct.", "oct."],
+        ["1 octobre", "octobre"],
+        ["1octobre", "octobre"],
+        ["octtest", undefined ],
+    ])("rpaRegex.months['10'].exec('%s')?.[0]", (value, expected) => {
+        const result = rpaRegex.months['10'].exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["novembre", true],
-        ["nov", true],
-        ["nov.", true],
-        ["1 novembre", true],
-        ["1novembre", true],
-        ["novtest", false],
-    ])("rpaRegex.months['11'].test('%s')", (value, expected) => {
-        const result = rpaRegex.months['11'].test(value);
+        ["novembre", "novembre"],
+        ["nov", "nov"],
+        ["nov.", "nov."],
+        ["1 novembre", "novembre"],
+        ["1novembre", "novembre"],
+        ["novtest", undefined ],
+    ])("rpaRegex.months['11'].exec('%s')?.[0]", (value, expected) => {
+        const result = rpaRegex.months['11'].exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["décembre", true],
-        ["decembre", true],
-        ["déc", true],
-        ["dec", true],
-        ["déc.", true],
-        ["dec.", true],
-        ["1 décembre", true],
-        ["1décembre", true],
-        ["déctest", false],
-    ])("rpaRegex.months['12'].test('%s')", (value, expected) => {
-        const result = rpaRegex.months['12'].test(value);
+        ["décembre", "décembre"],
+        ["decembre", "decembre"],
+        ["déc", "déc"],
+        ["dec", "dec"],
+        ["déc.", "déc."],
+        ["dec.", "dec."],
+        ["1 décembre", "décembre"],
+        ["1décembre", "décembre"],
+        ["déctest", undefined ],
+    ])("rpaRegex.months['12'].exec('%s')?.[0]", (value, expected) => {
+        const result = rpaRegex.months['12'].exec(value)?.[0];
         expect(result).toBe(expected);
     });
 });
 
 describe( "dates", () => {
     test.each([
-        ["1 MARS", true],
-        ["1ER MARS", true],
-        ["1 MARSL", true],
-        ["1 AVRILAU", true],
-        ["1 DEC", true],
-        ["9NOV", true],
-        ["15NOV", true],
-        ["AVRIL 01", false],
-        ["MAI-JUIN", false],
-    ])("rpaRegex.dayOfMonthDayFirst.test('%s')", (value, expected) => {
+        ["1 MARS", "1 MARS"],
+        ["1ER MARS", "1ER MARS"],
+        ["1 MARSL", "1 MARSL"],
+        ["1 AVRILAU", "1 AVRIL"],
+        ["1 DEC", "1 DEC"],
+        ["9NOV", "9NOV"],
+        ["15NOV", "15NOV"],
+        ["AVRIL 01", undefined],
+        ["MAI-JUIN", undefined],
+    ])("rpaRegex.dayOfMonthDayFirst.exec('%s')?.[0]", (value, expected) => {
         rpaRegex.dayOfMonthDayFirst.lastIndex = 0;
-        const result = rpaRegex.dayOfMonthDayFirst.test(value);
+        const result = rpaRegex.dayOfMonthDayFirst.exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["AVRIL 01", true],
-        ["01 AVRIL AU 01 DEC", false],
-        ["1 MARS", false],
-    ])("rpaRegex.dayOfMonthDaySecond.test('%s')", (value, expected) => {
+        ["AVRIL 01", "AVRIL 01"],
+        ["01 AVRIL AU 01 DEC", undefined],
+        ["1 MARS", undefined],
+    ])("rpaRegex.dayOfMonthDaySecond.exec('%s')?.[0]", (value, expected) => {
         rpaRegex.dayOfMonthDaySecond.lastIndex = 0;
-        const result = rpaRegex.dayOfMonthDaySecond.test(value);
+        const result = rpaRegex.dayOfMonthDaySecond.exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["01/01", true],
-        ["12/12", true],
-        ["1/1", false],
-        ["01/1", false],
-        ["1/01", false],
-    ])("rpaRegex.dayOfMonthSlashed.test('%s')", (value, expected) => {
+        ["01/01", "01/01"],
+        ["12/12", "12/12"],
+        ["1/1", undefined],
+        ["01/1", undefined],
+        ["1/01", undefined],
+    ])("rpaRegex.dayOfMonthSlashed.exec('%s')?.[0]", (value, expected) => {
         rpaRegex.dayOfMonthSlashed.lastIndex = 0;
-        const result = rpaRegex.dayOfMonthSlashed.test(value);
+        const result = rpaRegex.dayOfMonthSlashed.exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["1 MARS 1 DEC", true],
-        ["1 MARS - 1 DEC", true],
-        ["1 MARS A 1 DEC", true],
-        ["1 MARS À 1 DEC", true],
-        ["1 MARS AU 1 DEC", true],
-        ["1 AVRIL ET 1 DEC", true], // this is in data
-        ["MAI", false],
-        ["1 MARS TEST 1 DEC", false],
-        ["MAI-JUIN", false],
-        ["MARS 01 A DEC 01", false],
-        ["MARS 1 AU 1 DEC", false],
-    ])("rpaRegex.daysOfMonthIntervalDayFirst.test('%s')", (value, expected) => {
-        const result = rpaRegex.daysOfMonthIntervalDayFirst.test(value);
+        ["1 MARS 1 DEC", "1 MARS 1 DEC"],
+        ["1 MARS - 1 DEC", "1 MARS - 1 DEC"],
+        ["1 MARS A 1 DEC", "1 MARS A 1 DEC"],
+        ["1 MARS À 1 DEC", "1 MARS À 1 DEC"],
+        ["1 MARS AU 1 DEC", "1 MARS AU 1 DEC"],
+        ["1 AVRIL ET 1 DEC", "1 AVRIL ET 1 DEC"], // this is in data
+        ["MAI", undefined],
+        ["1 MARS TEST 1 DEC", undefined],
+        ["MAI-JUIN", undefined],
+        ["MARS 01 A DEC 01", undefined],
+        ["MARS 1 AU 1 DEC", undefined],
+    ])("rpaRegex.daysOfMonthIntervalDayFirst.exec('%s')?.[0]", (value, expected) => {
+        const result = rpaRegex.daysOfMonthIntervalDayFirst.exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["MARS 1 DEC 1", true],
-        ["MARS 1 - DEC 1", true],
-        ["MARS 1 A DEC 1", true],
-        ["MARS 1 À DEC 1", true],
-        ["MARS 1 AU DEC 1", true],
-        ["MAI", false],
-        ["MARS 1 TEST DEC 1", false],
-        ["MAI-JUIN", false],
-        ["1 MARS - 1 DEC", false],
-        ["MARS 1 AU 1 DEC", false],
-    ])("rpaRegex.daysOfMonthIntervalDaySecond.test('%s')", (value, expected) => {
-        const result = rpaRegex.daysOfMonthIntervalDaySecond.test(value);
+        ["MARS 1 DEC 1", "MARS 1 DEC 1"],
+        ["MARS 1 - DEC 1", "MARS 1 - DEC 1"],
+        ["MARS 1 A DEC 1", "MARS 1 A DEC 1"],
+        ["MARS 1 À DEC 1", "MARS 1 À DEC 1"],
+        ["MARS 1 AU DEC 1", "MARS 1 AU DEC 1"],
+        ["MAI", undefined],
+        ["MARS 1 TEST DEC 1", undefined],
+        ["MAI-JUIN", undefined],
+        ["1 MARS - 1 DEC", undefined],
+        ["MARS 1 AU 1 DEC", undefined],
+    ])("rpaRegex.daysOfMonthIntervalDaySecond.exec('%s')?.[0]", (value, expected) => {
+        const result = rpaRegex.daysOfMonthIntervalDaySecond.exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["MAI JUIN", true],
-        ["MAI-JUIN", true],
-        ["MARS A DEC", true],
-        ["MARS À DEC", true],
-        ["MARS AU DEC", true],
-        ["1 MARS-DEC 1", true], // wrong
-        ["MAI", false],
-        ["MAI TEST JUIN", false],
-        ["1 MARS - 1 DEC", false],
-        ["MARS 1 AU 1 DEC", false],
-        ["MARS 1 AU DEC 1", false],
-    ])("rpaRegex.daysOfMonthIntervalDayAbsent.test('%s')", (value, expected) => {
-        const result = rpaRegex.daysOfMonthIntervalDayAbsent.test(value);
+        ["MAI JUIN", "MAI JUIN"],
+        ["MAI-JUIN", "MAI-JUIN"],
+        ["MARS A DEC", "MARS A DEC"],
+        ["MARS À DEC", "MARS À DEC"],
+        ["MARS AU DEC", "MARS AU DEC"],
+        ["1 MARS-DEC 1", "MARS-DEC"], // wrong
+        ["MAI", undefined],
+        ["MAI TEST JUIN", undefined],
+        ["1 MARS - 1 DEC", undefined],
+        ["MARS 1 AU 1 DEC", undefined],
+        ["MARS 1 AU DEC 1", undefined],
+    ])("rpaRegex.daysOfMonthIntervalDayAbsent.exec('%s')?.[0]", (value, expected) => {
+        const result = rpaRegex.daysOfMonthIntervalDayAbsent.exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["01/05 01/10", true],
-        ["01/05-01/10", true],
-        ["01/05 A 01/10", true],
-        ["01/05 À 01/10", true],
-        ["01/05 AU 01/10", true],
-        ["MAI", false],
-        ["01/05 TEST 01/10", false],
-        ["1 MARS - 1 DEC", false],
-    ])("rpaRegex.daysOfMonthIntervalSlashed.test('%s')", (value, expected) => {
-        const result = rpaRegex.daysOfMonthIntervalSlashed.test(value);
+        ["01/05 01/10", "01/05 01/10"],
+        ["01/05-01/10", "01/05-01/10"],
+        ["01/05 A 01/10", "01/05 A 01/10"],
+        ["01/05 À 01/10", "01/05 À 01/10"],
+        ["01/05 AU 01/10", "01/05 AU 01/10"],
+        ["MAI", undefined],
+        ["01/05 TEST 01/10", undefined],
+        ["1 MARS - 1 DEC", undefined]      
+    ])("rpaRegex.daysOfMonthIntervalSlashed.exec('%s')?.[0]", (value, expected) => {
+        const result = rpaRegex.daysOfMonthIntervalSlashed.exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
     test.each([
-        ["MAI JUIN", true],
-        ["MAI-JUIN", true],
-        ["1 MARS - 1 DEC", true],
-        ["MARS 1 - DEC 1", true],
-        ["01/05-01/10", true],
-        ["1 MARS-DEC 1", true], // wrong
-        ["MAI", false],
-        ["MARS 1 TEST 1 DEC", false],
-        ["MARS 1 AU 1 DEC", false],
-    ])("rpaRegex.daysOfMonthInterval.test('%s')", (value, expected) => {
-        const result = rpaRegex.daysOfMonthInterval.test(value);
+        ["MAI JUIN", "MAI JUIN"],
+        ["MAI-JUIN", "MAI-JUIN"],
+        ["1 MARS - 1 DEC", "1 MARS - 1 DEC"],
+        ["MARS 1 - DEC 1", "MARS 1 - DEC 1"],
+        ["01/05-01/10", "01/05-01/10"],
+        ["1 MARS-DEC 1", "MARS-DEC"], // wrong
+        ["MAI", undefined],
+        ["MARS 1 TEST 1 DEC", undefined],
+        ["MARS 1 AU 1 DEC", undefined],
+    ])("rpaRegex.daysOfMonthInterval.exec('%s')?.[0]", (value, expected) => {
+        const result = rpaRegex.daysOfMonthInterval.exec(value)?.[0];
         expect(result).toBe(expected);
     });
 });
