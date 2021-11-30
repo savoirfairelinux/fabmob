@@ -124,7 +124,6 @@ function getEffectiveDatesFromSlashedSyntax(dayOfMonthInterval) {
 }
 
 function getEffectiveDates(description) {
-    // We assume there is only one set of effective dates
     const daysOfMonthInterval = rpaReg.daysOfMonthInterval.exec(description)?.[0];
 
     if (!daysOfMonthInterval) {
@@ -154,16 +153,16 @@ function extractDayOfWeek(string) {
 }
 
 // Get an interval of days. Days separated with "A", "À", "AU",
-// "LUN A MAR"
-const orderedDays = ["mo", "tu", "we", "th", "fr", "sa", "su"];
+// ex: "LUN A MAR"
+const orderedDays = ["mo", "tu", "we", "th", "fr", "sa", "su", "mo", "tu", "we", "th", "fr", "sa"];
 function getDaysOfWeekFromInterval(weekTimeDescription) {
     const startDayDescription = rpaReg.anyDayOfWeek.exec(weekTimeDescription)?.[0];
     const endDayDescription = rpaReg.anyDayOfWeek.exec(weekTimeDescription)?.[0];
     rpaReg.anyDayOfWeek.lastIndex = 0;
     const startDay = extractDayOfWeek(startDayDescription);
     const endDay = extractDayOfWeek(endDayDescription);
-    const startDayIndex = orderedDays.findIndex(value => value == startDay);
-    const endDayIndex = orderedDays.findIndex(value => value == endDay);
+    const startDayIndex = orderedDays.indexOf(startDay);
+    const endDayIndex = orderedDays.indexOf(endDay, startDayIndex);
     const days = orderedDays.slice(startDayIndex, endDayIndex + 1);
     return (days.length != 0) ? {days} : undefined;
 }
@@ -206,7 +205,6 @@ function convertHtime(time) {
     return `${h.padStart(2,'0')}:${m}`
 }
 
-
 function getTimeOfDay(timeOfDayDescription) {
     const startTime = rpaReg.time.exec(timeOfDayDescription)?.[0];
     const endTime = rpaReg.time.exec(timeOfDayDescription)?.[0];
@@ -231,18 +229,78 @@ function getTimesOfDay(description) {
     return (timesOfDay.length != 0) ? timesOfDay : undefined;
 }
 
-function getTimeSpans(description) {
+// Get a list of timespans from the syntax where the time overlaps multiple days.
+// ex: LUN 17H À MAR 17H
+function getTimeSpansFromDaysOverlapSyntax(description, effectiveDates) {
     const timeSpans = [];
-    const timeSpan = {};
+    rpaReg.time.lastIndex = 0;
+    const startTimeDescription = rpaReg.time.exec(description)?.[0];
+    const startTime = convertHtime(startTimeDescription);
+    const endTimeDescription = rpaReg.time.exec(description)?.[0];
+    const endTime = convertHtime(endTimeDescription);
+    const days = getDaysOfWeekFromInterval(description)["days"];
 
-    timeSpan["effectiveDates"] = getEffectiveDates(description);
-    timeSpan["daysOfWeek"] = getDaysOfWeek(description);
-    timeSpan["timesOfDay"] = getTimesOfDay(description);
+    // start timeSpan
+    timeSpans.push({
+        "effectiveDates": effectiveDates,
+        "daysOfWeek": {"days": [days[0]]},
+        "timesOfDay": {"from": startTime, "to": "23:59"}
+    });
 
-    if (Object.values(timeSpan).some( (value) => value !== undefined) ) {
-        timeSpans.push(timeSpan);
+    // midde timeSpans
+    if (days.length > 2) {
+        timeSpans.push({
+            "effectiveDates": effectiveDates,
+            "daysOfWeek": {"days": days.slice(1, days.length-1)},
+            "timesOfDay": {"from": "00:00", "to": "23:59"}
+        });
     }
 
+    // end timeSpan
+    timeSpans.push({
+        "effectiveDates": effectiveDates,
+        "daysOfWeek": {"days": [days[days.length-1]]},
+        "timesOfDay": {"from": "00:00", "to": endTime}
+    });
+
+    return timeSpans
+}
+
+// Return a single timespan for all syntaxes except the one handled by getTimeSpansFromDaysOverlapSyntax
+// ex: "1H-2H", "LUN À VEN", "LUN ET VEN", "LUN 1H-2H", "1H-2H LUN"
+function getTimeSpan(description, effectiveDates) {
+    const timeSpan = {};
+
+    timeSpan["effectiveDates"] = effectiveDates;
+    timeSpan["daysOfWeek"] = getDaysOfWeek(description);
+    timeSpan["timesOfDay"] = getTimesOfDay(description);
+    
+    return timeSpan;
+}
+
+function getTimeSpans(description) {
+    const timeSpans = [];
+
+    // We assume there is only one set of effective dates
+    const effectiveDates = getEffectiveDates(description);
+
+    let timeSpanDescription;
+    while (timeSpanDescription = rpaReg.weekTime.exec(description)?.[0]) {
+
+        rpaReg.weekTimeDaysOverlap.lastIndex = 0;
+        if (rpaReg.weekTimeDaysOverlap.exec(timeSpanDescription)) {
+            // special syntax
+            const daysOverlapTimespans = getTimeSpansFromDaysOverlapSyntax(timeSpanDescription, effectiveDates);
+            timeSpans.push(...daysOverlapTimespans);
+        }
+        else {
+            // All the other syntaxes can be handled the same way
+            const timeSpan = getTimeSpan(timeSpanDescription, effectiveDates);
+            timeSpans.push(timeSpan);
+        }
+    }
+    rpaReg.weekTime.lastIndex = 0;
+    
     return (timeSpans.length != 0) ? timeSpans : undefined;
 }
 
@@ -320,4 +378,5 @@ module.exports = {
     extractDayOfWeek,
     getDaysOfWeekFromEnumeration,
     getDaysOfWeekFromInterval,
+    getTimeSpansFromDaysOverlapSyntax,
 };

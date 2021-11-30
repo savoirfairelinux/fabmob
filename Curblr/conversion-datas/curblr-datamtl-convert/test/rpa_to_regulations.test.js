@@ -269,6 +269,7 @@ describe("getDaysOfWeek", () => {
         ["LUN À VEN", {"days": ["mo", "tu", "we", "th", "fr"] }],
         ["LUN TEST VEN", {"days": ["mo", "tu", "we", "th", "fr"] }], // The separator does not actually matters
         ["VEN DIM", {"days": ["fr", "sa", "su"] }], // The separator does not actually matters
+        ["DIM À LUN", {"days": ["su", "mo"] }],
         ["1h À 2h", undefined]
     ])("getDaysOfWeekFromInterval('%s')", (description, expected) => {
         const result = rpaToRegulations.getDaysOfWeekFromInterval(description);
@@ -306,14 +307,26 @@ describe("getDaysOfWeek", () => {
         ["VEN LUN", {"days": ["fr", "mo"]}],
         ["LUN VEN MAR", {"days": ["mo", "fr", "tu"]}],
         ["LUN VEN MAR MER", {"days": ["mo", "fr", "tu", "we"]}],
+        ["SAM A LUN", {"days": ["sa", "su", "mo"]}],
         ["LUN B VEN", {"days": ["mo", "fr"]}], // uncertain 
         ["LUN ET LUN", {"days": ["mo", "mo"]}], // uncertain
         ["LUN AU VENA", undefined], // uncertain
-        ["SAM A LUN", undefined], // uncertain
         ["1 DEC. AU 1 AVRIL", undefined],
-        //["P 60 MIN 09H-18H LUN. MAR. MER. SAM. 09H-21H JEU. VEN.", undefined]
     ])("getDaysOfWeek('%s')", (description, expected) => {
         const daysOfWeek = rpaToRegulations.getDaysOfWeek(description);
         expect(daysOfWeek).toStrictEqual(expected);
     });
+});
+
+describe("getTimeSpans", () => {
+    test.each([
+        ["LUN 17H À MAR 17H", [{"effectiveDates": undefined, "daysOfWeek": {"days": ["mo"]}, "timesOfDay": {"from": "17:00", "to": "23:59"}},
+                               {"effectiveDates": undefined, "daysOfWeek": {"days": ["tu"]}, "timesOfDay": {"from": "00:00", "to": "17:00"}}]],
+        ["LUN 17H À VEN 17H", [{"effectiveDates": undefined, "daysOfWeek": {"days": ["mo"]}, "timesOfDay": {"from": "17:00", "to": "23:59"}},
+                               {"effectiveDates": undefined, "daysOfWeek": {"days": ["tu", "we", "th"]}, "timesOfDay": {"from": "00:00", "to": "23:59"}},
+                               {"effectiveDates": undefined, "daysOfWeek": {"days": ["fr"]}, "timesOfDay": {"from": "00:00", "to": "17:00"}}]],
+    ])("getTimeSpansFromDaysOverlapSyntax('%s')", (description, expected) => {
+        const result = rpaToRegulations.getTimeSpansFromDaysOverlapSyntax(description);
+        expect(result).toStrictEqual(expected);
+    })
 });

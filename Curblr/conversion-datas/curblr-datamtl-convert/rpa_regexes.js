@@ -66,11 +66,16 @@ const weekTimeDaysAbsent = new RegExp(weekTimeDaysAbsentStr, "ig");
 
 // Matches week times, for which the hours are absent
 // days sequence, not preceded by hours and spaces, not followed by hours and spaces.
-const weekTimeDaysOnlyStr = `(?<!(?:${timesSequenceStr})${separatorDaysWithTimeStr})(?:${daysOfTimeSpanStr})(?!${separatorDaysWithTimeStr}(?:${timesSequenceStr}))`
+const weekTimeDaysOnlyStr = `(?<!(?:${timeStr})${separatorDaysWithTimeStr})(?:${daysOfTimeSpanStr})(?!${separatorDaysWithTimeStr}(?:${timeStr}))`
 const weekTimeDaysOnly = new RegExp(weekTimeDaysOnlyStr, "ig");
 
+// Match periods of time that overlap over multiple days
+// ex: MER 17H À JEU 17H
+const weekTimeDaysOverlapStr = `(${anyDayOfWeekStr})(${separatorDaysWithTimeStr}${timeStr})\\s+À\\s+(${anyDayOfWeekStr})(${separatorDaysWithTimeStr}${timeStr})`;
+const weekTimeDaysOverlap = new RegExp(weekTimeDaysOverlapStr, "ig");
+
 // Match any syntax of week times
-const weekTimeStr = `(?:${weekTimeDaysFirstStr}|${weekTimeDaysSecondStr}|${weekTimeDaysAbsentStr}|${weekTimeDaysOnlyStr})`;
+const weekTimeStr = `(?:(${weekTimeDaysFirstStr})|(${weekTimeDaysSecondStr})|(${weekTimeDaysAbsentStr})|(${weekTimeDaysOnlyStr})|(${weekTimeDaysOverlapStr}))`;
 const weekTime = new RegExp(weekTimeStr, "ig");
 
 // mapping of months names with the regex that will match that month
@@ -167,7 +172,8 @@ module.exports = {
     anyTimespan,
     weekTimeDaysFirst,
     weekTimeDaysSecond,
-    weekTime,
     weekTimeDaysAbsent,
     weekTimeDaysOnly,
+    weekTimeDaysOverlap,
+    weekTime,
 }
