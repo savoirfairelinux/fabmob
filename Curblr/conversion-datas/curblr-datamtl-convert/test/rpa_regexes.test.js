@@ -14,8 +14,8 @@ describe("times", () => {
         ["1ah", false],
         ["h30", false],
     ])("time.test('%s')", (value, expected) => {
-        const result = rpaRegex.time.test(value);
         rpaRegex.time.lastIndex = 0;
+        const result = rpaRegex.time.test(value);
         expect(result).toBe(expected);
     });
 
@@ -40,8 +40,8 @@ describe("times", () => {
         ["1hàa2h", false],
         ["lundi à vendredi", false],
     ])("timeInterval.test('%s')", (value, expected) => {
-        const result = rpaRegex.timeInterval.test(value);
         rpaRegex.timeInterval.lastIndex = 0;
+        const result = rpaRegex.timeInterval.test(value);
         expect(result).toBe(expected);
     });
 
@@ -89,8 +89,8 @@ describe("days", () => {
         ["MONDAY", false],
         ["MARS", false],
     ])("anyDayOfWeek.test('%s')", (value, expected) => {
-        const result = rpaRegex.anyDayOfWeek.test(value);
         rpaRegex.anyDayOfWeek.lastIndex = 0;
+        const result = rpaRegex.anyDayOfWeek.test(value);
         expect(result).toBe(expected);
     });
 
@@ -102,8 +102,8 @@ describe("days", () => {
         ["LUN VEN", false],
         ["1h À 2h", false]
     ])("daysOfWeekInterval.test('%s')", (value, expected) => {
+        rpaRegex.daysOfWeekInterval.lastIndex = 0;
         const result = rpaRegex.daysOfWeekInterval.test(value);
-        rpaRegex.daysOfWeekInterval.lastIndex = 0
         expect(result).toBe(expected);
     });
 
@@ -117,8 +117,8 @@ describe("days", () => {
         ["1h-2h LUN MAR", "LUN MAR"],
         ["LUN A MER", undefined],
     ])("rpaRegex.daysOfWeekEnumeration.exec('%s')[0]", (value, expected) => {
+        rpaRegex.daysOfWeekEnumeration.lastIndex = 0;
         const result = rpaRegex.daysOfWeekEnumeration.exec(value)?.[0];
-        rpaRegex.daysOfWeekEnumeration.lastIndex = 0
         expect(result).toBe(expected);
     });
 });
