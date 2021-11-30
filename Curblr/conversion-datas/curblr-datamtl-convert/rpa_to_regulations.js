@@ -276,22 +276,24 @@ function getTimeSpan(description, effectiveDates) {
 function getTimeSpans(description) {
     const timeSpans = [];
 
-    // We assume there is only one set of effective dates
-    const effectiveDates = getEffectiveDates(description);
-
-    let timeSpanDescription;
-    rpaReg.weekTime.lastIndex = 0;
-    while (timeSpanDescription = rpaReg.weekTime.exec(description)?.[0]) {
-        rpaReg.weekTimeDaysOverlap.lastIndex = 0;
-        if (rpaReg.weekTimeDaysOverlap.exec(timeSpanDescription)) {
-            // special syntax
-            const daysOverlapTimespans = getTimeSpansFromDaysOverlapSyntax(timeSpanDescription, effectiveDates);
-            timeSpans.push(...daysOverlapTimespans);
-        }
-        else {
-            // All the other syntaxes can be handled the same way
-            const timeSpan = getTimeSpan(timeSpanDescription, effectiveDates);
-            timeSpans.push(timeSpan);
+    let sameDatesTimeSpanDescription;
+    rpaReg.sameDatesTimeSpan.lastIndex = 0;
+    while (sameDatesTimeSpanDescription = rpaReg.sameDatesTimeSpan.exec(description)?.[0]) {
+        const effectiveDates = getEffectiveDates(sameDatesTimeSpanDescription);
+        let timeSpanDescription;
+        rpaReg.weekTime.lastIndex = 0;
+        while (timeSpanDescription = rpaReg.weekTime.exec(sameDatesTimeSpanDescription)?.[0]) {
+            rpaReg.weekTimeDaysOverlap.lastIndex = 0;
+            if (rpaReg.weekTimeDaysOverlap.exec(timeSpanDescription)) {
+                // special syntax
+                const daysOverlapTimespans = getTimeSpansFromDaysOverlapSyntax(timeSpanDescription, effectiveDates);
+                timeSpans.push(...daysOverlapTimespans);
+            }
+            else {
+                // All the other syntaxes can be handled the same way
+                const timeSpan = getTimeSpan(timeSpanDescription, effectiveDates);
+                timeSpans.push(timeSpan);
+            }
         }
     }
     

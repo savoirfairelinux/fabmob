@@ -510,3 +510,28 @@ describe( "dates", () => {
         expect(result).toBe(expected);
     });
 });
+
+describe("sameDatesTimeSpan", () => {
+    test.each([
+        ["\\A 08h-9h30 ET 15h-16h JOURS D`ECOLE", "08h-9h30 ET 15h-16h "],
+        ["\\P RESERVE AUTOBUS TOURISTIQUES 07h-09h 01/05 AU 01/10", "07h-09h 01/05 AU 01/10"],
+        ["\\P RESERVE S3R 18h-23h LUN.AU VEN., 9h-23h SAM.ET DIM.", "18h-23h LUN.AU VEN., 9h-23h SAM.ET DIM."],
+        ["LUN 17H À MAR 17H - MER 17H À JEU 17H - VEN 17H À SAM 17H", "LUN 17H À MAR 17H - MER 17H À JEU 17H - VEN 17H À SAM 17H"],
+        ["1h-2h 1er jan à 2 fev. 3h30 @ 4h mars 3 au avril 4", "1h-2h 1er jan à 2 fev."],
+        ["9H À 17H LUN MER VEN 15 NOV AU 15 MARS, 11H À 12H MERCREDI 15 MARS AU 15 NOV", "9H À 17H LUN MER VEN 15 NOV AU 15 MARS"],
+    ])("rpaRegex.sameDatesTimeSpan.exec('%s')?.[0]", (value, expected) => {
+        rpaRegex.sameDatesTimeSpan.lastIndex = 0;
+        const result = rpaRegex.sameDatesTimeSpan.exec(value)?.[0];
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["1h-2h 1er jan à 2 fev. 3h30 @ 4h mars 3 au avril 4", "3h30 @ 4h mars 3 au avril 4"],
+        ["9H À 17H LUN MER VEN 15 NOV AU 15 MARS, 11H À 12H MERCREDI 15 MARS AU 15 NOV", "11H À 12H MERCREDI 15 MARS AU 15 NOV"],
+    ])("rpaRegex.sameDatesTimeSpan.exec('%s')  second call", (value, expected) => {
+        rpaRegex.sameDatesTimeSpan.lastIndex = 0;
+        rpaRegex.sameDatesTimeSpan.exec(value)?.[0]; // first call
+        const result = rpaRegex.sameDatesTimeSpan.exec(value)?.[0]; // second call
+        expect(result).toBe(expected);
+    });
+})

@@ -329,4 +329,69 @@ describe("getTimeSpans", () => {
         const result = rpaToRegulations.getTimeSpansFromDaysOverlapSyntax(description);
         expect(result).toStrictEqual(expected);
     })
+
+    test.each([
+        [
+            "9H À 17H",
+            [{
+              "effectiveDates": undefined,
+              "daysOfWeek": undefined,
+              "timesOfDay": [{ "from": "09:00", "to": "17:00"}]
+            }]
+        ],
+        [
+            "LUN MER VEN",
+            [{
+              "effectiveDates": undefined,
+              "daysOfWeek": {"days": ["mo", "we", "fr"]},
+              "timesOfDay": undefined
+            }]
+        ],
+        [ // not handled
+            "15 NOV AU 15 MARS",
+            undefined
+        ],
+        [
+            "18h-23h LUN.AU VEN., 9h-23h SAM.ET DIM.",
+            [{
+              "effectiveDates": undefined,
+              "daysOfWeek": {"days": ["mo", "tu", "we", "th", "fr"]},
+              "timesOfDay": [{ "from": "18:00", "to": "23:00"}]
+            },
+            {
+              "effectiveDates": undefined,
+              "daysOfWeek": {"days": ["sa", "su"]},
+              "timesOfDay": [{"from": "09:00", "to": "23:00"}]
+            }]
+        ],
+        [
+            "9H À 17H LUN MER VEN 15 NOV AU 15 MARS, 11H À 12H MERCREDI 15 MARS AU 15 NOV",
+            [{
+              "effectiveDates": [{ "from": "11-15", "to": "03-15"}],
+              "daysOfWeek": {"days": ["mo", "we", "fr"]},
+              "timesOfDay": [{ "from": "09:00", "to": "17:00"}]
+            },
+            {
+              "effectiveDates": [{ "from": "03-15", "to": "11-15"}],
+              "daysOfWeek": {"days": ["we"]},
+              "timesOfDay": [{"from": "11:00", "to": "12:00"}]
+            }]
+        ],
+        [
+            "LUN 17H À MAR 17H 01/03 AU 01/12", 
+            [{
+                "effectiveDates": [{"from": "03-01", "to": "12-01"}],
+                "daysOfWeek": {"days": ["mo"]},
+                "timesOfDay": {"from": "17:00", "to": "23:59"}
+            },
+            {
+                "effectiveDates": [{"from": "03-01", "to": "12-01"}],
+                "daysOfWeek": {"days": ["tu"]},
+                "timesOfDay": {"from": "00:00", "to": "17:00"}
+            }]
+        ],
+    ])("getTimeSpans('%s')", (description, expected) => {
+        const result = rpaToRegulations.getTimeSpans(description);
+        expect(result).toStrictEqual(expected);
+    })
 });

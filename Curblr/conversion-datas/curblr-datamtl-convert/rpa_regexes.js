@@ -139,6 +139,11 @@ const daysOfMonthIntervalSlashed = new RegExp(daysOfMonthIntervalSlashedStr, "i"
 const daysOfMonthIntervalStr = `(?:${daysOfMonthIntervalDayFirstStr})|(?:${daysOfMonthIntervalDaySecondStr})|${daysOfMonthIntervalDayAbsentStr}|${daysOfMonthIntervalSlashedStr}`;
 const daysOfMonthInterval = new RegExp(daysOfMonthIntervalStr, "i");
 
+// Match timespans that occur on the same date
+// For example, "1h-2h 1er jan à 2 fev. 3h30 @ 4h mars 3 au avril 4" will match on "1h-2h 1er jan à 2 fev." and "3h30 @ 4h mars 3 au avril 4"
+const sameDatesTimeSpanStr = `(${weekTimeStr}\\s*([-,]?)?\\s*)+(${daysOfMonthIntervalStr})?`;
+const sameDatesTimeSpan = new RegExp(sameDatesTimeSpanStr, "ig");
+
 const anyTimespanStr = [
     timeStr,
     maxStayStr,
@@ -176,4 +181,5 @@ module.exports = {
     weekTimeDaysOnly,
     weekTimeDaysOverlap,
     weekTime,
+    sameDatesTimeSpan
 }
