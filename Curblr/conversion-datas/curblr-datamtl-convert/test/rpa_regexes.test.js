@@ -99,6 +99,7 @@ describe("days", () => {
         ["LUN A VEN", true],
         ["LUN AU VEN", true],
         ["LUN. AU VEN.", true],
+        ["LUN.AU VEN.", true],
         ["LUN VEN", false],
         ["1h À 2h", false]
     ])("daysOfWeekInterval.test('%s')", (value, expected) => {
@@ -114,6 +115,7 @@ describe("days", () => {
         ["LUN ET MAR ET MER", "LUN ET MAR ET MER"],
         ["LUN MAR ET MER", "LUN MAR ET MER"],
         ["LUN ET MAR MER", "LUN ET MAR MER"],
+        ["LUN.ET VEN.", "LUN.ET VEN."],
         ["1h-2h LUN MAR", "LUN MAR"],
         ["LUN A MER", undefined],
     ])("rpaRegex.daysOfWeekEnumeration.exec('%s')[0]", (value, expected) => {

@@ -37,11 +37,11 @@ const anyDayOfWeek = new RegExp(anyDayOfWeekStr, "ig");
 
 // regex that will match any interval of days
 // Day of week not preceded or followed by A|À|AU, optionnaly followed by ET, and optionnaly followed by more days
-const daysOfWeekIntervalStr = `(${anyDayOfWeekStr})\\s+(?:A|À|AU)\\s+(${anyDayOfWeekStr})`;
+const daysOfWeekIntervalStr = `(${anyDayOfWeekStr})\\s*(?:A|À|AU)\\s+(${anyDayOfWeekStr})`;
 const daysOfWeekInterval = new RegExp(daysOfWeekIntervalStr, "ig");
 
 // Matches an enumeration of days
-const daysOfWeekEnumerationStr = `(?<!(?:A|À|AU)\\s+)(${anyDayOfWeekStr})(?!\\s+(?:A|À|AU))(?:\\s+(?:et\\s+)?(?:${anyDayOfWeekStr}))*`
+const daysOfWeekEnumerationStr = `(?<!(?:A|À|AU)\\s+)(${anyDayOfWeekStr})(?!\\s*(?:A|À|AU))(?:\\s*(?:et\\s+)?(?:${anyDayOfWeekStr}))*`
 const daysOfWeekEnumeration = new RegExp(daysOfWeekEnumerationStr, "ig");
 
 // Either an interval of days or an enumeration of days
