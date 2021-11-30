@@ -44,9 +44,33 @@ const daysOfWeekInterval = new RegExp(daysOfWeekIntervalStr, "ig");
 const daysOfWeekEnumerationStr = `(?<!(?:A|À|AU)\\s+)(${anyDayOfWeekStr})(?!\\s+(?:A|À|AU))(?:\\s+(?:et\\s+)?(?:${anyDayOfWeekStr}))*`
 const daysOfWeekEnumeration = new RegExp(daysOfWeekEnumerationStr, "ig");
 
-// Matches week times
+// Either an interval of days or an enumeration of days
+const daysOfTimeSpanStr = `(?:${daysOfWeekIntervalStr})|(?:${daysOfWeekEnumerationStr})`;
+
+const separatorDaysWithTimeStr = "\\s*(?:-\\s*)?"
+
+// Matches week times, for which the days come before the times
+// days of week, followed by spaces and optionally a -, followed by time sequence
+const weekTimeDaysFirstStr = `(?:${daysOfTimeSpanStr})${separatorDaysWithTimeStr}(?:${timesSequenceStr})`
+const weekTimeDaysFirst = new RegExp(weekTimeDaysFirstStr, "ig");
+
+// Matches week times, for which the days come after the times
 // time sequence, followed by spaces and optionally a -, followed by days of week
-const weekTimeStr = `(?:${timesSequenceStr})\\s*(?:-\\s*)?(?:(?:${daysOfWeekIntervalStr})|(?:${daysOfWeekEnumerationStr}))?`
+const weekTimeDaysSecondStr = `(?:${timesSequenceStr})${separatorDaysWithTimeStr}(?:(?:${daysOfTimeSpanStr}))`
+const weekTimeDaysSecond = new RegExp(weekTimeDaysSecondStr, "ig");
+
+// Matches week times, for which the days are absent
+// time sequence, not preceded by days and spaces, not followed by days and spaces.
+const weekTimeDaysAbsentStr = `(?<!(?:${anyDayOfWeekStr})${separatorDaysWithTimeStr})(?:${timesSequenceStr})(?!${separatorDaysWithTimeStr}(?:${anyDayOfWeekStr}))`
+const weekTimeDaysAbsent = new RegExp(weekTimeDaysAbsentStr, "ig");
+
+// Matches week times, for which the hours are absent
+// days sequence, not preceded by hours and spaces, not followed by hours and spaces.
+const weekTimeDaysOnlyStr = `(?<!(?:${timesSequenceStr})${separatorDaysWithTimeStr})(?:${daysOfTimeSpanStr})(?!${separatorDaysWithTimeStr}(?:${timesSequenceStr}))`
+const weekTimeDaysOnly = new RegExp(weekTimeDaysOnlyStr, "ig");
+
+// Match any syntax of week times
+const weekTimeStr = `(?:${weekTimeDaysFirstStr}|${weekTimeDaysSecondStr}|${weekTimeDaysAbsentStr}|${weekTimeDaysOnlyStr})`;
 const weekTime = new RegExp(weekTimeStr, "ig");
 
 // mapping of months names with the regex that will match that month
@@ -141,5 +165,9 @@ module.exports = {
     daysOfMonthIntervalSlashed,
     daysOfMonthInterval,
     anyTimespan,
-    weekTime
+    weekTimeDaysFirst,
+    weekTimeDaysSecond,
+    weekTime,
+    weekTimeDaysAbsent,
+    weekTimeDaysOnly,
 }

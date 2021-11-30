@@ -127,7 +127,26 @@ describe("days", () => {
     
 describe( "times of week", () => {
     test.each([
-        ["1h-2h", "1h-2h"],
+        ["LUN 1h-2h", "LUN 1h-2h"],
+        ["LUN 1h-2h 3h-4h", "LUN 1h-2h 3h-4h"],
+        ["LUN MAR 1h-2h", "LUN MAR 1h-2h"],
+        ["LUN. MAR. 1h-2h", "LUN. MAR. 1h-2h"],
+        ["LUN MAR 1h-2h 3h-4h", "LUN MAR 1h-2h 3h-4h"],
+        ["LUN À MAR 1h-2h", "LUN À MAR 1h-2h"],
+        ["LUN 1h-2h MAR 3h-4h ", "LUN 1h-2h"],
+        ["MARDI - 8H à 16H30", "MARDI - 8H à 16H30"],
+        ["LUN MER VEN 8H À 12H - MAR JEU 13H À 17H", "LUN MER VEN 8H À 12H"],
+        ["1h-2h", undefined],
+        ["LUN", undefined],
+        ["1h-2h LUN", undefined],
+    ])("rpaRegex.weekTimeDaysFirst.exec('%s')[0]", (value, expected) => {
+        rpaRegex.weekTimeDaysFirst.lastIndex = 0;
+        const result = rpaRegex.weekTimeDaysFirst.exec(value)?.[0];
+        expect(result).toBe(expected);
+    });
+
+
+    test.each([
         ["1h-2h LUN", "1h-2h LUN"],
         ["1h-2h 3h-4h LUN", "1h-2h 3h-4h LUN"],
         ["1h-2h LUN MAR", "1h-2h LUN MAR"],
@@ -135,10 +154,13 @@ describe( "times of week", () => {
         ["1h-2h 3h-4h LUN MAR", "1h-2h 3h-4h LUN MAR"],
         ["1h-2h LUN À MAR", "1h-2h LUN À MAR"],
         ["1h-2h LUN 3h-4h MAR", "1h-2h LUN"],
-        ["8H à 16H30 - MARDI", "8H à 16H30 - MARDI"]
-    ])("rpaRegex.weekTime.exec('%s')[0]", (value, expected) => {
-        rpaRegex.weekTime.lastIndex = 0;
-        const result = rpaRegex.weekTime.exec(value)?.[0];
+        ["8H à 16H30 - MARDI", "8H à 16H30 - MARDI"],
+        ["1h-2h", undefined],
+        ["LUN", undefined],
+        ["LUN 1h-2h", undefined],
+    ])("rpaRegex.weekTimeDaysSecond.exec('%s')[0]", (value, expected) => {
+        rpaRegex.weekTimeDaysSecond.lastIndex = 0;
+        const result = rpaRegex.weekTimeDaysSecond.exec(value)?.[0];
         expect(result).toBe(expected);
     });
 
@@ -148,10 +170,51 @@ describe( "times of week", () => {
         ["1h-2h LUN, 3h-4h MAR. MER.", "3h-4h MAR. MER."],
         ["1h-2h LUN, 3h-4h 5h-6h MAR", "3h-4h 5h-6h MAR"],
         ["1h-2h LUN", undefined],
-    ])("rpaRegex.weekTime.exec('%s')[0] second call", (value, expected) => {
+    ])("rpaRegex.weekTimeDaysSecond.exec('%s')[0] second call", (value, expected) => {
+        rpaRegex.weekTimeDaysSecond.lastIndex = 0;
+        rpaRegex.weekTimeDaysSecond.exec(value); // first call
+        const result = rpaRegex.weekTimeDaysSecond.exec(value)?.[0]; // second call
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["1h-2h", "1h-2h"],
+        ["1h-2h 3h-4h", "1h-2h 3h-4h"],
+        ["LUN", undefined],
+        ["LUN 1h-2h", undefined],
+        ["1h-2h LUN", undefined],
+    ])("rpaRegex.weekTimeDaysAbsent.exec('%s')[0]", (value, expected) => {
+        rpaRegex.weekTimeDaysAbsent.lastIndex = 0;
+        const result = rpaRegex.weekTimeDaysAbsent.exec(value)?.[0];
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["LUN", "LUN"],
+        ["LUN MAR", "LUN MAR"],
+        ["1h-2h", undefined],
+        ["LUN 1h-2h", undefined],
+        ["1h-2h LUN", undefined],
+    ])("rpaRegex.weekTimeDaysOnly.exec('%s')[0]", (value, expected) => {
+        rpaRegex.weekTimeDaysOnly.lastIndex = 0;
+        const result = rpaRegex.weekTimeDaysOnly.exec(value)?.[0];
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["1h-2h", "1h-2h"],
+        ["1h-2h LUN", "1h-2h LUN"],
+        ["1h-2h 3h-4h LUN", "1h-2h 3h-4h LUN"],
+        ["1h-2h LUN MAR", "1h-2h LUN MAR"],
+        ["1h-2h LUN. MAR.", "1h-2h LUN. MAR."],
+        ["1h-2h 3h-4h LUN MAR", "1h-2h 3h-4h LUN MAR"],
+        ["1h-2h LUN À MAR", "1h-2h LUN À MAR"],
+        ["1h-2h LUN 3h-4h MAR", "1h-2h LUN"],
+        ["8H à 16H30 - MARDI", "8H à 16H30 - MARDI"],
+        ["LUN 1h-2h", "LUN 1h-2h"],
+    ])("rpaRegex.weekTime.exec('%s')[0]", (value, expected) => {
         rpaRegex.weekTime.lastIndex = 0;
-        rpaRegex.weekTime.exec(value); // first call
-        const result = rpaRegex.weekTime.exec(value)?.[0]; // second call
+        const result = rpaRegex.weekTime.exec(value)?.[0];
         expect(result).toBe(expected);
     });
 });
