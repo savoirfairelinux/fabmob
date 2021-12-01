@@ -30,7 +30,7 @@ function getActivity(description, timeSpans, maxStay) {
     } else if(description.startsWith("PANONCEAU ") || description.startsWith("PANNONCEAU")) {
         // Panonceaux modify an other sign.
         // Therefore they do not have an activity of their own, but they nevertheless have the activity of the sign they modify.
-        return undefined;
+        return "panonceau";
     }
 
     // if there is no explicit indications about the activity:
@@ -47,7 +47,7 @@ function getActivity(description, timeSpans, maxStay) {
         return 'no parking';
     }
 
-    return 'no activity';
+    return 'irrelevant';
 }
 
 function getMaxStay(description) {
@@ -342,12 +342,18 @@ function getRule(description, timeSpans) {
     const maxStay = getMaxStay(description);
     const activity = getActivity(description, timeSpans, maxStay);
 
-    if (activity === 'no activity') {
-        // a rule cannot have no activity
-        return undefined;
+    if (activity === "irrelevant") {
+        return activity;
     }
 
-    return { activity, maxStay }
+    const rule = { activity, maxStay };
+
+    if (rule.activity === "panonceau") {
+        // keeping rule clean
+        rule.activity = undefined;
+    }
+
+    return (rule.activity || rule.maxStay) ? rule : undefined;
 }
 
 function getRegulations(description) {
@@ -355,15 +361,15 @@ function getRegulations(description) {
     const timeSpans = getTimeSpans(description);
     const rule = getRule(description, timeSpans);
 
-    if (!rule) {
-        // Nothing can be done if there is no rule.
+    if (rule === "irrelevant") {
+        // There's nothing useful to do
         return undefined;
     }
 
     const regulation = {
         // we assume regulations with timeSpans are more specific than those without, thus have higher priority
         "priorityCategory": timeSpans ? "3" : "4",
-        "rule": rule,
+        "rule": rule, 
         "timeSpans": timeSpans
     };
 
@@ -412,6 +418,7 @@ module.exports = {
     getMaxStay,
     getDaysOfWeek,
     getEffectiveDates,
+    getRule,
     getRegulations,
     getTimeSpans,
     descriptionContainsTimespan,

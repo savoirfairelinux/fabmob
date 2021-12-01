@@ -56,24 +56,24 @@ describe("getActivity", () => {
         [["P PANONCEAU",  undefined, undefined], "parking"],
         [["",  undefined, 10], "parking"],
         [["",  [], 10], "parking"],
-        [["PANONCEAU ",  undefined, undefined], undefined],
-        [["PANNONCEAU",  undefined, undefined], undefined],
-        [["\\P",  undefined, undefined], "no activity"],
-        [["/P",  undefined, undefined], "no activity"],
-        [["STAT. INT.",  undefined, undefined], "no activity"],
-        [[" STAT. INT. ",  undefined, undefined], "no activity"], // uncertain
-        [["INTERDICTION DE STAT.", undefined, undefined], "no activity"], // uncertain
-        [[" INTERDICTION DE STAT. ", undefined, undefined], "no activity"], // uncertain
-        [["STAT",  undefined, undefined], "no activity"],
-        [["\\A",  undefined, undefined], "no activity"],
-        [["\\AA",  undefined, undefined], "no activity"],
-        [["\\a ",  undefined, undefined], "no activity"],
-        [["A",  undefined, undefined], "no activity"],
-        [[" A",  undefined, undefined], "no activity"],
-        [["AA",  undefined, undefined], "no activity"],
-        [["P",  undefined, undefined], "no activity"],
-        [[" P",  undefined, undefined], "no activity"],
-        [[" PANNONCEAU",  undefined, undefined], "no activity"],
+        [["PANONCEAU ",  undefined, undefined], "panonceau"],
+        [["PANNONCEAU",  undefined, undefined], "panonceau"],
+        [["\\P",  undefined, undefined], "irrelevant"],
+        [["/P",  undefined, undefined], "irrelevant"],
+        [["STAT. INT.",  undefined, undefined], "irrelevant"],
+        [[" STAT. INT. ",  undefined, undefined], "irrelevant"], // uncertain
+        [["INTERDICTION DE STAT.", undefined, undefined], "irrelevant"], // uncertain
+        [[" INTERDICTION DE STAT. ", undefined, undefined], "irrelevant"], // uncertain
+        [["STAT",  undefined, undefined], "irrelevant"],
+        [["\\A",  undefined, undefined], "irrelevant"],
+        [["\\AA",  undefined, undefined], "irrelevant"],
+        [["\\a ",  undefined, undefined], "irrelevant"],
+        [["A",  undefined, undefined], "irrelevant"],
+        [[" A",  undefined, undefined], "irrelevant"],
+        [["AA",  undefined, undefined], "irrelevant"],
+        [["P",  undefined, undefined], "irrelevant"],
+        [[" P",  undefined, undefined], "irrelevant"],
+        [[" PANNONCEAU",  undefined, undefined], "irrelevant"],
     ])("getActivity('%s')", (args, expected) => {
         const activity = rpaToRegulations.getActivity(...args);
         expect(activity).toBe(expected);
@@ -89,6 +89,20 @@ describe("getMaxStay", () => {
         const result = rpaToRegulations.getMaxStay(description);
         expect(result).toStrictEqual(expected);
     });
+});
+
+describe("getRule", () => {
+    test.each([
+        ["\\P 10min", {"activity": "no parking", "maxStay": 10}],
+        ["test", "irrelevant"],
+        ["10min", {"activity": "parking", "maxStay": 10}],
+        ["PANONCEAU ", undefined],
+        ["PANONCEAU 10min", {"activity": undefined, "maxStay": 10}],
+    ])("getRule('%s')", (description, expected) => {
+        const result = rpaToRegulations.getRule(description);
+        expect(result).toStrictEqual(expected);
+    });
+
 });
 
 describe("getTimesOfDay", () => {
