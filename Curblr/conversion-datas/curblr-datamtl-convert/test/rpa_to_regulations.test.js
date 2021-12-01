@@ -44,36 +44,38 @@ describe("tool functions", () => {
 
 describe("getActivity", () => {
     test.each([
-        ["\\P ", "no parking"],
-        ["/P ", "no parking"],
-        ["STAT. INT. ", "no parking"],
-        ["INTERDICTION DE STAT. ", "no parking"],
-        ["10h à 11h", "no parking"],
-        ["\\A ", "no standing"],
-        ["A ", "no standing"],
-        [" \\A ", "no standing"],
-        ["P ", "parking"],
-        ["P PANONCEAU", "parking"],
-        ["PANONCEAU ", undefined],
-        ["PANNONCEAU", undefined],
-        ["\\P", "no activity"],
-        ["/P", "no activity"],
-        ["STAT. INT.", "no activity"],
-        [" STAT. INT. ", "no activity"], // uncertain
-        ["INTERDICTION DE STAT.", "no activity"], // uncertain
-        [" INTERDICTION DE STAT. ", "no activity"], // uncertain
-        ["STAT", "no activity"],
-        ["\\A", "no activity"],
-        ["\\AA", "no activity"],
-        ["\\a ", "no activity"],
-        ["A", "no activity"],
-        [" A", "no activity"],
-        ["AA", "no activity"],
-        ["P", "no activity"],
-        [" P", "no activity"],
-        [" PANNONCEAU", "no activity"], // uncertain
-    ])("getActivity('%s')", (description, expected) => {
-        const activity = rpaToRegulations.getActivity(description);
+        [["\\P ",  undefined, undefined], "no parking"],
+        [["/P ",  undefined, undefined], "no parking"],
+        [["STAT. INT. ",  undefined, undefined], "no parking"],
+        [["INTERDICTION DE STAT. ",  undefined, undefined], "no parking"],
+        [["",  [], undefined], "no parking"],
+        [["\\A ",  undefined, undefined], "no standing"],
+        [["A ",  undefined, undefined], "no standing"],
+        [[" \\A ",  undefined, undefined], "no standing"],
+        [["P ",  undefined, undefined], "parking"],
+        [["P PANONCEAU",  undefined, undefined], "parking"],
+        [["",  undefined, 10], "parking"],
+        [["",  [], 10], "parking"],
+        [["PANONCEAU ",  undefined, undefined], undefined],
+        [["PANNONCEAU",  undefined, undefined], undefined],
+        [["\\P",  undefined, undefined], "no activity"],
+        [["/P",  undefined, undefined], "no activity"],
+        [["STAT. INT.",  undefined, undefined], "no activity"],
+        [[" STAT. INT. ",  undefined, undefined], "no activity"], // uncertain
+        [["INTERDICTION DE STAT.", undefined, undefined], "no activity"], // uncertain
+        [[" INTERDICTION DE STAT. ", undefined, undefined], "no activity"], // uncertain
+        [["STAT",  undefined, undefined], "no activity"],
+        [["\\A",  undefined, undefined], "no activity"],
+        [["\\AA",  undefined, undefined], "no activity"],
+        [["\\a ",  undefined, undefined], "no activity"],
+        [["A",  undefined, undefined], "no activity"],
+        [[" A",  undefined, undefined], "no activity"],
+        [["AA",  undefined, undefined], "no activity"],
+        [["P",  undefined, undefined], "no activity"],
+        [[" P",  undefined, undefined], "no activity"],
+        [[" PANNONCEAU",  undefined, undefined], "no activity"],
+    ])("getActivity('%s')", (args, expected) => {
+        const activity = rpaToRegulations.getActivity(...args);
         expect(activity).toBe(expected);
     });
 });

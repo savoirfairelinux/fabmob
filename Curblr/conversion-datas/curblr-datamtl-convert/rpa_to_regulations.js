@@ -19,7 +19,8 @@ function containsIrrelevantExpression(description) {
     return irrelevantExpressions.some( expression => description.includes(expression));
 }
 
-function getActivity(description) {
+function getActivity(description, timeSpans, maxStay) {
+    // if there is an explicit indication about the activity:
     if(description.includes("\\P ") || description.startsWith("/P ") || description.startsWith("STAT. INT. ") || description.startsWith("INTERDICTION DE STAT. ")) {
         return 'no parking';
     } else if(description.includes("\\A ") || description.startsWith("A ")) {
@@ -30,14 +31,23 @@ function getActivity(description) {
         // Panonceaux modify an other sign.
         // Therefore they do not have an activity of their own, but they nevertheless have the activity of the sign they modify.
         return undefined;
-    } else if (descriptionContainsTimespan(description)) {
+    }
+
+    // if there is no explicit indications about the activity:
+
+    if (maxStay) {
+        // We assume descriptions containing maxStay are parking
+        // This might be a wrong assumption
+        return 'parking';
+    }
+    
+    if (timeSpans && !maxStay) {
         // We assume descriptions containing timespan without further indications are no parking
         // This might be a wrong assumption
         return 'no parking';
     }
-    else {
-        return 'no activity';
-    }
+
+    return 'no activity';
 }
 
 function getMaxStay(description) {
@@ -321,24 +331,22 @@ function getTimeSpans(description) {
     return (timeSpans.length != 0) ? timeSpans : undefined;
 }
 
-function getRule(description) {
-    const activity = getActivity(description);
+function getRule(description, timeSpans) {
+    const maxStay = getMaxStay(description);
+    const activity = getActivity(description, timeSpans, maxStay);
 
     if (activity === 'no activity') {
         // a rule cannot have no activity
         return undefined;
     }
 
-    return {
-        activity,
-        "maxStay": getMaxStay(description)
-    }
+    return { activity, maxStay }
 }
 
 function getRegulations(description) {
     
     const timeSpans = getTimeSpans(description);
-    const rule = getRule(description);
+    const rule = getRule(description, timeSpans);
 
     if (!rule) {
         // Nothing can be done if there is no rule.
