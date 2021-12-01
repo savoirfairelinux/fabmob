@@ -54,27 +54,38 @@ describe("getActivity", () => {
         [" \\A ", "no standing"],
         ["P ", "parking"],
         ["P PANONCEAU", "parking"],
-        ["PANONCEAU ", null],
-        ["PANNONCEAU", null],
-        ["\\P", undefined],
-        ["/P", undefined],
-        ["STAT. INT.", undefined],
-        [" STAT. INT. ", undefined], // uncertain
-        ["INTERDICTION DE STAT.", undefined], // uncertain
-        [" INTERDICTION DE STAT. ", undefined], // uncertain
-        ["STAT", undefined],
-        ["\\A", undefined],
-        ["\\AA", undefined],
-        ["\\a ", undefined],
-        ["A", undefined],
-        [" A", undefined],
-        ["AA", undefined],
-        ["P", undefined],
-        [" P", undefined],
-        [" PANNONCEAU", undefined], // uncertain
+        ["PANONCEAU ", undefined],
+        ["PANNONCEAU", undefined],
+        ["\\P", "no activity"],
+        ["/P", "no activity"],
+        ["STAT. INT.", "no activity"],
+        [" STAT. INT. ", "no activity"], // uncertain
+        ["INTERDICTION DE STAT.", "no activity"], // uncertain
+        [" INTERDICTION DE STAT. ", "no activity"], // uncertain
+        ["STAT", "no activity"],
+        ["\\A", "no activity"],
+        ["\\AA", "no activity"],
+        ["\\a ", "no activity"],
+        ["A", "no activity"],
+        [" A", "no activity"],
+        ["AA", "no activity"],
+        ["P", "no activity"],
+        [" P", "no activity"],
+        [" PANNONCEAU", "no activity"], // uncertain
     ])("getActivity('%s')", (description, expected) => {
         const activity = rpaToRegulations.getActivity(description);
         expect(activity).toBe(expected);
+    });
+});
+
+describe("getMaxStay", () => {
+    test.each([
+        ["10min", 10],
+        ["2h", 120],
+        ["1h-2h", undefined]
+    ])("getMaxStay('%s')", (description, expected) => {
+        const result = rpaToRegulations.getMaxStay(description);
+        expect(result).toStrictEqual(expected);
     });
 });
 

@@ -6,9 +6,13 @@ function descriptionContainsTimespan(description) {
 }
 
 const irrelevantExpressions = [
-    "RUELLE FERMEE",
+    "COLLECTE DES ORDURES",
+    "DECHETS INTERDITS",
+    "HEURES D'OUVERTURE",
     "PASSAGE INTERDIT",
-    "DECHETS INTERDITS"
+    "RUELLE FERMEE",
+    "TOUR EN FIACRE",
+    
 ];
 
 function containsIrrelevantExpression(description) {
@@ -23,14 +27,31 @@ function getActivity(description) {
     } else if(description.startsWith("P ")) {
         return'parking';
     } else if(description.startsWith("PANONCEAU ") || description.startsWith("PANNONCEAU")) {
-        return null;
+        // Panonceaux modify an other sign.
+        // Therefore they do not have an activity of their own, but they nevertheless have the activity of the sign they modify.
+        return undefined;
     } else if (descriptionContainsTimespan(description)) {
         // We assume descriptions containing timespan without further indications are no parking
         // This might be a wrong assumption
         return 'no parking';
     }
     else {
+        return 'no activity';
+    }
+}
+
+function getMaxStay(description) {
+    const regexResult = rpaReg.maxStay.exec(description)?.["groups"];
+    if (!regexResult) {
         return undefined;
+    }
+    const {digits, unit} = regexResult;
+    const digitsInt = parseInt(digits);
+    if (unit.toUpperCase() =="H") {
+        return digitsInt*60;
+    }
+    else { // should be "min"
+        return digitsInt;
     }
 }
 
@@ -300,18 +321,34 @@ function getTimeSpans(description) {
     return (timeSpans.length != 0) ? timeSpans : undefined;
 }
 
-function getRegulations(description) {
+function getRule(description) {
     const activity = getActivity(description);
-    if (activity === undefined) {
+
+    if (activity === 'no activity') {
+        // a rule cannot have no activity
         return undefined;
     }
+
+    return {
+        activity,
+        "maxStay": getMaxStay(description)
+    }
+}
+
+function getRegulations(description) {
     
     const timeSpans = getTimeSpans(description);
+    const rule = getRule(description);
+
+    if (!rule) {
+        // Nothing can be done if there is no rule.
+        return undefined;
+    }
 
     const regulation = {
         // we assume regulations with timeSpans are more specific than those without, thus have higher priority
         "priorityCategory": timeSpans ? "3" : "4",
-        "rule": (activity === null) ? undefined : { activity },
+        "rule": rule,
         "timeSpans": timeSpans
     };
 
@@ -357,6 +394,7 @@ if (typeof require !== 'undefined' && require.main === module) {
 module.exports = {
     convert,
     getActivity,
+    getMaxStay,
     getDaysOfWeek,
     getEffectiveDates,
     getRegulations,

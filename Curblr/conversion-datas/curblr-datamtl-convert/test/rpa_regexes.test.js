@@ -59,6 +59,25 @@ describe("times", () => {
         const result = rpaRegex.timesSequence.exec(value)[0];
         expect(result).toBe(expected);
     });
+
+    test.each([
+        ["1 min", {"digits": "1", "unit": "min"}],
+        ["10 min", {"digits": "10", "unit": "min"}],
+        ["1 H", {"digits": "1", "unit": "H"}],
+        ["P 15 MIN. 7h-18h JOURS D'ECOLE", {"digits": "15", "unit": "MIN"}],
+        ["P 2h 09h-17h MAR ET VEN", {"digits": "2", "unit": "h"}],
+        ["1h-2h", undefined],
+        ["07h-19h", undefined],
+        ["06h30-08h30", undefined],
+        ["19h MERCREDI A DIMANCHE", {"digits": "19", "unit": "h"}],
+        ["19h MERCREDI A 20h DIMANCHE", undefined],
+        ["MERCREDI A DIMANCHE 19h", {"digits": "19", "unit": "h"}],
+        ["MERCREDI A DIMANCHE 19h-20h", undefined],
+        ["MERCREDI 19h A DIMANCHE 20h", undefined],
+    ])("rpaRex.maxStay.exec('%s')?.['groups']", (value, expected) => {
+        const result = rpaRegex.maxStay.exec(value)?.["groups"];
+        expect(result).toEqual(expected);
+    });
 });
 
 describe("days", () => {

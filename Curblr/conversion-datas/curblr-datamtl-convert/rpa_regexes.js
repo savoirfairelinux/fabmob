@@ -2,12 +2,9 @@
 const timeStr = "\\d{1,2}\\s*h\\d{0,2}";
 const time = new RegExp(timeStr, "ig");
 
-const timeIntervalStr = `(?:${timeStr})\\s*[Aaà@-]\\s*(?:${timeStr})`;
+const timeIntervalConnecterStr = "\\s*[Aaà@-]\\s*";
+const timeIntervalStr = `(?:${timeStr})${timeIntervalConnecterStr}(?:${timeStr})`;
 const timeInterval = new RegExp(timeIntervalStr, "ig");
-
-// one or two digits, followed by zero or more spaces, followed by "min"
-const maxStayStr = "\\d{1,2}\\s*min";
-const maxStay = new RegExp(maxStayStr, "i");
 
 // match a sequence of time intervals
 // examples: "6h-7h30", "6h-7h30, 8h-10",  or "6h-7h30 8h À 10h et 11h@12h"
@@ -35,13 +32,15 @@ const daysOfWeek = Object.entries(daysOfWeekStrs)
 const anyDayOfWeekStr = Object.values(daysOfWeekStrs).join("|");
 const anyDayOfWeek = new RegExp(anyDayOfWeekStr, "ig");
 
+const daysIntervalConnecterStr = "(?:A|À|AU)";
+
 // regex that will match any interval of days
 // Day of week not preceded or followed by A|À|AU, optionnaly followed by ET, and optionnaly followed by more days
-const daysOfWeekIntervalStr = `(${anyDayOfWeekStr})\\s*(?:A|À|AU)\\s+(${anyDayOfWeekStr})`;
+const daysOfWeekIntervalStr = `(${anyDayOfWeekStr})\\s*${daysIntervalConnecterStr}\\s+(${anyDayOfWeekStr})`;
 const daysOfWeekInterval = new RegExp(daysOfWeekIntervalStr, "ig");
 
 // Matches an enumeration of days
-const daysOfWeekEnumerationStr = `(?<!(?:A|À|AU)\\s+)(${anyDayOfWeekStr})(?!\\s*(?:A|À|AU))(?:\\s*(?:et\\s+)?(?:${anyDayOfWeekStr}))*`
+const daysOfWeekEnumerationStr = `(?<!${daysIntervalConnecterStr}\\s+)(${anyDayOfWeekStr})(?!\\s*${daysIntervalConnecterStr})(?:\\s*(?:et\\s+)?(?:${anyDayOfWeekStr}))*`
 const daysOfWeekEnumeration = new RegExp(daysOfWeekEnumerationStr, "ig");
 
 // Either an interval of days or an enumeration of days
@@ -143,6 +142,19 @@ const daysOfMonthInterval = new RegExp(daysOfMonthIntervalStr, "i");
 // For example, "1h-2h 1er jan à 2 fev. 3h30 @ 4h mars 3 au avril 4" will match on "1h-2h 1er jan à 2 fev." and "3h30 @ 4h mars 3 au avril 4"
 const sameDatesTimeSpanStr = `(${weekTimeStr}\\s*([-,]?)?\\s*)+(${daysOfMonthIntervalStr})?`;
 const sameDatesTimeSpan = new RegExp(sameDatesTimeSpanStr, "ig");
+
+// Basic form of a maxStay.
+// one or two digits, followed by zero or more whitespaces, followed by "min" or "h"
+const maxStayBasicStr = `(?<digits>\\d{1,2})\\s*(?<unit>min|h)`;
+// What should not be before a maxStay
+// A digit, or a timeIntervalConnecter, or a time followed by dayIntervalConnecter followed by a day of the week 
+const notBeforeMaxStayStr = `(?<!\\d|(?:${timeIntervalConnecterStr})|(?:(${timeStr})\\s*(${daysIntervalConnecterStr})\\s*(${anyDayOfWeekStr})\\s*))`;
+// What should not be after a maxStay
+// A digit, or timeIntervalConnecter, or a day of the week followed by a dayIntervalConnecter followed by a time
+const notAfterMaxStayStr = `(?!\\d|(?:${timeIntervalConnecterStr})|(?:\\s*(${anyDayOfWeekStr})\\s*(${daysIntervalConnecterStr})\\s*(${timeStr})))`;
+// Match maxStay
+const maxStayStr = `${notBeforeMaxStayStr}${maxStayBasicStr}${notAfterMaxStayStr}`;
+const maxStay = new RegExp(maxStayStr, "i");
 
 const anyTimespanStr = [
     timeStr,
