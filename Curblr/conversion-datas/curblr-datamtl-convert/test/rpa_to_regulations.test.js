@@ -352,6 +352,11 @@ describe("getTimeSpans", () => {
         ["LUN 17H À VEN 17H", [{"effectiveDates": undefined, "daysOfWeek": {"days": ["mo"]}, "timesOfDay": {"from": "17:00", "to": "23:59"}},
                                {"effectiveDates": undefined, "daysOfWeek": {"days": ["tu", "we", "th"]}, "timesOfDay": {"from": "00:00", "to": "23:59"}},
                                {"effectiveDates": undefined, "daysOfWeek": {"days": ["fr"]}, "timesOfDay": {"from": "00:00", "to": "17:00"}}]],
+        ["17H LUN À 17H MAR", [{"effectiveDates": undefined, "daysOfWeek": {"days": ["mo"]}, "timesOfDay": {"from": "17:00", "to": "23:59"}},
+                               {"effectiveDates": undefined, "daysOfWeek": {"days": ["tu"]}, "timesOfDay": {"from": "00:00", "to": "17:00"}}]],
+        ["17H LUN À 17H VEN", [{"effectiveDates": undefined, "daysOfWeek": {"days": ["mo"]}, "timesOfDay": {"from": "17:00", "to": "23:59"}},
+                               {"effectiveDates": undefined, "daysOfWeek": {"days": ["tu", "we", "th"]}, "timesOfDay": {"from": "00:00", "to": "23:59"}},
+                               {"effectiveDates": undefined, "daysOfWeek": {"days": ["fr"]}, "timesOfDay": {"from": "00:00", "to": "17:00"}}]],
     ])("getTimeSpansFromDaysOverlapSyntax('%s')", (description, expected) => {
         const result = rpaToRegulations.getTimeSpansFromDaysOverlapSyntax(description);
         expect(result).toStrictEqual(expected);
@@ -405,6 +410,19 @@ describe("getTimeSpans", () => {
         ],
         [
             "LUN 17H À MAR 17H 01/03 AU 01/12", 
+            [{
+                "effectiveDates": [{"from": "03-01", "to": "12-01"}],
+                "daysOfWeek": {"days": ["mo"]},
+                "timesOfDay": {"from": "17:00", "to": "23:59"}
+            },
+            {
+                "effectiveDates": [{"from": "03-01", "to": "12-01"}],
+                "daysOfWeek": {"days": ["tu"]},
+                "timesOfDay": {"from": "00:00", "to": "17:00"}
+            }]
+        ],
+        [
+            "17H LUN À 17H MAR 01/03 AU 01/12", 
             [{
                 "effectiveDates": [{"from": "03-01", "to": "12-01"}],
                 "daysOfWeek": {"days": ["mo"]},

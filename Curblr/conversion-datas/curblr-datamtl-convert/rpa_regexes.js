@@ -68,9 +68,19 @@ const weekTimeDaysAbsent = new RegExp(weekTimeDaysAbsentStr, "ig");
 const weekTimeDaysOnlyStr = `(?<!(?:${timeStr})${separatorDaysWithTimeStr})(?:${daysOfTimeSpanStr})(?!${separatorDaysWithTimeStr}(?:${timeStr}))`
 const weekTimeDaysOnly = new RegExp(weekTimeDaysOnlyStr, "ig");
 
-// Match periods of time that overlap over multiple days
+// Match periods of time that overlap over multiple days, for which the days come before the times
 // ex: MER 17H À JEU 17H
-const weekTimeDaysOverlapStr = `(${anyDayOfWeekStr})(${separatorDaysWithTimeStr}${timeStr})\\s+À\\s+(${anyDayOfWeekStr})(${separatorDaysWithTimeStr}${timeStr})`;
+const weekTimeDaysOverlapDayFirstStr = `(${anyDayOfWeekStr})(${separatorDaysWithTimeStr}${timeStr})\\s+(${daysIntervalConnecterStr})\\s+(${anyDayOfWeekStr})(${separatorDaysWithTimeStr}${timeStr})`;
+const weekTimeDaysOverlapDayFirst = new RegExp(weekTimeDaysOverlapDayFirstStr, "ig");
+
+// Match periods of time that overlap over multiple days, for wihch the days come after the times
+// ex: 17H MAR À 17H MER
+const weekTimeDaysOverlapDaySecondStr = `(${timeStr})(${separatorDaysWithTimeStr})(${anyDayOfWeekStr})\\s+(${daysIntervalConnecterStr})\\s+(${timeStr})(${separatorDaysWithTimeStr})(${anyDayOfWeekStr})`;
+const weekTimeDaysOverlapDaySecond = new RegExp(weekTimeDaysOverlapDaySecondStr, "ig");
+
+// Match periods of time that overlap over multiple days, both forms
+// ex: "MER 17H À JEU 17H" or "17H MAR À 17H MER"
+const weekTimeDaysOverlapStr = `(${weekTimeDaysOverlapDayFirstStr})|(${weekTimeDaysOverlapDaySecondStr})`;
 const weekTimeDaysOverlap = new RegExp(weekTimeDaysOverlapStr, "ig");
 
 // Match any syntax of week times
@@ -192,6 +202,8 @@ module.exports = {
     weekTimeDaysSecond,
     weekTimeDaysAbsent,
     weekTimeDaysOnly,
+    weekTimeDaysOverlapDayFirst,
+    weekTimeDaysOverlapDaySecond,
     weekTimeDaysOverlap,
     weekTime,
     sameDatesTimeSpan

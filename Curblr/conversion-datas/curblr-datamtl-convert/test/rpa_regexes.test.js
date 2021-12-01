@@ -74,6 +74,7 @@ describe("times", () => {
         ["MERCREDI A DIMANCHE 19h", {"digits": "19", "unit": "h"}],
         ["MERCREDI A DIMANCHE 19h-20h", undefined],
         ["MERCREDI 19h A DIMANCHE 20h", undefined],
+        ["17H MAR À 17H MER - 18H JEU À 19H VEN - 20H SAM À 21H LUN", undefined]
     ])("rpaRex.maxStay.exec('%s')?.['groups']", (value, expected) => {
         const result = rpaRegex.maxStay.exec(value)?.["groups"];
         expect(result).toEqual(expected);
@@ -228,6 +229,37 @@ describe( "times of week", () => {
 
     test.each([
         ["MER 17H À JEU 17H", "MER 17H À JEU 17H"],
+        ["MER 17H A JEU 17H", "MER 17H A JEU 17H"],
+        ["17H MER À 17H JEU", undefined],
+        ["1h-2h", undefined],
+        ["1h-2h LUN", undefined],
+        ["1h-2h 3h-4h LUN", undefined],
+        ["1h-2h LUN MAR", undefined],
+        ["LUN 1h-2h", undefined],
+    ])("rpaRegex.weekTimeDaysOverlapDayFirst.exec('%s')?.[0]", (value, expected) => {
+        rpaRegex.weekTimeDaysOverlapDayFirst.lastIndex = 0;
+        const result = rpaRegex.weekTimeDaysOverlapDayFirst.exec(value)?.[0];
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["17H MER À 17H JEU", "17H MER À 17H JEU"],
+        ["17H MER A 17H JEU", "17H MER A 17H JEU"],
+        ["MER 17H À JEU 17H", undefined],
+        ["1h-2h", undefined],
+        ["1h-2h LUN", undefined],
+        ["1h-2h 3h-4h LUN", undefined],
+        ["1h-2h LUN MAR", undefined],
+        ["LUN 1h-2h", undefined],
+    ])("rpaRegex.weekTimeDaysOverlapDaySecond.exec('%s')?.[0]", (value, expected) => {
+        rpaRegex.weekTimeDaysOverlapDaySecond.lastIndex = 0;
+        const result = rpaRegex.weekTimeDaysOverlapDaySecond.exec(value)?.[0];
+        expect(result).toBe(expected);
+    });
+
+    test.each([
+        ["MER 17H À JEU 17H", "MER 17H À JEU 17H"],
+        ["17H MER À 17H JEU", "17H MER À 17H JEU"],
         ["1h-2h", undefined],
         ["1h-2h LUN", undefined],
         ["1h-2h 3h-4h LUN", undefined],
@@ -251,6 +283,7 @@ describe( "times of week", () => {
         ["8H à 16H30 - MARDI", "8H à 16H30 - MARDI"],
         ["LUN 1h-2h", "LUN 1h-2h"],
         ["MER 17H À JEU 17H", "MER 17H À JEU 17H"],
+        ["17H MER À 17H JEU", "17H MER À 17H JEU"],
     ])("rpaRegex.weekTime.exec('%s')?.[0]", (value, expected) => {
         rpaRegex.weekTime.lastIndex = 0;
         const result = rpaRegex.weekTime.exec(value)?.[0];
