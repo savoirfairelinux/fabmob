@@ -360,9 +360,8 @@ describe("getTimeSpans", () => {
               "timesOfDay": undefined
             }]
         ],
-        [ // not handled
-            "15 NOV AU 15 MARS",
-            undefined
+        [
+            "15 NOV AU 15 MARS", [{"effectiveDates": [{"from": "11-15", "to": "03-15"}]}]
         ],
         [
             "18h-23h LUN.AU VEN., 9h-23h SAM.ET DIM.",

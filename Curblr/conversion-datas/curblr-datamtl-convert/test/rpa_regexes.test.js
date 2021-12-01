@@ -538,6 +538,7 @@ describe("sameDatesTimeSpan", () => {
         ["LUN 17H À MAR 17H - MER 17H À JEU 17H - VEN 17H À SAM 17H", "LUN 17H À MAR 17H - MER 17H À JEU 17H - VEN 17H À SAM 17H"],
         ["1h-2h 1er jan à 2 fev. 3h30 @ 4h mars 3 au avril 4", "1h-2h 1er jan à 2 fev."],
         ["9H À 17H LUN MER VEN 15 NOV AU 15 MARS, 11H À 12H MERCREDI 15 MARS AU 15 NOV", "9H À 17H LUN MER VEN 15 NOV AU 15 MARS"],
+        ["1ER AVRIL - 30 NOV", "1ER AVRIL - 30 NOV"],
     ])("rpaRegex.sameDatesTimeSpan.exec('%s')?.[0]", (value, expected) => {
         rpaRegex.sameDatesTimeSpan.lastIndex = 0;
         const result = rpaRegex.sameDatesTimeSpan.exec(value)?.[0];

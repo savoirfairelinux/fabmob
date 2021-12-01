@@ -311,6 +311,7 @@ function getTimeSpans(description) {
     rpaReg.sameDatesTimeSpan.lastIndex = 0;
     while (sameDatesTimeSpanDescription = rpaReg.sameDatesTimeSpan.exec(description)?.[0]) {
         const effectiveDates = getEffectiveDates(sameDatesTimeSpanDescription);
+        let timeSpanAdded = false;
         let timeSpanDescription;
         rpaReg.weekTime.lastIndex = 0;
         while (timeSpanDescription = rpaReg.weekTime.exec(sameDatesTimeSpanDescription)?.[0]) {
@@ -325,6 +326,12 @@ function getTimeSpans(description) {
                 const timeSpan = getTimeSpan(timeSpanDescription, effectiveDates);
                 timeSpans.push(timeSpan);
             }
+            timeSpanAdded = true;
+        }
+
+        if (!timeSpanAdded) {
+            // effectiveDates alone, without daysOfWeek or timesOfDay
+            timeSpans.push({"effectiveDates": effectiveDates});
         }
     }
     
