@@ -270,7 +270,7 @@ function getTimeSpansFromDaysOverlapSyntax(description, effectiveDates) {
     timeSpans.push({
         "effectiveDates": effectiveDates,
         "daysOfWeek": {"days": [days[0]]},
-        "timesOfDay": {"from": startTime, "to": "23:59"}
+        "timesOfDay": {"from": startTime, "to": "24:00"}
     });
 
     // midde timeSpans
@@ -278,7 +278,7 @@ function getTimeSpansFromDaysOverlapSyntax(description, effectiveDates) {
         timeSpans.push({
             "effectiveDates": effectiveDates,
             "daysOfWeek": {"days": days.slice(1, days.length-1)},
-            "timesOfDay": {"from": "00:00", "to": "23:59"}
+            "timesOfDay": {"from": "00:00", "to": "24:00"}
         });
     }
 
