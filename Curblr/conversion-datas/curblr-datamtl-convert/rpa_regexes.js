@@ -154,17 +154,29 @@ const daysOfMonthInterval = new RegExp(daysOfMonthIntervalStr, "i");
 const sameDatesTimeSpanStr = `((${weekTimeStr}\\s*([-,]?)?\\s*)+(${daysOfMonthIntervalStr})?)|((${weekTimeStr}\\s*([-,]?)?\\s*)?(${daysOfMonthIntervalStr}))`;
 const sameDatesTimeSpan = new RegExp(sameDatesTimeSpanStr, "ig");
 
-// Basic form of a maxStay.
-// one or two digits, followed by zero or more whitespaces, followed by "min" or "h"
-const maxStayBasicStr = `(?<digits>\\d{1,2})\\s*(?<unit>min|h)`;
+// maxStay with "min" is easy: "min" is always going to match with a maxStay.
+// maxStay with "h" is more complicated, because "h" could match with time spans.
+// Here our regex to identify maxStay with "h" eliminates "h" followed by "-", so it does not match with "8H - 10H"
+// However, some maxStay with "min" are followed by "-". For example : "60 MIN - 8H À 18H"
+// For this reasons, maxStay with "min" and maxStay with "h" are handled differently.
+// For now, a regex that would identify "2H" as a maxStay in "2H - 8H À 18H" seems to be to much trouble. We hope the data has nothing such.
+
+// maxStay with min
+// digits, followed by zero or more whitespaces, followed by "min"
+const maxStayMinStr = `(\\d+\\s*min)`;
+// basic form of maxStay with H. Would also match timespans
+// digits, followed by zero or more whitespaces, followed by "h"
+const maxStayHBasicStr = `(\\d+\\s*h)`;
 // What should not be before a maxStay
 // A digit, or a timeIntervalConnecter, or a time followed by dayIntervalConnecter followed by a day of the week 
-const notBeforeMaxStayStr = `(?<!\\d|(?:${timeIntervalConnecterStr})|(?:(${timeStr})\\s*(${daysIntervalConnecterStr})\\s*(${anyDayOfWeekStr})\\s*))`;
+const notBeforeMaxStayHStr = `(?<!\\d|(?:${timeIntervalConnecterStr})|(?:(${timeStr})\\s*(${daysIntervalConnecterStr})\\s*(${anyDayOfWeekStr})\\s*))`;
 // What should not be after a maxStay
 // A digit, or timeIntervalConnecter, or a day of the week followed by a dayIntervalConnecter followed by a time
-const notAfterMaxStayStr = `(?!\\d|(?:${timeIntervalConnecterStr})|(?:\\s*(${anyDayOfWeekStr})\\s*(${daysIntervalConnecterStr})\\s*(${timeStr})))`;
+const notAfterMaxStayHStr = `(?!\\d|(?:${timeIntervalConnecterStr})|(?:\\s*(${anyDayOfWeekStr})\\s*(${daysIntervalConnecterStr})\\s*(${timeStr})))`;
+// maxStay with H, does not match timespans
+const maxStayHStr = `(:?${notBeforeMaxStayHStr}${maxStayHBasicStr}${notAfterMaxStayHStr})`;
 // Match maxStay
-const maxStayStr = `${notBeforeMaxStayStr}${maxStayBasicStr}${notAfterMaxStayStr}`;
+const maxStayStr = `(${maxStayMinStr})|(${maxStayHStr})`;
 const maxStay = new RegExp(maxStayStr, "i");
 
 const anyTimespanStr = [

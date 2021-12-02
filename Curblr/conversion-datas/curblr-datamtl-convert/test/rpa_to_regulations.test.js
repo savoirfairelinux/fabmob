@@ -83,6 +83,7 @@ describe("getActivity", () => {
 describe("getMaxStay", () => {
     test.each([
         ["10min", 10],
+        ["20000000min", 20000000],
         ["2h", 120],
         ["1h-2h", undefined]
     ])("getMaxStay('%s')", (description, expected) => {

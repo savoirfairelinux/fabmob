@@ -51,16 +51,16 @@ function getActivity(description, timeSpans, maxStay) {
 }
 
 function getMaxStay(description) {
-    const regexResult = rpaReg.maxStay.exec(description)?.["groups"];
-    if (!regexResult) {
+    const maxStayDescription = rpaReg.maxStay.exec(description)?.[0];
+    if (!maxStayDescription) {
         return undefined;
     }
-    const {digits, unit} = regexResult;
+    const digits = /\d*/.exec(maxStayDescription)?.[0];
     const digitsInt = parseInt(digits);
-    if (unit.toUpperCase() =="H") {
+    if (maxStayDescription.slice(-1).toUpperCase() == "H") {
         return digitsInt*60;
     }
-    else { // should be "min"
+    else { // assume this is "min"
         return digitsInt;
     }
 }
